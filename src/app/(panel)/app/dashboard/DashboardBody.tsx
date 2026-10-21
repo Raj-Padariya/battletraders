@@ -18,7 +18,7 @@ const BATTLE_ICONS: Record<BattleType, string> = {
 
 const BATTLES: { type: BattleType; name: string; meta: string; hour: number }[] = [
   { type: "daily", name: "Daily Battle · XAU/USD", meta: "Free entry · 128 fighters", hour: 14 },
-  { type: "mini", name: "Mini Tournament · FX Majors", meta: "1 ticket · $500 prize pool", hour: 18 },
+  { type: "mini", name: "Mini Tournament · FX Majors", meta: "1 ticket · $1,500 prize pool", hour: 18 },
   { type: "circuit", name: "Circuit Qualifier · Asia", meta: "Ranked · Top 16 advance", hour: 21 },
 ];
 

@@ -21,13 +21,6 @@ const NAV: NavEntry[] = [
   },
   { href: "/schedule/", label: "Schedule" },
   { href: "/rankings/", label: "Rankings" },
-  {
-    label: "Partners",
-    items: [
-      { href: "/our-partners/", label: "Our Partners" },
-      { href: "/partnership/", label: "Partnership" },
-    ],
-  },
   { href: "/contact/", label: "Contact" },
 ];
 

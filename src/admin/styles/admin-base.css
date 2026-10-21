@@ -30,9 +30,9 @@
   --scrim:rgba(0,0,0,.6); --backdrop:rgba(3,3,8,.72);
   --bad-t:#FF8FA3; --bad-t2:#FFB3C0; --ok-t:#B6F7DD; --violet-t:#C99BFF; --code-t:#E7D2FF;
   --orb:1;
-  --display:"Cinzel", Georgia, serif;
-  --body:"Mulish", system-ui, -apple-system, sans-serif;
-  --accent:"Rajdhani", system-ui, sans-serif;
+  --display:"Satoshi", system-ui, -apple-system, sans-serif;
+  --body:"Satoshi", system-ui, -apple-system, sans-serif;
+  --accent:"Satoshi", system-ui, -apple-system, sans-serif;
   --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --side-w:248px;
   color-scheme:dark;
@@ -57,12 +57,17 @@
   color-scheme:light;
 }
 
+@font-face{font-family:"Satoshi"; src:url("/assets/fonts/Satoshi-Variable.woff2") format("woff2"), url("/assets/fonts/Satoshi-Variable.woff") format("woff"); font-weight:300 900; font-style:normal; font-display:swap}
+@font-face{font-family:"Satoshi"; src:url("/assets/fonts/Satoshi-VariableItalic.woff2") format("woff2"), url("/assets/fonts/Satoshi-VariableItalic.woff") format("woff"); font-weight:300 900; font-style:italic; font-display:swap}
+
 *{box-sizing:border-box}
 html,body{margin:0}
 [hidden]{display:none!important}
 img{max-width:100%}
 body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:14.5px; line-height:1.55; -webkit-font-smoothing:antialiased}
 h1,h2,h3{font-family:var(--display); margin:0; text-wrap:balance; color:var(--hi)}
+/* Every heading is uppercase, overriding any component rule that resets it. */
+:is(h1,h2,h3,h4,h5,h6){text-transform:uppercase !important}
 p{margin:0}
 a{color:inherit}
 button,input,select,textarea{font:inherit; color:inherit}

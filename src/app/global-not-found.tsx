@@ -8,8 +8,7 @@ export const metadata: Metadata = {
   icons: { icon: { url: "/assets/img/favicon.svg?v=2", type: "image/svg+xml" } },
 };
 
-const FONTS_URL =
-  "https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Mulish:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap";
+const FONTS_URL = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap";
 
 export default function GlobalNotFound() {
   return (

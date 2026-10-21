@@ -24,8 +24,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        {/* eslint-disable-next-line @next/next/no-page-custom-font -- same font sheet the old admin <head> loaded */}
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=JetBrains+Mono:wght@400;500;700&family=Mulish:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font -- Satoshi is self-hosted; this sheet only supplies the mono face */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" />
       </head>
       <body className="ad">{children}</body>
     </html>

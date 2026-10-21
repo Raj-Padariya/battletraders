@@ -16,9 +16,8 @@ export const viewport: Viewport = {
   themeColor: "#06040E",
 };
 
-// Same Google Fonts request as the old static pages, so type renders identically.
-const FONTS_URL =
-  "https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Mulish:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap";
+// Satoshi is self-hosted (public/assets/fonts); Google Fonts only supplies the mono face used for figures.
+const FONTS_URL = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

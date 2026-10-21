@@ -25,12 +25,15 @@ html,body{margin:0} img{max-width:100%} [hidden]{display:none!important}
   --bear:#FF4D6D;
   --grad:linear-gradient(90deg,#93f,#3cf,#f3f 66%,#93f);
   --shadow:0 1px 2px rgba(0,0,0,.5), 0 16px 36px -20px rgba(153,51,255,.5);
-  --display:"Cinzel", Georgia, serif;
-  --body:"Mulish", system-ui, -apple-system, sans-serif;
-  --accent:"Rajdhani", system-ui, sans-serif;
+  --display:"Satoshi", system-ui, -apple-system, sans-serif;
+  --body:"Satoshi", system-ui, -apple-system, sans-serif;
+  --accent:"Satoshi", system-ui, -apple-system, sans-serif;
   --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   color-scheme:dark;
 }
+
+@font-face{font-family:"Satoshi"; src:url("/assets/fonts/Satoshi-Variable.woff2") format("woff2"), url("/assets/fonts/Satoshi-Variable.woff") format("woff"); font-weight:300 900; font-style:normal; font-display:swap}
+@font-face{font-family:"Satoshi"; src:url("/assets/fonts/Satoshi-VariableItalic.woff2") format("woff2"), url("/assets/fonts/Satoshi-VariableItalic.woff") format("woff"); font-weight:300 900; font-style:italic; font-display:swap}
 
 *{box-sizing:border-box}
 body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:15.5px; line-height:1.6; -webkit-font-smoothing:antialiased}
@@ -38,6 +41,8 @@ body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:1
 .col{max-width:1040px; margin:0 auto}
 .mid{max-width:780px; margin:0 auto}
 h1,h2,h3{font-family:var(--display); margin:0; text-wrap:balance}
+/* Every heading is uppercase, overriding any component rule that resets it. */
+:is(h1,h2,h3,h4,h5,h6){text-transform:uppercase !important}
 a{color:inherit}
 
 /* bar */
@@ -55,20 +60,17 @@ a{color:inherit}
 .login:focus-visible{outline:2px solid var(--ember); outline-offset:4px; border-radius:4px}
 
 /* hero — the arena */
-.hero{background:var(--ink); color:#fff; position:relative; overflow:hidden; isolation:isolate; border-bottom:1px solid var(--line)}
-.hero::before{content:""; position:absolute; inset:0; z-index:-2; pointer-events:none; background:radial-gradient(760px 420px at 78% 6%, rgba(153,51,255,.34), transparent 62%), radial-gradient(620px 360px at 6% 100%, rgba(51,204,255,.18), transparent 64%)}
-/* Arena floor: a plane hinged at the horizon (top edge) tilting toward the viewer — same build as the login floor.
-   The horizon is pinned 260px above the hero's bottom edge, i.e. level with the stat tiles, so the floor runs
-   under the glass tiles and never behind the headline or intro copy at any width. */
-.hero::after{
-  content:""; position:absolute; left:-50%; right:-50%; top:auto; bottom:-360px; height:620px; z-index:-1; pointer-events:none;
-  background-image:linear-gradient(rgba(190,110,255,.85) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(190,110,255,.85) 1.5px, transparent 1.5px);
-  background-size:64px 64px; transform:perspective(520px) rotateX(68deg); transform-origin:50% 0;
-  -webkit-mask-image:linear-gradient(to bottom, transparent 0, rgba(0,0,0,.6) 10%, #000 34%); mask-image:linear-gradient(to bottom, transparent 0, rgba(0,0,0,.6) 10%, #000 34%);
-  filter:drop-shadow(0 0 4px rgba(166,77,255,.95));
-  animation:floor 1.9s linear infinite;
+/* Concert-crowd photo (CC0, "Man-person-people-crowd-concert-audience-41796", Wikimedia Commons) under a dark wash so the headline stays readable. */
+.hero{background:var(--ink) url("/assets/img/hero-bg.jpg") center 35%/cover no-repeat; color:#fff; position:relative; overflow:hidden; isolation:isolate; border-bottom:1px solid var(--line)}
+.hero::before{content:""; position:absolute; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(760px 420px at 78% 6%, rgba(153,51,255,.34), transparent 62%),
+    radial-gradient(620px 360px at 6% 100%, rgba(51,204,255,.18), transparent 64%),
+    radial-gradient(ellipse 60% 70% at 50% 50%, rgba(8,7,14,.72), rgba(8,7,14,.5) 70%),
+    linear-gradient(rgba(10,8,20,.55), rgba(10,8,20,.55));
 }
-@keyframes floor{to{background-position:0 64px}}
+/* Fade the photo into the page at the bottom edge. */
+.hero::after{content:""; position:absolute; inset:auto 0 0 0; height:40%; z-index:-1; pointer-events:none; background:linear-gradient(transparent, var(--ink))}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,77,109,.6)}70%{box-shadow:0 0 0 8px rgba(255,77,109,0)}100%{box-shadow:0 0 0 0 rgba(255,77,109,0)}}
 .hero .col{max-width:1180px}
 .hero-in{position:relative; padding-block:60px 44px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(28px,5vw,64px); align-items:center}
@@ -401,34 +403,20 @@ footer .fh{margin:0 0 4px; font-family:var(--display); font-size:13.5px; font-we
 .tier-elite{background:var(--ember)}
 tr.key td{background:var(--ember-soft)}
 
-/* ---------- Market ticker (injected by main.js on every page) ---------- */
-.ticker{position:relative; display:flex; align-items:stretch; height:34px; background:#07080B; border-bottom:1px solid var(--line); overflow:hidden; font-family:var(--mono); font-size:12px}
-.ticker-tag{flex:none; display:flex; align-items:center; gap:7px; padding:0 14px; background:var(--bear); color:#fff; font-family:var(--accent); font-weight:700; letter-spacing:.14em; text-transform:uppercase; z-index:1; clip-path:polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%); padding-right:22px}
-.ticker-tag i{width:7px; height:7px; border-radius:50%; background:#fff; animation:pulse 1.6s infinite}
-.ticker-track{display:flex; width:max-content; animation:tick 40s linear infinite}
-.ticker:hover .ticker-track{animation-play-state:paused}
-.ticker-item{display:flex; align-items:center; gap:8px; padding:0 22px; white-space:nowrap; color:var(--muted); border-right:1px solid var(--line)}
-.ticker-item b{color:var(--fg); font-weight:700}
-.ticker-item .up{color:var(--bull)}
-.ticker-item .dn{color:var(--bear)}
-@keyframes tick{to{transform:translateX(-50%)}}
-
-/* inner pages share the arena floor (same hinged-plane build as the home hero, sized for the shorter head) */
+/* Inner page heads: soft violet/cyan glow over a faint dot field, closed by a thin gradient rule. */
 .page-head{isolation:isolate}
+.page-head::before{z-index:-2; background:
+  radial-gradient(620px 300px at 50% -20%, rgba(153,51,255,.22), transparent 70%),
+  radial-gradient(420px 220px at 85% 110%, rgba(51,204,255,.08), transparent 70%)}
 .page-head::after{
-  content:""; position:absolute; left:-50%; right:-50%; top:auto; bottom:-300px; height:420px; z-index:-1; pointer-events:none;
-  background-image:linear-gradient(rgba(190,110,255,.72) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(190,110,255,.72) 1.5px, transparent 1.5px);
-  background-size:56px 56px; transform:perspective(420px) rotateX(68deg); transform-origin:50% 0;
-  -webkit-mask-image:linear-gradient(to bottom, transparent 0, rgba(0,0,0,.6) 14%, #000 40%); mask-image:linear-gradient(to bottom, transparent 0, rgba(0,0,0,.6) 14%, #000 40%);
-  filter:drop-shadow(0 0 4px rgba(166,77,255,.85));
-  animation:floor-s 2.1s linear infinite;
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.07) 1px, transparent 1.2px); background-size:22px 22px;
+  -webkit-mask-image:radial-gradient(ellipse 60% 80% at 50% 30%, #000 20%, transparent 80%); mask-image:radial-gradient(ellipse 60% 80% at 50% 30%, #000 20%, transparent 80%);
 }
-@keyframes floor-s{to{background-position:0 56px}}
-.page-head::before{z-index:-2}
-/* The floor plane is hinged 120px above the bottom edge (bottom:-300px, height:420px); the padding keeps the intro copy above that horizon. */
-.page-head .inner{padding-bottom:140px}
+.page-head .inner{padding-bottom:56px}
+.page-head .inner::after{content:""; position:absolute; left:50%; bottom:0; width:min(760px, 90%); height:1px; transform:translateX(-50%); background:linear-gradient(90deg, transparent, rgba(51,204,255,.45), rgba(153,51,255,.45), transparent)}
 
 @media (prefers-reduced-motion:reduce){
-  .hero::after,.page-head::after,.ticker-track,.tag i,.ticker-tag i{animation:none}
+  .tag i{animation:none}
   .fmt,.tier{transition:none}
 }

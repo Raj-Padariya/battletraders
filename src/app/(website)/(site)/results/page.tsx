@@ -1,69 +1,113 @@
 import type { Metadata } from "next";
+import { ICON, Icon } from "@site/components/TournamentUi";
 
 export const metadata: Metadata = {
   title: "Results — BattleTrader",
   description: "Every event goes through the same audit before points and prizes are released. Here is what has been settled and how to dispute it.",
 };
 
+type EventResult = {
+  id: string;
+  theme: "daily" | "mini" | "circuit";
+  format: string;
+  title: string;
+  date: string;
+  location: string;
+  winner: string;
+  ret: string;
+  field: string;
+};
+
+const results: EventResult[] = [
+  { id: "circuit-1", theme: "circuit", format: "Circuit", title: "Circuit 1", date: "12 – 16 Oct 2026", location: "Online · Europe", winner: "sample_trader_a", ret: "+41.2%", field: "512" },
+  { id: "mini-04", theme: "mini", format: "Mini", title: "Mini 04", date: "8 Oct 2026", location: "Online", winner: "sample_trader_c", ret: "+18.6%", field: "256" },
+  { id: "mini-03", theme: "mini", format: "Mini", title: "Mini 03", date: "6 Oct 2026", location: "Online", winner: "sample_trader_b", ret: "+22.4%", field: "241" },
+  { id: "daily-london", theme: "daily", format: "Daily", title: "Daily — London", date: "5 Oct 2026", location: "Online · London session", winner: "sample_trader_g", ret: "+9.1%", field: "1,308" },
+  { id: "daily-asia", theme: "daily", format: "Daily", title: "Daily — Asia", date: "5 Oct 2026", location: "Online · Asia session", winner: "sample_trader_e", ret: "+7.8%", field: "942" },
+];
+
+const settlement = [
+  { icon: ICON.clock, title: "Window closes", text: "Open positions are force-closed at market. The server-side trade log is sealed at that moment." },
+  { icon: ICON.shield, title: "Top finishers audited", text: "Trade logs are checked for automation, minimum-hold breaches and duplicate accounts before anything is posted." },
+  { icon: ICON.trophy, title: "Published", text: "Results go up with an objection window. Points land on the ladder once that window shuts." },
+];
+
+const timings = [
+  { format: "Daily Battle", published: "Within 2 hours", objection: "24 hours", cash: "—" },
+  { format: "Mini Tournament", published: "Next morning", objection: "24 hours", cash: "14 days" },
+  { format: "Circuit Championship", published: "Within 48 hours", objection: "48 hours", cash: "14 days" },
+  { format: "World Championship", published: "Same day", objection: "2 hours, on site", cash: "14 days" },
+];
+
 export default function ResultsPage() {
   return (
     <>
       <header className="page-head">
         <div className="col pad inner">
-          <p className="crumb">Results</p>
-          <h1>Settled, audited, <span className="gt">published</span></h1>
-          <p>Every event goes through the same audit before points and prizes are released. Here is what has been settled and how to dispute it.</p>
+          <p className="mt-badge"><Icon d={ICON.trophy} />Settled &amp; audited</p>
+          <h1>Tournament <span className="gt">results</span></h1>
+          <p>Relive the action. See who topped the board in every settled event &mdash; and how each result was checked before it went up.</p>
         </div>
       </header>
 
-      <section>
+      <section className="mt-page">
         <div className="col pad">
-          <div className="block">
-            <h3 className="sub">How results are <span className="gt">settled</span></h3>
-            <p className="lead">Nothing is final when the window closes. Every event goes through the same three steps before points and prizes are released, and the published result is the one that survives the audit.</p>
-            <div className="steps">
-              <div className="st"><span className="n">01</span><h3>Window closes</h3><p>Open positions are force-closed at market. The server-side trade log is sealed at that moment.</p></div>
-              <div className="st"><span className="n">02</span><h3>Top finishers audited</h3><p>Trade logs are checked for automation, minimum-hold breaches and duplicate accounts before anything is posted.</p></div>
-              <div className="st"><span className="n">03</span><h3>Published</h3><p>Results go up with an objection window. Points land on the ladder once that window shuts.</p></div>
-            </div>
-            <div className="tbl-wrap mt-20">
-              <table>
-                <thead><tr><th>Format</th><th>Results published</th><th>Objection window</th><th>Cash paid</th></tr></thead>
-                <tbody>
-                  <tr><td><b>Daily Battle</b></td><td className="num">Within 2 hours</td><td className="num">24 hours</td><td className="num">&mdash;</td></tr>
-                  <tr><td><b>Mini Tournament</b></td><td className="num">Next morning</td><td className="num">24 hours</td><td className="num">14 days</td></tr>
-                  <tr><td><b>Circuit Championship</b></td><td className="num">Within 48 hours</td><td className="num">48 hours</td><td className="num">14 days</td></tr>
-                  <tr className="key"><td><b>World Championship</b></td><td className="num">Same day</td><td className="num">2 hours, on site</td><td className="num">14 days</td></tr>
-                </tbody>
-              </table>
-            </div>
+          <div className="rs-year">
+            <h2>2026</h2>
+            <span className="rs-sample">Sample board · Season 1 opens at launch</span>
           </div>
 
-          <div className="block">
-            <h3 className="sub">Latest <span className="gt">results</span></h3>
-            <span className="sample">Sample board &middot; Season 1 opens at launch</span>
-            <div className="tbl-wrap">
-              <table>
-                <thead><tr><th>Event</th><th>Format</th><th>Winner</th><th className="num">Return</th><th className="num">Field</th><th className="num">Status</th></tr></thead>
-                <tbody>
-                  <tr><td>Circuit 1</td><td>Circuit Championship</td><td>sample_trader_a</td><td className="num">+41.2%</td><td className="num">512</td><td className="num">Settled</td></tr>
-                  <tr><td>Mini 04</td><td>Mini Tournament</td><td>sample_trader_c</td><td className="num">+18.6%</td><td className="num">256</td><td className="num">Settled</td></tr>
-                  <tr><td>Mini 03</td><td>Mini Tournament</td><td>sample_trader_b</td><td className="num">+22.4%</td><td className="num">241</td><td className="num">Settled</td></tr>
-                  <tr><td>Daily &mdash; London</td><td>Daily Battle</td><td>sample_trader_g</td><td className="num">+9.1%</td><td className="num">1,308</td><td className="num">Settled</td></tr>
-                  <tr><td>Daily &mdash; Asia</td><td>Daily Battle</td><td>sample_trader_e</td><td className="num">+7.8%</td><td className="num">942</td><td className="num">Settled</td></tr>
-                </tbody>
-              </table>
-            </div>
+          <div className="rs-grid">
+            {results.map((event) => (
+              <article key={event.id} className={`rs-card is-${event.theme}`}>
+                <div className="rs-banner" aria-hidden="true">
+                  <span className="rs-format"><Icon d={ICON.trophy} />{event.format}</span>
+                  <strong>{event.title}</strong>
+                  <span className="rs-date">{event.date}</span>
+                </div>
+                <div className="rs-body">
+                  <h3>{event.title}</h3>
+                  <ul className="rs-meta">
+                    <li><Icon d={ICON.calendar} />{event.date}</li>
+                    <li><Icon d={ICON.pin} />{event.location}</li>
+                  </ul>
+                  <div className="rs-winner">
+                    <small>Winner</small>
+                    <b>{event.winner}</b>
+                    <span>{event.ret} return · field of {event.field}</span>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
 
-          <div className="block">
-            <h3 className="sub">Disputing a <span className="gt">result</span></h3>
-            <p className="lead">Objections go to <b>results@battletrader.com</b> inside the window shown above, with your handle and the event name. Two things decide the outcome.</p>
-            <div className="rules">
-              <div className="rl"><b>The server log is the record</b><span>Screenshots and local platform history are not accepted against it. The log is sealed at the close and cannot be edited afterwards.</span></div>
-              <div className="rl"><b>Decisions are published</b><span>Where an objection changes a result, the change and the reason go up with the corrected board. Nothing is adjusted quietly.</span></div>
-            </div>
+          <h2 className="mt-h2">How results are settled</h2>
+          <ol className="mt-steps rs-steps">
+            {settlement.map((step, index) => (
+              <li key={step.title}>
+                <span className="mt-ico mt-ico-round"><Icon d={step.icon} /></span>
+                <small>Step {String(index + 1).padStart(2, "0")}</small>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </li>
+            ))}
+          </ol>
+
+          <div className="tbl-wrap rs-timings">
+            <table>
+              <thead><tr><th>Format</th><th>Results published</th><th>Objection window</th><th>Cash paid</th></tr></thead>
+              <tbody>
+                {timings.map((row) => (
+                  <tr key={row.format}><td><b>{row.format}</b></td><td className="num">{row.published}</td><td className="num">{row.objection}</td><td className="num">{row.cash}</td></tr>
+                ))}
+              </tbody>
+            </table>
           </div>
+
+          <aside className="mt-cta">
+            <h2>Disputing a result</h2>
+            <p>Send objections to <b>results@battletrader.com</b> inside the window above, with your handle and the event name. The sealed server log is the record &mdash; screenshots are not accepted against it &mdash; and any change is published with its reason.</p>
+          </aside>
         </div>
       </section>
     </>

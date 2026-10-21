@@ -26,16 +26,21 @@ img{max-width:100%}
   --bull:#22E39A;
   --bear:#FF4D6D;
   --grad:linear-gradient(90deg,#93f,#3cf,#f3f 66%,#93f);
-  --display:"Cinzel", Georgia, serif;
-  --body:"Mulish", system-ui, -apple-system, sans-serif;
-  --accent:"Rajdhani", system-ui, sans-serif;
+  --display:"Satoshi", system-ui, -apple-system, sans-serif;
+  --body:"Satoshi", system-ui, -apple-system, sans-serif;
+  --accent:"Satoshi", system-ui, -apple-system, sans-serif;
   --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   color-scheme:dark;
 }
 
+@font-face{font-family:"Satoshi"; src:url("/assets/fonts/Satoshi-Variable.woff2") format("woff2"), url("/assets/fonts/Satoshi-Variable.woff") format("woff"); font-weight:300 900; font-style:normal; font-display:swap}
+@font-face{font-family:"Satoshi"; src:url("/assets/fonts/Satoshi-VariableItalic.woff2") format("woff2"), url("/assets/fonts/Satoshi-VariableItalic.woff") format("woff"); font-weight:300 900; font-style:italic; font-display:swap}
+
 *{box-sizing:border-box}
 body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased}
 h1,h2,h3,h4{font-family:var(--display); margin:0; text-wrap:balance}
+/* Every heading is uppercase, overriding any component rule that resets it. */
+:is(h1,h2,h3,h4,h5,h6){text-transform:uppercase !important}
 p{margin:0}
 a{color:inherit}
 button,input,select,textarea{font:inherit; color:inherit}
@@ -58,18 +63,6 @@ button,input,select,textarea{font:inherit; color:inherit}
 .b-ember:focus-visible{clip-path:none}
 
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,77,109,.6)}70%{box-shadow:0 0 0 8px rgba(255,77,109,0)}100%{box-shadow:0 0 0 0 rgba(255,77,109,0)}}
-
-/* market ticker (filled by ticker.js) */
-.ticker{position:relative; display:flex; align-items:stretch; height:34px; background:#07080B; overflow:hidden; font-family:var(--mono); font-size:12px}
-.ticker-tag{flex:none; display:flex; align-items:center; gap:7px; padding:0 22px 0 14px; background:var(--bear); color:#fff; font-family:var(--accent); font-weight:700; letter-spacing:.14em; text-transform:uppercase; z-index:1; clip-path:polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)}
-.ticker-tag i{width:7px; height:7px; border-radius:50%; background:#fff; animation:pulse 1.6s infinite}
-.ticker-track{display:flex; width:max-content; animation:tick 40s linear infinite}
-.ticker:hover .ticker-track{animation-play-state:paused}
-.ticker-item{display:flex; align-items:center; gap:8px; padding:0 22px; white-space:nowrap; color:var(--muted); border-right:1px solid var(--line)}
-.ticker-item b{color:var(--fg); font-weight:700}
-.ticker-item .up{color:var(--bull)}
-.ticker-item .dn{color:var(--bear)}
-@keyframes tick{to{transform:translateX(-50%)}}
 
 @media (prefers-reduced-motion:reduce){
   .ticker-track,.ticker-tag i{animation:none}

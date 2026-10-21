@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-const upcomingMini = {
+export const upcomingMini = {
   date: "Oct 30 · 9:00 AM UTC",
   name: "WTT Trick Or Trade 2026",
-  prize: "$3,000",
-  entrants: "5/100",
+  prize: "$1,500",
+  entrants: "5/256",
 };
 
 function MoneyIcon() {
@@ -39,14 +39,14 @@ function TournamentTypeCard({ circuit = false }: { circuit?: boolean }) {
       <h3>{title}</h3>
       <p>{circuit
         ? "Offline regional tournaments where traders compete to become Regional Champions and win their ticket to the WTT Main in Dubai."
-        : "A weekly online tournament built for excitement and rewards, where traders compete for prize pools and extra chances to qualify for the WTT Main. Every trade counts — every day is game day!"}</p>
+        : "A twice-weekly online tournament built for excitement and rewards, where traders compete for prize pools and extra chances to qualify for the WTT Main. Every trade counts!"}</p>
       <div className="home-battle-stats">
-        <div><MoneyIcon /><strong>{circuit ? "$500" : "$50"}</strong><span>Entry Fee</span></div>
-        <div><TrophyIcon /><strong>TBA</strong><span>Prize Pool</span></div>
+        <div><MoneyIcon /><strong>{circuit ? "$50" : "$10"}</strong><span>Entry Fee</span></div>
+        <div><TrophyIcon /><strong>{circuit ? "$15,000" : "$1,500"}</strong><span>Prize Pool</span></div>
       </div>
       <div className="home-battle-meta">
-        <span><ClockIcon />{circuit ? "1 Week" : "24 Hours"}</span>
-        <span><PeopleIcon />{circuit ? "500" : "1,000"}</span>
+        <span><ClockIcon />{circuit ? "5 Trading Days" : "1 Trading Day"}</span>
+        <span><PeopleIcon />{circuit ? "512" : "256"}</span>
       </div>
       <Link className="home-battle-cta" href={circuit ? "/tournaments/" : "/mini-tournaments/"}>
         {circuit ? "Explore Circuit" : "Explore Mini Tournaments"}
@@ -61,7 +61,7 @@ export default function HomeTournamentSections() {
       <section className="home-battle-section" aria-labelledby="home-battle-title">
         <div className="home-section-heading">
           <h2 id="home-battle-title">Choose Your <span>Battle</span></h2>
-          <p>From daily mini tournaments to the prestigious World Championship. Find the competition that matches your skill level.</p>
+          <p>From free Daily Battles and twice-weekly Minis to the prestigious World Championship. Find the competition that matches your skill level.</p>
         </div>
         <div className="home-battle-grid">
           <TournamentTypeCard />
@@ -71,14 +71,14 @@ export default function HomeTournamentSections() {
 
       <section className="home-mini-section" aria-labelledby="home-mini-title">
         <div className="home-mini-copy">
-          <span className="home-mini-badge"><MiniIcon /> Daily Competition</span>
+          <span className="home-mini-badge"><MiniIcon /> Twice a Week</span>
           <h2 id="home-mini-title">Mini <span>Tournaments</span></h2>
-          <p>24-hour competitions designed for quick decisions and fast payouts. Perfect for traders who want instant results and daily action.</p>
-          <div className="home-mini-tags"><span>Instant Qualification</span><span>Daily Payouts</span><span>Mobile Trading</span></div>
+          <p>Full trading-day competitions every Tuesday and Thursday, built for quick decisions and fast payouts. A field of 256 and $1,500 to the podium.</p>
+          <div className="home-mini-tags"><span>$10 Entry</span><span>Fast Payouts</span><span>Mobile Trading</span></div>
           <article className="home-next-card">
             <h3><MiniIcon /> Next Tournament</h3>
-            <div className="home-next-stats"><div><strong>$99</strong><span>Entry Fee</span></div><div><strong>24h</strong><span>Duration</span></div><div><strong>$3K</strong><span>Prize Pool</span></div></div>
-            <Link href="/mini-tournaments/">Register $99</Link>
+            <div className="home-next-stats"><div><strong>$10</strong><span>Entry Fee</span></div><div><strong>1 Day</strong><span>Duration</span></div><div><strong>$1.5K</strong><span>Prize Pool</span></div></div>
+            <Link href="/mini-tournaments/">Register $10</Link>
           </article>
         </div>
         <div className="home-upcoming">

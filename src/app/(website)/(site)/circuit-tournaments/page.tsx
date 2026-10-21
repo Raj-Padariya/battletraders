@@ -1,91 +1,190 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ICON, Icon } from "@site/components/TournamentUi";
 
 export const metadata: Metadata = {
-  title: "Circuit Tournaments — BattleTrader",
+  title: "Circuit Championships — BattleTrader",
   description: "A monthly championship over a full trading week, and the shortest route into the World Championship field.",
 };
+
+const reasons = [
+  { icon: ICON.shield, title: "Build circuit reputation", text: "Establish yourself as a top trader in your region and get your name on the season board." },
+  { icon: ICON.trophy, title: "Qualify for the World Championship", text: "Finish top 50 in any Circuit and your seat at the in-person final is booked." },
+  { icon: ICON.users, title: "Network with regional traders", text: "Meet the traders around you and compare notes with the people you will face again." },
+  { icon: ICON.dollar, title: "Substantial prize pools", text: "$15,000 per Circuit, with cash paid all the way down to 10th place." },
+  { icon: ICON.chart, title: "A full trading week", text: "Five trading days on a $25,000 balance. Consistency wins, not one lucky session." },
+];
+
+const regions = [
+  {
+    name: "Europe",
+    text: "The European trading powerhouse — London, Frankfurt, Paris and beyond.",
+    countries: [["GB", "United Kingdom", "London"], ["DE", "Germany", "Frankfurt"], ["FR", "France", "Paris"], ["CH", "Switzerland", "Zurich"], ["NL", "Netherlands", "Amsterdam"]],
+  },
+  {
+    name: "Asia Pacific",
+    text: "Dynamic markets spanning Tokyo, Singapore, Sydney and the fastest-growing economies.",
+    countries: [["SG", "Singapore", "Singapore"], ["JP", "Japan", "Tokyo"], ["MY", "Malaysia", "Kuala Lumpur"], ["TH", "Thailand", "Bangkok"], ["KR", "South Korea", "Seoul"]],
+  },
+  {
+    name: "Middle East & Africa",
+    text: "Emerging trading hubs from Dubai to Johannesburg — a rapidly growing competitive scene.",
+    countries: [["AE", "UAE", "Dubai"], ["SA", "Saudi Arabia", "Riyadh"], ["QA", "Qatar", "Doha"], ["EG", "Egypt", "Cairo"], ["BH", "Bahrain", "Manama"]],
+  },
+];
+
+const stages = [
+  { title: "Reach Platinum", text: "Earn 4,000 season points from Daily Battles and Minis to unlock Circuit entry." },
+  { title: "Trade the Circuit week", text: "Five trading days against a field of up to 512, on an identical $25,000 balance." },
+  { title: "Qualify for the final", text: "Top 50 earn a World Championship seat — one hundred traders, one room, 24 hours." },
+];
+
+const podium = [
+  { place: "first", label: "1st", cash: "$6,000", points: "1,200" },
+  { place: "second", label: "2nd", cash: "$3,500", points: "850" },
+  { place: "third", label: "3rd", cash: "$2,000", points: "600" },
+];
+
+const ladder = [
+  { finish: "4th – 10th", value: "$500 · 400 pts" },
+  { finish: "11th – 50th", value: "220 pts" },
+  { finish: "Any ranked finish", value: "25 pts" },
+];
+
+const facts = [
+  { icon: ICON.dollar, label: "Entry fee", value: "$50" },
+  { icon: ICON.wallet, label: "Starting balance", value: "$25,000 at 1:100" },
+  { icon: ICON.clock, label: "Window", value: "5 trading days" },
+  { icon: ICON.users, label: "Field cap", value: "512" },
+  { icon: ICON.chart, label: "Minimum trades", value: "10" },
+  { icon: ICON.gauge, label: "Max drawdown", value: "30%" },
+  { icon: ICON.shield, label: "Tier required", value: "Platinum" },
+];
 
 export default function CircuitTournamentsPage() {
   return (
     <>
       <header className="page-head">
         <div className="col pad inner">
-          <p className="crumb">Circuit Tournaments</p>
-          <h1>Five days. One <span className="gt">seat</span></h1>
+          <p className="mt-badge is-violet"><Icon d={ICON.globe} />Monthly championship</p>
+          <h1>Circuit <span className="gt">Championships</span></h1>
           <p>A monthly championship over a full trading week, and the shortest route into the World Championship field.</p>
         </div>
       </header>
 
-      <section>
+      <section className="mt-page is-violet">
         <div className="col pad">
-          <div className="block">
-            <h3 className="sub">A week, once a <span className="gt">month</span></h3>
-            <p className="lead">The Circuit is the serious end of the online ladder. Five trading days, a larger starting balance, a 512-trader field, and the only route into the World Championship that does not require a whole season of consistency.</p>
-            <div className="two">
-              <div className="tbl-wrap"><table><tbody>
-                <tr><td>Entry fee</td><td className="num">$50</td></tr>
-                <tr><td>Starting balance</td><td className="num">$25,000</td></tr>
-                <tr><td>Leverage</td><td className="num">1:100</td></tr>
-                <tr><td>Window</td><td className="num">5 trading days</td></tr>
-                <tr><td>Field cap</td><td className="num">512</td></tr>
-                <tr><td>Minimum trades</td><td className="num">10</td></tr>
-                <tr><td>Max drawdown</td><td className="num">30%</td></tr>
-                <tr><td>Tier required</td><td className="num">Platinum</td></tr>
-              </tbody></table></div>
-              <div className="tbl-wrap"><table>
-                <thead><tr><th>Finish</th><th className="num">Cash</th><th className="num">Points</th></tr></thead>
-                <tbody>
-                  <tr><td>1st</td><td className="num">$6,000</td><td className="num">1,200</td></tr>
-                  <tr><td>2nd</td><td className="num">$3,500</td><td className="num">850</td></tr>
-                  <tr><td>3rd</td><td className="num">$2,000</td><td className="num">600</td></tr>
-                  <tr><td>4th &ndash; 10th</td><td className="num">$500</td><td className="num">400</td></tr>
-                  <tr><td>11th &ndash; 50th</td><td className="num">&mdash;</td><td className="num">220</td></tr>
-                  <tr><td>Any ranked finish</td><td className="num">&mdash;</td><td className="num">25</td></tr>
-                </tbody>
-              </table></div>
+          <article className="mt-intro">
+            <span className="mt-ico mt-ico-lg"><Icon d={ICON.globe} /></span>
+            <div>
+              <h2>What are Circuit Championships?</h2>
+              <p>The Circuit is the serious end of the online ladder. Five trading days, a larger starting balance, a 512-trader field, and the only route into the World Championship that does not require a whole season of consistency. Finish in the top 50 of any Circuit and your seat at the final is booked for that season.</p>
+              <ul className="mt-chips">
+                <li><Icon d={ICON.clock} />5 trading days</li>
+                <li><Icon d={ICON.dollar} />$15,000 prize pool</li>
+                <li><Icon d={ICON.shield} />Platinum tier</li>
+              </ul>
             </div>
+          </article>
+
+          <h2 className="mt-h2">Why compete on the Circuit?</h2>
+          <div className="mt-features ct-reasons">
+            {reasons.map((reason) => (
+              <article key={reason.title}>
+                <span className="mt-ico"><Icon d={reason.icon} /></span>
+                <h3>{reason.title}</h3>
+                <p>{reason.text}</p>
+              </article>
+            ))}
           </div>
 
-          <div className="block">
-            <h3 className="sub">The road to the <span className="gt">final</span></h3>
-            <p className="lead">Finish in the top 50 of any Circuit and your World Championship seat is booked for that season. You cannot win the same seat twice &mdash; qualify once and a later top-50 finish passes the seat down to the next unqualified trader.</p>
-            <div className="tbl-wrap">
-              <table>
-                <thead><tr><th>Stage</th><th>What it takes</th><th className="num">Seats</th></tr></thead>
-                <tbody>
-                  <tr><td>Circuits 1 &ndash; 11</td><td>Top 50 in any single Circuit</td><td className="num">Up to 50</td></tr>
-                  <tr className="key"><td>Season ladder</td><td>Finish the season in the Elite tier</td><td className="num">Remainder</td></tr>
-                  <tr><td><b>World Championship field</b></td><td>Played in person over 24 hours</td><td className="num"><b>100</b></td></tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="note"><b>Platinum is a hard gate.</b> You need 4,000 season points before a Circuit entry opens to you &mdash; roughly a steady run of Daily Battles plus a handful of Mini finishes.</div>
+          <h2 className="mt-h2">Regions we cover</h2>
+          <div className="ct-regions">
+            {regions.map((region) => (
+              <article key={region.name} className="ct-region">
+                <header>
+                  <span className="mt-ico"><Icon d={ICON.globe} /></span>
+                  <div>
+                    <h3>{region.name}</h3>
+                    <p>{region.text}</p>
+                  </div>
+                </header>
+                <ul>
+                  {region.countries.map(([code, country, city]) => (
+                    <li key={code}>
+                      <span className="ct-code">{code}</span>
+                      <span><b>{country}</b><small>{city}</small></span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
           </div>
 
-          <div className="block">
-            <h3 className="sub">Circuit <span className="gt">standings</span></h3>
-            <span className="sample">Sample board &middot; Season 1 opens at launch</span>
-            <div className="tbl-wrap">
-              <table>
-                <thead><tr><th>Rank</th><th>Trader</th><th className="num">Return</th><th className="num">Max DD</th><th className="num">Trades</th><th className="num">Points</th></tr></thead>
-                <tbody>
-                  <tr><td className="rk">01</td><td>sample_trader_a</td><td className="num">+41.2%</td><td className="num">11.4%</td><td className="num">23</td><td className="num">1,200</td></tr>
-                  <tr><td className="rk">02</td><td>sample_trader_c</td><td className="num">+38.7%</td><td className="num">17.9%</td><td className="num">31</td><td className="num">850</td></tr>
-                  <tr><td className="rk">03</td><td>sample_trader_b</td><td className="num">+34.1%</td><td className="num">9.2%</td><td className="num">18</td><td className="num">600</td></tr>
-                  <tr><td className="rk">04</td><td>sample_trader_f</td><td className="num">+29.8%</td><td className="num">22.6%</td><td className="num">44</td><td className="num">400</td></tr>
-                  <tr><td className="rk">05</td><td>sample_trader_d</td><td className="num">+27.3%</td><td className="num">14.1%</td><td className="num">26</td><td className="num">400</td></tr>
-                </tbody>
-              </table>
-            </div>
+          <h2 className="mt-h2">Tournament format</h2>
+          <ol className="ct-stages">
+            {stages.map((stage, index) => (
+              <li key={stage.title}>
+                <span className="ct-num">{index + 1}</span>
+                <h3>{stage.title}</h3>
+                <p>{stage.text}</p>
+              </li>
+            ))}
+          </ol>
+
+          <h2 className="mt-h2">Payouts &amp; rules</h2>
+          <div className="mt-split">
+            <article className="mt-panel">
+              <header className="mt-panel-h">
+                <span className="mt-ico"><Icon d={ICON.trophy} /></span>
+                <div>
+                  <h3>Prize pool · $15,000</h3>
+                  <p>Cash to the top ten, points to every ranked finish.</p>
+                </div>
+              </header>
+              <ol className="mt-podium">
+                {podium.map((spot) => (
+                  <li key={spot.place} className={`is-${spot.place}`}>
+                    <small>{spot.label}</small>
+                    <b>{spot.cash}</b>
+                    <span>{spot.points} pts</span>
+                  </li>
+                ))}
+              </ol>
+              <ul className="mt-rows">
+                {ladder.map((row) => (
+                  <li key={row.finish}><span>{row.finish}</span><b>{row.value}</b></li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="mt-panel">
+              <header className="mt-panel-h">
+                <span className="mt-ico"><Icon d={ICON.layers} /></span>
+                <div>
+                  <h3>The rules</h3>
+                  <p>Same engine as every format, bigger stakes.</p>
+                </div>
+              </header>
+              <ul className="mt-rows">
+                {facts.map((fact) => (
+                  <li key={fact.label}><span><Icon d={fact.icon} />{fact.label}</span><b>{fact.value}</b></li>
+                ))}
+              </ul>
+            </article>
           </div>
 
-          <div className="block">
+          <h2 className="mt-h2">Upcoming Circuit tournaments</h2>
+          <p className="tr-empty">No circuit tournaments are open right now. Check back soon — the season calendar lists every upcoming week.</p>
+
+          <aside className="mt-cta">
+            <h2>Represent your region</h2>
+            <p>Join the next Circuit Championship and prove you&apos;re the best trader in your area. Your path to the World Championship starts here.</p>
             <div className="btn-row">
-              <Link className="btn b-ember" href="/schedule/">See the season calendar</Link>
-              <Link className="btn b-line" href="/rankings/">Check your tier</Link>
+              <Link className="btn b-ember" href="/#join">Get started</Link>
+              <Link className="btn b-line" href="/tournaments/">All tournaments</Link>
             </div>
-          </div>
+          </aside>
         </div>
       </section>
     </>

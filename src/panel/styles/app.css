@@ -126,9 +126,6 @@ body.app::after{
 .ap-me-txt b{font-size:13px; max-width:110px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .ap-me-txt small{font-size:11px; color:#E09A5B}
 
-.ap-ticker{margin-top:10px; border-radius:12px; overflow:hidden; border:1px solid var(--line)}
-.ap-ticker .ticker{border-bottom:0}
-
 /* ---------- Main ---------- */
 .ap-main{display:block; padding-top:14px}
 

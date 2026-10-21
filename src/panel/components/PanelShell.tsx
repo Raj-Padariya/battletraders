@@ -6,7 +6,6 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Icon from "@panel/components/Icon";
-import Ticker from "@panel/components/Ticker";
 import type { IconName } from "@panel/lib/icons";
 import { GUEST_PROFILE, PanelContext, type PanelApi, type PanelProfile, type Wallet } from "@panel/lib/panel";
 import { asset } from "@panel/lib/paths";
@@ -320,8 +319,6 @@ export default function PanelShell({ current, crumb, skipLabel = "Skip to conten
             <span className="ap-me-txt"><b data-username="">{profile.username}</b><small>Lv 1 &middot; Rookie</small></span>
           </Link>
         </header>
-
-        <div id="app-ticker" className="ap-ticker"><Ticker /></div>
 
         <main className="ap-main" id="app-main" tabIndex={-1} ref={mainRef}>
           {suspended && (
