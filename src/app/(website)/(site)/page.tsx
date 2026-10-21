@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import HomeTournamentSections from "@site/components/HomeTournamentSections";
-import Duel from "./_home/Duel";
+
 import JoinForm from "./_home/JoinForm";
 
 export const metadata: Metadata = {
@@ -14,33 +14,31 @@ export default function HomePage() {
   return (
     <>
       <header className="hero">
-        <div className="col pad hero-in">
+        <div className="col pad hero-in hero-center">
           <div className="hero-copy">
             <span className="tag">
               <i aria-hidden="true"></i>Season 1 · Arena open
             </span>
             <h1>
-              Trade.
+              Same market.
               <br />
-              Battle.
+              Same clock.
               <br />
-              <span>Dominate.</span>
+              <span>One winner.</span>
             </h1>
             <p>
-              Same balance. Same market. Same clock. Face real traders head-to-head on live pricing — the best return takes the rank, the
-              prize and the bragging rights.
+              Every entrant starts on an <strong>identical balance</strong>, with the same instruments and the same leverage. The board is live
+              from the first tick to the last. The only variable in the room is how you trade.
             </p>
             <div className="hero-btns">
               <a className="btn b-ember" href="#join">
-                Enter the arena
+                Enter the arena →
               </a>
               <Link className="btn b-line" href="/tournaments/">
                 See the formats
               </Link>
             </div>
           </div>
-
-          <Duel />
         </div>
       </header>
 
