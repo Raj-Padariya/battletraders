@@ -255,6 +255,58 @@ export default function DashboardBody() {
           </ul>
         </section>
 
+        <section className="ac ac-board" aria-labelledby="ar-h">
+          <div className="ac-h"><h2 id="ar-h"><Svg body={TROPHY} />Leaderboard</h2><Link href="/app/leaderboards/">Full rankings<Svg body={CHEV} /></Link></div>
+          <div className="lb-scroll">
+            <table className="lb">
+              <thead>
+                <tr>
+                  <th scope="col" className="lb-rk">#</th>
+                  <th scope="col">Trader</th>
+                  <th scope="col" className="lb-num">Points</th>
+                  <th scope="col" className="lb-num lb-opt">Win rate</th>
+                  <th scope="col" className="lb-num lb-opt">Wins</th>
+                  <th scope="col" className="lb-num">Change</th>
+                  <th scope="col" className="lb-opt">Last 7 days</th>
+                  <th scope="col" className="lb-act"><span className="lb-vh">Profile</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                {BOARD.map(({ trader: t, spark, change }, i) => {
+                  const trend = change >= 0 ? "up" : "down";
+                  return (
+                    <tr className={i < 3 ? "r" + (i + 1) : undefined} key={t.handle}>
+                      <td className="lb-rk">{i + 1}</td>
+                      <td>
+                        <span className="lb-who">
+                          <span className="ar-av" aria-hidden="true" style={{ "--av": t.color } as React.CSSProperties}>{t.handle.charAt(0).toUpperCase()}</span>
+                          <span><b>{t.handle}</b><small>{t.tier + " · " + t.city}</small></span>
+                        </span>
+                      </td>
+                      <td className="lb-num lb-pts">{t.points.toLocaleString("en-US")}</td>
+                      <td className="lb-num lb-opt">{t.winRate.toFixed(1) + "%"}</td>
+                      <td className="lb-num lb-opt">{t.victories}</td>
+                      <td className="lb-num">
+                        <span className={"lb-chg is-" + trend}>{(change >= 0 ? "+" : "") + change.toFixed(2) + "%"}</span>
+                      </td>
+                      <td className="lb-opt">
+                        <svg className={"lb-spark is-" + trend} viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                          <polyline points={spark} />
+                        </svg>
+                      </td>
+                      <td className="lb-act">
+                        <Link className="lb-go" href={"/app/trader/?u=" + encodeURIComponent(t.handle)} aria-label={"View " + t.handle + "'s profile"}>
+                          <Svg body={CHEV} />
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
         <section className="ac ac-quests" id="tour-quests" aria-labelledby="aq-h">
           <div className="ac-h"><h2 id="aq-h"><Svg body={STAR} />Personal arena quests</h2><span className="ac-chip">Resets in <b id="aq-reset">{questReset}</b></span></div>
           <ul className="aq-list">
@@ -325,58 +377,6 @@ export default function DashboardBody() {
           </ul>
         </section>
 
-        <section className="ac ac-board" aria-labelledby="ar-h">
-          <div className="ac-h"><h2 id="ar-h"><Svg body={TROPHY} />Leaderboard</h2><Link href="/app/leaderboards/">Full rankings<Svg body={CHEV} /></Link></div>
-          <div className="lb-scroll">
-            <table className="lb">
-              <thead>
-                <tr>
-                  <th scope="col" className="lb-rk">#</th>
-                  <th scope="col">Trader</th>
-                  <th scope="col" className="lb-num">Points</th>
-                  <th scope="col" className="lb-num lb-opt">Win rate</th>
-                  <th scope="col" className="lb-num lb-opt">Wins</th>
-                  <th scope="col" className="lb-num">Change</th>
-                  <th scope="col" className="lb-opt">Last 7 days</th>
-                  <th scope="col" className="lb-act"><span className="lb-vh">Profile</span></th>
-                </tr>
-              </thead>
-              <tbody>
-                {BOARD.map(({ trader: t, spark, change }, i) => {
-                  const trend = change >= 0 ? "up" : "down";
-                  return (
-                    <tr className={i < 3 ? "r" + (i + 1) : undefined} key={t.handle}>
-                      <td className="lb-rk">{i + 1}</td>
-                      <td>
-                        <span className="lb-who">
-                          <span className="ar-av" aria-hidden="true" style={{ "--av": t.color } as React.CSSProperties}>{t.handle.charAt(0).toUpperCase()}</span>
-                          <span><b>{t.handle}</b><small>{t.tier + " · " + t.city}</small></span>
-                        </span>
-                      </td>
-                      <td className="lb-num lb-pts">{t.points.toLocaleString("en-US")}</td>
-                      <td className="lb-num lb-opt">{t.winRate.toFixed(1) + "%"}</td>
-                      <td className="lb-num lb-opt">{t.victories}</td>
-                      <td className="lb-num">
-                        <span className={"lb-chg is-" + trend}>{(change >= 0 ? "+" : "") + change.toFixed(2) + "%"}</span>
-                      </td>
-                      <td className="lb-opt">
-                        <svg className={"lb-spark is-" + trend} viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                          <polyline points={spark} />
-                        </svg>
-                      </td>
-                      <td className="lb-act">
-                        <Link className="lb-go" href={"/app/trader/?u=" + encodeURIComponent(t.handle)} aria-label={"View " + t.handle + "'s profile"}>
-                          <Svg body={CHEV} />
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          <p className="ar-you"><span>You</span><b data-username="">{profile.username}</b><em>Unranked &middot; 0 pts</em></p>
-        </section>
       </div>
 
       <footer className="ap-foot">

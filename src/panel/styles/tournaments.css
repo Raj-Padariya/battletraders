@@ -356,3 +356,201 @@
   .tn-poster::before,.tn-st.s-live i,.tn-counters i,.tn-modal[open]{animation:none}
   .tn-btn,.tn-seg-b{transition:none}
 }
+
+/* =====================================================================
+   ONYX: same design language as the dashboard (tokens from app.css .app).
+   Covers Browse, Tournament details and the Enroll dialog. The three event
+   types keep a type colour, but only as a thin edge/dot; everything else is
+   graphite + violet. Status: live = red, registering = green, rest neutral.
+   Every selector keeps the tn- prefix. Placed last on purpose.
+   ===================================================================== */
+
+/* type colours: muted, used only on card edges, poster top line and type dots */
+.tn-t-main{--tc:#B45CFF}
+.tn-t-circuit{--tc:#3DBCFF}
+.tn-t-mini{--tc:#A1A1AA}
+.tn-violet{color:#C99BFF}
+.tn-green{color:#4ADE80}
+
+/* chips: neutral pill; type/status shown by a small dot, like the dashboard labels */
+.tn-chip{padding:3px 9px; font-family:inherit; font-size:10.5px; font-weight:600; letter-spacing:.08em; color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:999px}
+.tn-st{--tc:var(--ox-mute)}
+.tn-st i{background:var(--tc)}
+.tn-st.s-registering{--tc:#4ADE80; color:#4ADE80; background:rgba(74,222,128,.08); border-color:rgba(74,222,128,.22)}
+.tn-st.s-upcoming{--tc:var(--ox-txt); color:var(--ox-txt)}
+.tn-st.s-live{--tc:#EF4444; color:#FCA5A5; background:rgba(239,68,68,.1); border-color:rgba(239,68,68,.3)}
+.tn-st.s-completed{--tc:var(--ox-dim)}
+.tn-cd{font-family:var(--display); color:var(--ox-txt)}
+.tn-pill-ok{color:#4ADE80; background:rgba(74,222,128,.08); border-color:rgba(74,222,128,.22); border-radius:999px}
+.tn-pill-ok.is-closed{color:#F87171; background:rgba(248,113,113,.08); border-color:rgba(248,113,113,.22)}
+.tn-logo{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line)}
+.tn-logo b{font-weight:600; color:var(--ox-txt)}
+
+/* buttons: one white pill primary, ghost secondary (dashboard .b-ember / .b-line) */
+.tn-btn{min-height:40px; font-family:inherit; font-size:13px; font-weight:600; letter-spacing:0; text-transform:none; border-radius:999px}
+.tn-btn-grad{color:#0B0B0C; background:#F2F2F3; background-size:auto; box-shadow:none}
+.tn-btn-grad:hover{background:#fff}
+.tn-btn-line{color:var(--ox-txt); background:transparent; border-color:var(--ox-line-hi)}
+.tn-btn-line:hover{border-color:rgba(255,255,255,.22); background-color:var(--ox-2)}
+.tn-btn-done{color:#4ADE80; background:rgba(74,222,128,.08); border-color:rgba(74,222,128,.25)}
+.tn-btn-off{color:var(--ox-dim); background:var(--ox-2); border-color:var(--ox-line)}
+
+/* hero */
+.tn-tag{color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line)}
+.tn-hero-ico,.tn-mhead-ico{width:40px; height:40px; border-radius:12px; clip-path:none; filter:none; color:#C99BFF;
+  background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419;
+  border:1px solid rgba(var(--ox-accent-rgb),.28); box-shadow:inset 0 1px 0 rgba(255,255,255,.09)}
+.tn-hero-ico svg,.tn-mhead-ico svg{width:19px; height:19px}
+.tn-hero .ah-txt > p.tn-sample{color:var(--ox-dim)}
+/* counters: one segmented strip instead of three glass boxes */
+.tn-counters{gap:0; border-radius:16px; overflow:hidden; background:var(--ox-2); border:1px solid var(--ox-line)}
+.tn-counters li{padding:14px 12px; border-radius:0; background:transparent; border:0; border-left:1px solid var(--ox-line); -webkit-backdrop-filter:none; backdrop-filter:none}
+.tn-counters li:first-child{border-left:0}
+.tn-counters b{font-family:var(--display); font-weight:500; color:var(--ox-txt); font-variant-numeric:tabular-nums}
+.tn-counters span{font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--ox-mute)}
+.tn-counters i{background:#EF4444}
+.c-live,.c-reg,.c-up{--cc:var(--ox-txt)}
+
+/* section titles: dot label + calm icon tile */
+.tn-sec-h{font-weight:600}
+.tn-sec-h svg{color:#C99BFF; background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.tn-count{color:var(--ox-mute)}
+
+/* poster: graphite card, type colour only as the top hairline + corner light */
+.tn-poster{background:radial-gradient(90% 70% at 100% 0%, color-mix(in srgb, var(--tc) 12%, transparent), transparent 65%), linear-gradient(160deg, #1A1A1C, #0B0B0C 70%);
+  border:1px solid var(--ox-line); box-shadow:inset 0 1px 0 color-mix(in srgb, var(--tc) 55%, transparent)}
+.tn-poster-brand{font-family:inherit; font-weight:600; letter-spacing:.18em; color:var(--ox-dim)}
+.tn-poster-type{font-family:inherit; font-size:10.5px; font-weight:600; letter-spacing:.1em; color:var(--ox-txt); background:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:999px}
+.tn-poster-name{font-weight:600}
+.tn-poster-prize span{font-family:inherit; font-weight:600; letter-spacing:.12em; color:var(--ox-mute)}
+.tn-poster-prize b{font-family:var(--display); font-weight:500; letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+.tn-poster-date{color:var(--ox-txt); background:rgba(11,11,12,.7); border:1px solid var(--ox-line-hi); border-radius:999px}
+
+/* featured */
+.tn-feat-name{font-weight:600}
+.tn-feat-tag{color:var(--ox-mute)}
+.tn-facts{gap:0; border-radius:14px; overflow:hidden; background:var(--ox-2); border:1px solid var(--ox-line)}
+.tn-facts div{border-radius:0; background:transparent; border:0; border-left:1px solid var(--ox-line)}
+.tn-facts div:first-child{border-left:0}
+.tn-facts dt,.tn-facts dd small,.tn-byline > div > span{color:var(--ox-mute)}
+.tn-facts dd{font-family:var(--display); font-weight:600}
+
+/* filters */
+.tn-seg{padding:3px; background:var(--ox-2); border:1px solid var(--ox-line)}
+.tn-seg-b{min-height:34px; font-size:12.5px; font-weight:600; color:var(--ox-mute); border-radius:8px}
+.tn-seg-b:hover{color:var(--ox-txt)}
+.tn-seg-b.is-on{color:var(--ox-txt); background:var(--ox-3); box-shadow:inset 0 0 0 1px var(--ox-line-hi)}
+.tn-search svg{color:var(--ox-mute)}
+.tn-search input,.tn-select select,.tn-mfield select,.tn-mfield input{color:var(--ox-txt); background-color:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:12px}
+.tn-search input:focus-visible,.tn-select select:focus-visible,.tn-mfield select:focus-visible,.tn-mfield input:focus-visible{outline:none; border-color:rgba(var(--ox-accent-rgb),.6); box-shadow:0 0 0 3px rgba(var(--ox-accent-rgb),.14)}
+.tn-select select option,.tn-mfield select option{background:#121214}
+.tn-select label{color:var(--ox-mute)}
+.tn-more{font-size:12.5px; font-weight:600; color:var(--ox-txt); background:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:12px}
+.tn-more[aria-expanded="true"]{border-color:rgba(var(--ox-accent-rgb),.5); background:rgba(var(--ox-accent-rgb),.1)}
+.tn-more-panel{border-top-color:var(--ox-line)}
+
+/* grid cards */
+.tn-card-ico{color:var(--ox-txt); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.tn-card-name{font-size:15px; font-weight:600; letter-spacing:0}
+.tn-card-name a:hover{color:var(--ox-txt); text-decoration:underline; text-underline-offset:3px}
+.tn-money .m-prize svg,.tn-money .m-fee svg{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.tn-money small{color:var(--ox-mute)}
+.tn-money b{font-family:var(--display); font-weight:600; font-variant-numeric:tabular-nums}
+.tn-div{background:var(--ox-line)}
+.tn-meta{color:var(--ox-mute)}
+.tn-meta svg{color:var(--ox-dim)}
+
+/* empty + not found */
+.tn-empty{border:1px dashed var(--ox-line-hi); background:transparent}
+.tn-empty-ico{width:48px; height:48px; border-radius:14px; clip-path:none; color:#C99BFF; box-shadow:inset 0 1px 0 rgba(255,255,255,.09);
+  background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.tn-empty p b{font-weight:600}
+.tn-empty p span,.tn-nf p{color:var(--ox-mute)}
+.tn-nf h1{font-weight:600}
+
+/* details */
+.tn-back{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:10px}
+.tn-back:hover{color:var(--ox-txt); border-color:rgba(255,255,255,.2)}
+.tn-dhead .tn-hero-ico{width:48px; height:48px}
+.tn-dhead-nums span{color:var(--ox-mute)}
+.tn-dhead-nums b{font-family:var(--display); font-weight:500; font-variant-numeric:tabular-nums}
+.tn-dhead-nums .m-prize b{color:var(--ox-txt); text-shadow:none}
+.tn-sponsors > span{font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.12em; color:var(--ox-mute)}
+.tn-rows > div{border-bottom-color:var(--ox-line)}
+.tn-rows svg{color:#C99BFF; background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.tn-rows dt{color:var(--ox-mute)}
+.tn-fill{height:4px; background:rgba(255,255,255,.07)}
+.tn-fill i{background:linear-gradient(90deg, #3DBCFF, var(--ox-accent))}
+.tn-instr{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line)}
+.tn-instr b{color:var(--ox-dim)}
+.tn-tile{background:var(--ox-2); border:1px solid var(--ox-line)}
+.tn-tile span{color:var(--ox-mute)}
+.tn-tile b{font-family:var(--display); font-weight:500; font-variant-numeric:tabular-nums}
+.tn-tile.m-prize b,.tn-tile.m-fee b{color:var(--ox-txt)}
+
+/* prize list: hairline rows; places 1-3 in the dashboard rank colours, money green */
+.tn-prize-list{gap:0}
+.tn-prize-list li{padding:10px 4px; border-radius:0; background:transparent; border:0; border-top:1px solid var(--ox-line)}
+.tn-prize-list li:first-child{border-top:0}
+.tn-prize-list .p1,.tn-prize-list .p2,.tn-prize-list .p3{background:transparent; border-color:var(--ox-line)}
+.tn-prize-list .tn-rk{width:30px; height:26px; clip-path:none; border-radius:8px; font-weight:600; color:var(--ox-mute); background:transparent}
+.tn-prize-list .p1 .tn-rk{color:var(--ox-accent); background:rgba(var(--ox-accent-rgb),.1); box-shadow:inset 0 0 0 1px rgba(var(--ox-accent-rgb),.35)}
+.tn-prize-list .p2 .tn-rk{color:#D4D4D8; background:rgba(212,212,216,.08); box-shadow:inset 0 0 0 1px rgba(212,212,216,.25)}
+.tn-prize-list .p3 .tn-rk{color:#B88A62; background:rgba(184,138,98,.1); box-shadow:inset 0 0 0 1px rgba(184,138,98,.3)}
+.tn-prize-list b,.tn-bonus li > b{font-family:var(--display); font-weight:600; color:#4ADE80}
+.tn-bonus-h{font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.12em; color:var(--ox-mute)}
+.tn-bonus li{background:var(--ox-2); border:1px dashed var(--ox-line-hi)}
+.tn-bonus li span small{color:var(--ox-mute)}
+
+/* rounds: neutral; the final gets a violet edge instead of gold glow */
+.tn-round{background:var(--ox-2); border:1px solid var(--ox-line)}
+.tn-round.is-final{background:radial-gradient(90% 120% at 0% 0%, rgba(var(--ox-accent-rgb),.12), transparent 60%), var(--ox-2); border-color:rgba(var(--ox-accent-rgb),.4); box-shadow:none}
+.tn-round-h b{font-weight:600; letter-spacing:.04em}
+.tn-round-h b svg{color:var(--ox-accent)}
+.tn-round dt{color:var(--ox-mute)}
+
+.tn-enroll-box p b{font-weight:600}
+.tn-enroll-box p span{color:var(--ox-mute)}
+.tn-big{min-height:48px}
+.tn-link{color:#F87171}
+
+/* enroll dialog: graphite panel, no glass */
+.tn-modal{color:var(--ox-txt); border-radius:18px; border:1px solid var(--ox-line-hi); background:var(--ox-panel);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06); -webkit-backdrop-filter:none; backdrop-filter:none}
+.tn-modal::backdrop{background:rgba(3,3,6,.78)}
+.tn-mhead h2{font-weight:600}
+.tn-mhead p,.tn-mhint{color:var(--ox-mute)}
+.tn-x{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.tn-x:hover{color:var(--ox-txt)}
+.tn-msum{background:var(--ox-2); border:1px solid var(--ox-line)}
+.tn-msum-name{font-weight:600}
+.tn-msum-dl dt{color:var(--ox-mute)}
+.tn-msum-dl dd{font-family:var(--display); font-weight:600}
+.tn-mtile{background:var(--ox-2); border:1px solid var(--ox-line)}
+.tn-mtile span{color:var(--ox-mute)}
+.tn-mtile b{font-family:var(--display); font-weight:600}
+.t-bal svg,.t-bal b,.t-cred svg,.t-cred b{color:var(--ox-txt)}
+.tn-mtile svg{color:var(--ox-mute)}
+.tn-notice{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.tn-mfree{color:#4ADE80; background:rgba(74,222,128,.06); border:1px solid rgba(74,222,128,.22)}
+.tn-mfield label{font-weight:500; color:var(--ox-mute)}
+.tn-mfield input[aria-invalid="true"]{border-color:rgba(248,113,113,.6)}
+.tn-mini-btn{font-weight:600; color:var(--ox-txt); background:var(--ox-3); border:1px solid var(--ox-line-hi); border-radius:12px}
+.tn-mini-btn:hover{background:rgba(var(--ox-accent-rgb),.16); border-color:rgba(var(--ox-accent-rgb),.45)}
+.tn-mmsg.is-err{color:#F87171}
+.tn-mmsg.is-ok{color:#4ADE80}
+.tn-mtotal{background:var(--ox-2); border:1px solid var(--ox-line)}
+.tn-mtotal dt{color:var(--ox-mute)}
+.tn-mtotal dd{font-family:var(--display); font-weight:600}
+.tn-mtotal .tn-mtotal-due{border-top-color:var(--ox-line)}
+.tn-mtotal .tn-mtotal-due dt{color:var(--ox-txt); font-weight:600}
+.tn-mtotal .tn-mtotal-due dd{color:var(--ox-txt)}
+
+@media (max-width:860px){
+  .tn-facts div:nth-child(odd){border-left:0}
+  .tn-facts div:nth-child(n+3){border-top:1px solid var(--ox-line)}
+}
+@media (max-width:380px){
+  .tn-facts div{border-left:0}
+  .tn-facts div + div{border-top:1px solid var(--ox-line)}
+}

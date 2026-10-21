@@ -170,3 +170,94 @@
   .av-card.r-immortal .av-emb-svg{animation:none}
   .av-bar i,.av-tab,.av-card{transition:none}
 }
+
+/* =====================================================================
+   ONYX: same design language as the dashboard (tokens from app.css .app).
+   Rarity colours (bronze → immortal) are the game's rarity system, so an
+   UNLOCKED medal keeps its rarity colour. Locked medals go grey and dim with
+   a lock mark, like the dashboard badges. Chrome around them (hero, stats,
+   tabs, cards, bars) is graphite + violet. Every selector keeps av-. Last.
+   ===================================================================== */
+
+/* hero */
+.av-hero-ico,.av-level-box{width:48px; height:54px; filter:none; color:#fff; background:linear-gradient(160deg, #3DBCFF, #B45CFF 55%, #FF33FF)}
+.av-hero-ico svg{width:22px; height:22px}
+.av-chip{font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.12em; color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line); border-radius:999px}
+.av-chip svg{color:var(--ox-accent)}
+.av-hero .av-sub{color:var(--ox-mute)}
+.av-pill{font-family:inherit; font-size:12px; font-weight:600; letter-spacing:.08em; color:var(--ox-txt); background:var(--ox-2); border:1px solid var(--ox-line-hi); box-shadow:none}
+.av-pill b,.av-pill span{font-family:var(--display)}
+/* stats: one hairline-split strip */
+.av-stats{gap:0; border-radius:16px; overflow:hidden; background:var(--ox-2); border:1px solid var(--ox-line)}
+.av-stat{border-radius:0; background:transparent; border:0; border-left:1px solid var(--ox-line); box-shadow:none; -webkit-backdrop-filter:none; backdrop-filter:none}
+.av-stat:first-child{border-left:0}
+.av-stat b,.av-unlocked b,.av-total b,.av-pct b{font-family:var(--display); font-weight:500; color:var(--ox-txt); text-shadow:none; font-variant-numeric:tabular-nums}
+.av-stat span{font-weight:500; color:var(--ox-mute)}
+
+/* level */
+.av-level-box b{font-family:var(--display); font-size:20px; font-weight:600}
+.av-level-box small{font-family:inherit; font-weight:600}
+.av-level-txt h2{font-weight:600}
+.av-level-txt p{font-family:var(--display); color:var(--ox-mute)}
+.av-level-row{font-weight:600}
+.av-level-row span:last-child{font-family:var(--display); color:var(--ox-mute)}
+.av-bar{height:4px; background:rgba(255,255,255,.07)}
+.av-bar-xp{height:5px}
+.av-bar i{background:linear-gradient(90deg, #3DBCFF, var(--ox-accent)); box-shadow:none}
+
+/* category tabs: graphite tiles; the active one gets the violet edge, not a colour wash */
+.av-tab{color:var(--ox-txt); background:var(--ox-2); border:1px solid var(--ox-line); box-shadow:none; -webkit-backdrop-filter:none; backdrop-filter:none}
+.av-tab:hover{border-color:var(--ox-line-hi)}
+.av-tab.is-on{background:radial-gradient(120% 100% at 0% 0%, rgba(var(--ox-accent-rgb),.12), transparent 60%), var(--ox-3); border-color:rgba(var(--ox-accent-rgb),.5); box-shadow:none}
+.av-tab-ico,.av-panel-ico{color:var(--ox-mute); background:var(--ox-panel); border:1px solid var(--ox-line-hi)}
+.av-tab.is-on .av-tab-ico{color:#C99BFF; background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border-color:rgba(var(--ox-accent-rgb),.28)}
+.av-tab-txt b{font-weight:600}
+.av-tab-meta{font-family:var(--display); color:var(--ox-mute)}
+.av-tab.is-on .av-tab-meta{color:var(--ox-txt)}
+.av-tab-bar{background:rgba(255,255,255,.08)}
+.av-tab-bar i{background:var(--ox-accent)}
+
+/* panel + empty */
+.av-panel-h h2{font-weight:600}
+.av-panel-ico{color:#C99BFF; background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border-color:rgba(var(--ox-accent-rgb),.28)}
+.av-empty{border:1px dashed var(--ox-line-hi); background:transparent}
+.av-empty-ico{color:#C99BFF; background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.av-empty p b{font-weight:600}
+.av-empty p span{color:var(--ox-mute)}
+.av-empty-btn{font-weight:600; color:#0B0B0C; background:#F2F2F3; border:1px solid transparent; border-radius:999px}
+.av-empty-btn:hover{background:#fff}
+
+/* cards: graphite; an unlocked card gets a thin rarity-coloured edge only */
+.av-card{background:var(--ox-2); border:1px solid var(--ox-line); box-shadow:none; -webkit-backdrop-filter:none; backdrop-filter:none}
+.av-card:hover{border-color:var(--ox-line-hi)}
+.av-card.is-unlocked{background:radial-gradient(90% 80% at 0% 0%, color-mix(in srgb, var(--rc) 10%, transparent), transparent 60%), var(--ox-2); border-color:color-mix(in srgb, var(--rc) 40%, transparent)}
+/* locked medal: grey, dim, no glow, lock mark in the corner */
+.av-card.is-locked .av-emb{opacity:1}
+.av-card.is-locked .av-emb-svg{filter:grayscale(1) brightness(.6); animation:none}
+.av-card.is-locked .av-body{opacity:1}
+.av-card.is-locked .av-name h3{color:#A1A1AA}
+.av-card.is-locked .av-emb::after{content:""; position:absolute; right:-2px; bottom:2px; width:18px; height:18px; border-radius:50%; background:var(--ox-panel); box-shadow:0 0 0 1px var(--ox-line-hi)}
+.av-card.is-locked .av-emb::before{content:""; position:absolute; z-index:1; right:2px; bottom:6px; width:10px; height:10px; background:#A1A1AA;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center / contain no-repeat}
+.av-card.is-hidden .av-emb-svg{filter:grayscale(1) brightness(.7)}
+.av-name h3{font-weight:600}
+.av-state{color:var(--ox-mute); background:var(--ox-panel); border:1px solid var(--ox-line-hi)}
+.is-unlocked .av-state{color:#4ADE80; border-color:rgba(74,222,128,.3); background:rgba(74,222,128,.08)}
+.av-desc{color:var(--ox-mute)}
+.is-hidden .av-desc{color:var(--ox-dim)}
+/* chips: XP + credits neutral; rarity chip keeps its rarity colour as text only */
+.av-c{font-family:inherit; font-size:10.5px; font-weight:600; letter-spacing:.06em; border-radius:999px}
+.av-c-xp,.av-c-cr{color:var(--ox-mute); background:var(--ox-panel); border-color:var(--ox-line-hi)}
+.av-c-rar{background:var(--ox-panel); border-color:var(--ox-line-hi)}
+.av-players{font-family:inherit; font-weight:600; color:var(--ox-dim)}
+.av-players b{font-family:var(--display); color:var(--ox-mute)}
+.av-prog{font-family:var(--display); color:var(--ox-mute)}
+.av-prog-pct{color:var(--ox-txt)}
+.av-card .av-bar{height:4px}
+.av-card .av-bar i{background:var(--ox-accent); box-shadow:none}
+.av-card.is-unlocked .av-bar i{background:#4ADE80}
+
+@media (max-width:640px){
+  .av-stat{padding:10px 6px}
+}

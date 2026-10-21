@@ -91,6 +91,23 @@ function Fact({ cls, label, value, valueCls }: { cls: string; label: string; val
   );
 }
 
+function makeFormat(opts: Intl.DateTimeFormatOptions, timeZone?: string): Intl.DateTimeFormat {
+  try {
+    if (timeZone) return new Intl.DateTimeFormat("en-GB", { ...opts, timeZone });
+  } catch {
+    // unknown time zone: fall back to the browser's
+  }
+  return new Intl.DateTimeFormat("en-GB", opts);
+}
+
+function dayTile(fmt: Intl.DateTimeFormat, iso: string): { day: string; month: string } {
+  const parts = fmt.formatToParts(new Date(iso));
+  return {
+    day: parts.find((p) => p.type === "day")?.value ?? "",
+    month: parts.find((p) => p.type === "month")?.value ?? "",
+  };
+}
+
 export default function MyTournaments() {
   const { profile } = usePanel();
   const [loaded, setLoaded] = useState(false);
@@ -123,15 +140,11 @@ export default function MyTournaments() {
     };
   }, [reload]);
 
-  const dateFmt = useMemo(() => {
-    const opts: Intl.DateTimeFormatOptions = { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" };
-    try {
-      if (profile.timezone) return new Intl.DateTimeFormat("en-GB", { ...opts, timeZone: profile.timezone });
-    } catch {
-      // unknown time zone: fall back to the browser's
-    }
-    return new Intl.DateTimeFormat("en-GB", opts);
-  }, [profile.timezone]);
+  const dateFmt = useMemo(
+    () => makeFormat({ weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }, profile.timezone),
+    [profile.timezone],
+  );
+  const dayFmt = useMemo(() => makeFormat({ day: "2-digit", month: "short" }, profile.timezone), [profile.timezone]);
 
   const groups: Record<Group, Row[]> = { upcoming: [], live: [], completed: [] };
   rows.forEach((row) => groups[groupOf(row.t, now)].push(row));
@@ -167,57 +180,56 @@ export default function MyTournaments() {
           <p>Track your tournament participation</p>
         </div>
         <ul className="mt-stats" aria-label="Your tournament summary">
-          <li className="mt-stat s-cyan" data-glass="">
-            <span className="mt-stat-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3s5 4.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-4 1.5-4S9 12 11 12c0-4 1-9 1-9z" /></svg></span>
+          <li className="mt-stat">
+            <small className="mt-stat-lbl"><span className="mt-stat-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3s5 4.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-4 1.5-4S9 12 11 12c0-4 1-9 1-9z" /></svg></span>Active</small>
             <b className="mt-stat-val" id="mt-n-active">{String(groups.live.length)}</b>
-            <small className="mt-stat-lbl">Active</small>
           </li>
-          <li className="mt-stat s-gold" data-glass="">
-            <span className="mt-stat-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" /></svg></span>
+          <li className="mt-stat">
+            <small className="mt-stat-lbl"><span className="mt-stat-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" /></svg></span>Upcoming</small>
             <b className="mt-stat-val" id="mt-n-upcoming">{String(groups.upcoming.length)}</b>
-            <small className="mt-stat-lbl">Upcoming</small>
           </li>
-          <li className="mt-stat s-pink" data-glass="">
-            <span className="mt-stat-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m8 12.5 3 3 5-6" /></svg></span>
+          <li className="mt-stat">
+            <small className="mt-stat-lbl"><span className="mt-stat-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m8 12.5 3 3 5-6" /></svg></span>Completed</small>
             <b className="mt-stat-val" id="mt-n-completed">{String(groups.completed.length)}</b>
-            <small className="mt-stat-lbl">Completed</small>
           </li>
-          <li className="mt-stat s-green" data-glass="">
-            <span className="mt-stat-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2" /><path d="M3 10h18M16 15h2" /></svg></span>
+          <li className="mt-stat">
+            <small className="mt-stat-lbl"><span className="mt-stat-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2" /><path d="M3 10h18M16 15h2" /></svg></span>Earnings</small>
             <b className="mt-stat-val" id="mt-n-earnings">{money(0)}</b>
-            <small className="mt-stat-lbl">Earnings</small>
           </li>
         </ul>
       </section>
 
       <section className="mt-board" aria-label="Your tournaments">
-        <div className="mt-tabs" role="tablist" aria-label="Tournament status" data-glass="">
-          {TABS.map((key, i) => {
-            const on = key === current;
-            const n = groups[key].length;
-            return (
-              <button
-                key={key}
-                ref={(node) => {
-                  tabRefs.current[i] = node;
-                }}
-                type="button"
-                className="mt-tab"
-                role="tab"
-                id={"mt-tab-" + key}
-                data-tab={key}
-                aria-controls="mt-panel"
-                aria-selected={on ? "true" : "false"}
-                aria-label={loaded ? TAB_LABEL[key] + ", " + n + " tournament" + (n === 1 ? "" : "s") : undefined}
-                tabIndex={on ? 0 : -1}
-                onClick={() => select(i, false)}
-                onKeyDown={(event) => onTabKey(event, i)}
-              >
-                <span className="mt-tab-lbl">{TAB_LABEL[key]}</span>
-                <span className={"mt-count" + (n > 0 ? " has" : "")} id={"mt-c-" + key}>{String(n)}</span>
-              </button>
-            );
-          })}
+        <div className="mt-bar">
+          <div className="mt-tabs" role="tablist" aria-label="Tournament status">
+            {TABS.map((key, i) => {
+              const on = key === current;
+              const n = groups[key].length;
+              return (
+                <button
+                  key={key}
+                  ref={(node) => {
+                    tabRefs.current[i] = node;
+                  }}
+                  type="button"
+                  className="mt-tab"
+                  role="tab"
+                  id={"mt-tab-" + key}
+                  data-tab={key}
+                  aria-controls="mt-panel"
+                  aria-selected={on ? "true" : "false"}
+                  aria-label={loaded ? TAB_LABEL[key] + ", " + n + " tournament" + (n === 1 ? "" : "s") : undefined}
+                  tabIndex={on ? 0 : -1}
+                  onClick={() => select(i, false)}
+                  onKeyDown={(event) => onTabKey(event, i)}
+                >
+                  <span className="mt-tab-lbl">{TAB_LABEL[key]}</span>
+                  <span className={"mt-count" + (n > 0 ? " has" : "")} id={"mt-c-" + key}>{String(n)}</span>
+                </button>
+              );
+            })}
+          </div>
+          <Link className="mt-btn mt-btn-line mt-bar-link" href="/app/browse-tournaments/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg><span>Browse tournaments</span></Link>
         </div>
 
         <div className="mt-panel" id="mt-panel" role="tabpanel" aria-labelledby={"mt-tab-" + current} tabIndex={0}>
@@ -225,32 +237,36 @@ export default function MyTournaments() {
             {shown.map(({ t, e }) => {
               const group = current;
               const status = statusOf(t, now);
+              const tile = dayTile(dayFmt, t.start);
               return (
-                <li key={t.id} className={"ac mt-card mt-t-" + t.type} data-id={t.id}>
-                  <div className="mt-top">
-                    <span className="mt-chip">{BTTournaments.typeLabel(t.type)}</span>
-                    {status === "live" ? (
-                      <span className="mt-chip mt-live"><i></i>Live</span>
-                    ) : (
-                      <span className={"mt-chip mt-st s-" + status}><i></i>{STATUS_LABEL[status]}</span>
-                    )}
-                  </div>
-                  <h3 className="mt-name">{t.name}</h3>
-                  <div className="mt-when">
-                    <span className="mt-date"><Svg body={ICON.calendar} /><span>{dateFmt.format(new Date(t.start))}</span></span>
-                    <span className={"mt-chip mt-cd" + (group === "live" ? " is-live" : group === "completed" ? " is-done" : "")}>
-                      <Svg body={ICON.clock} />
-                      <span className="mt-cd-txt" data-cd={t.id}>{countdownText(t, now)}</span>
-                    </span>
+                <li key={t.id} className={"mt-card mt-t-" + t.type} data-id={t.id}>
+                  <span className="mt-day" aria-hidden="true"><b>{tile.day}</b><small>{tile.month}</small></span>
+                  <div className="mt-main">
+                    <div className="mt-top">
+                      <span className="mt-chip">{BTTournaments.typeLabel(t.type)}</span>
+                      {status === "live" ? (
+                        <span className="mt-chip mt-live"><i></i>Live</span>
+                      ) : (
+                        <span className={"mt-chip mt-st s-" + status}><i></i>{STATUS_LABEL[status]}</span>
+                      )}
+                    </div>
+                    <h3 className="mt-name">{t.name}</h3>
+                    <div className="mt-when">
+                      <span className="mt-date"><Svg body={ICON.calendar} /><span>{dateFmt.format(new Date(t.start))}</span></span>
+                      <span className={"mt-chip mt-cd" + (group === "live" ? " is-live" : group === "completed" ? " is-done" : "")}>
+                        <Svg body={ICON.clock} />
+                        <span className="mt-cd-txt" data-cd={t.id}>{countdownText(t, now)}</span>
+                      </span>
+                    </div>
+                    {group === "completed" ? (
+                      <p className="mt-result"><Svg body={ICON.info} /><span>Results publish when the backend goes live.</span></p>
+                    ) : null}
                   </div>
                   <dl className="mt-facts">
                     <Fact cls="f-prize" label="Prize pool" value={money(t.prizePool)} />
                     <Fact cls="f-paid" label="You paid" value={paidText(e)} valueCls={e.amount ? "" : "is-free"} />
                     <Fact cls="f-round" label="Rounds" value={roundText(t, group, now)} />
                   </dl>
-                  {group === "completed" ? (
-                    <p className="mt-result"><Svg body={ICON.info} /><span>Results publish when the backend goes live.</span></p>
-                  ) : null}
                   <div className="mt-actions">
                     <Link className="mt-btn mt-btn-line" href={detailHref(t)}><Svg body={ICON.eye} /><span>View details</span></Link>
                     {group === "upcoming" ? (

@@ -230,3 +230,119 @@ textarea.st-input{resize:vertical; min-height:84px; line-height:1.5}
 @media (prefers-reduced-motion:reduce){
   .st-input,.st-btn,.st-meter-bar i{transition:none}
 }
+
+/* =====================================================================
+   ONYX: same design language as the dashboard (tokens from app.css .app).
+   The avatar frames (neon / ice / gold / hex / flame) are cosmetics the user
+   picks, so their colours stay; only the default ring and the avatar fill
+   move to graphite. Every selector keeps the st- prefix. Placed last.
+   ===================================================================== */
+
+.st-muted{color:var(--ox-mute)}
+
+/* avatar: default ring is a hairline, fill is graphite (frames still override --ring) */
+.st-av{--ring:linear-gradient(160deg, rgba(255,255,255,.22), rgba(255,255,255,.06))}
+.st-av-in{background:linear-gradient(160deg, #2A2A2E, #141416); box-shadow:inset 0 0 0 2px var(--ox-panel)}
+.st-av-txt{font-weight:600}
+
+/* hero */
+.st-tag{color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line)}
+.st-hero h1{font-weight:600}
+.st-public{color:var(--ox-txt); background:transparent; border:1px solid var(--ox-line-hi); border-radius:999px}
+.st-public:hover{background:var(--ox-2)}
+/* status chips: graphite rows with a coloured state word (green ok / red missing / neutral otherwise) */
+.st-chip{--c:var(--ox-mute); color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line); -webkit-backdrop-filter:none; backdrop-filter:none}
+.st-chip svg{color:var(--ox-mute)}
+.st-chip b{font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--c)}
+.st-chip.is-ok{--c:#4ADE80}
+.st-chip.is-warn,.st-chip.is-pend{--c:var(--ox-txt)}
+.st-chip.is-none{--c:#F87171}
+.st-note{color:var(--ox-mute)}
+
+/* form controls */
+.st-field > label,.st-lbl,.st-otp > label{font-family:inherit; font-size:12px; font-weight:500; letter-spacing:.02em; text-transform:none; color:var(--ox-mute)}
+.st-input{border-radius:12px; color:var(--ox-txt); background-color:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.st-input::placeholder{color:var(--ox-dim)}
+.st-input:hover{border-color:rgba(255,255,255,.2)}
+.st-input:focus{border-color:rgba(var(--ox-accent-rgb),.6); box-shadow:0 0 0 3px rgba(var(--ox-accent-rgb),.14)}
+.st-input[readonly]{color:var(--ox-mute); background-color:rgba(255,255,255,.02)}
+.st-input[aria-invalid="true"]{border-color:rgba(248,113,113,.6); box-shadow:0 0 0 3px rgba(248,113,113,.12)}
+select.st-input{background-color:var(--ox-2)}
+select.st-input option{background:#121214}
+.st-mono{font-family:var(--display); letter-spacing:.02em}
+.st-help{color:var(--ox-mute)}
+.st-help b{color:var(--ox-txt)}
+.st-err{color:#F87171}
+.st-badge{--c:#4ADE80; font-weight:600; background:color-mix(in srgb, var(--c) 8%, transparent); border-color:color-mix(in srgb, var(--c) 25%, transparent)}
+.st-badge.is-warn{--c:var(--ox-mute)}
+
+/* buttons: ghost by default, the gradient one becomes the white pill primary */
+.st-btn{min-height:42px; font-size:13px; font-weight:600; color:var(--ox-txt); background:transparent; border:1px solid var(--ox-line-hi); border-radius:999px}
+.st-btn:hover:not(:disabled){border-color:rgba(255,255,255,.22); background:var(--ox-2)}
+.st-btn-grad{color:#0B0B0C; border:1px solid transparent; background:#F2F2F3; background-size:auto; box-shadow:none}
+.st-btn-grad:hover:not(:disabled){color:#0B0B0C; background:#fff; background-size:auto; border-color:transparent}
+.st-link{color:#F87171}
+.st-link:hover{color:#FCA5A5}
+
+/* phone OTP box */
+.st-otp{background:var(--ox-2); border:1px dashed var(--ox-line-hi)}
+.st-otp-input{font-family:var(--display)}
+
+/* social: hairline rows; brand tiles keep their brand colour (it identifies the network) */
+.st-social{gap:0}
+.st-net{padding:12px 2px; border-radius:0; background:transparent; border:0; border-top:1px solid var(--ox-line)}
+.st-net:first-child{border-top:0}
+.st-net-ico{width:38px; height:38px; border-radius:11px}
+.st-net-txt b{font-weight:600}
+.st-net-txt small{color:var(--ox-mute)}
+.st-net.is-on .st-net-txt small{color:#4ADE80}
+.st-net.is-on .st-btn{color:#F87171; background:transparent; border-color:rgba(248,113,113,.35)}
+
+/* password meter: red → neutral → green, no glow */
+.st-eye:hover,.st-eye[aria-pressed="true"]{color:var(--ox-txt)}
+.st-meter-bar i{height:4px; background:rgba(255,255,255,.08)}
+.st-meter[data-level="1"] i:nth-child(-n+1){background:#F87171}
+.st-meter[data-level="2"] i:nth-child(-n+2){background:#A1A1AA}
+.st-meter[data-level="3"] i:nth-child(-n+3){background:var(--ox-accent)}
+.st-meter[data-level="4"] i{background:#4ADE80; box-shadow:none}
+.st-meter-txt{color:var(--ox-mute)}
+
+/* KYC form */
+.st-lock-note{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.st-lock-note.is-ok{color:#4ADE80; background:rgba(74,222,128,.06); border-color:rgba(74,222,128,.22)}
+.st-doc-box{background:var(--ox-2); border:1px dashed var(--ox-line-hi)}
+.st-doc-box.has-file{border-color:rgba(74,222,128,.35)}
+.st-doc-box.is-invalid{border-color:rgba(248,113,113,.6)}
+.st-doc-ico{color:#C99BFF; background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.st-doc-name{color:var(--ox-mute)}
+.has-file .st-doc-name{color:var(--ox-txt)}
+#st-kyc-badge.is-draft{color:var(--ox-mute); border-color:var(--ox-line-hi)}
+#st-kyc-badge.is-pending{color:var(--ox-txt); border-color:var(--ox-line-hi)}
+#st-kyc-badge.is-verified{color:#4ADE80; border-color:rgba(74,222,128,.3)}
+
+/* KYC timeline: done = green, current = violet (no glow), rest graphite */
+.st-steps li:not(:last-child)::before{width:1px; left:15.5px; background:var(--ox-line-hi)}
+.st-steps li i{background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.st-steps li b{font-weight:600; color:var(--ox-mute)}
+.st-steps li small{color:var(--ox-dim)}
+.st-steps li.is-done i{color:#0B0B0C; background:#4ADE80; border-color:#4ADE80}
+.st-steps li.is-done:not(:last-child)::before{background:rgba(74,222,128,.5)}
+.st-steps li.is-done b,.st-steps li.is-current b{color:var(--ox-txt)}
+.st-steps li.is-current i{color:#fff; background:var(--ox-accent); border-color:transparent; box-shadow:0 0 0 4px rgba(var(--ox-accent-rgb),.15)}
+.st-steps li.is-current small{color:#C99BFF}
+.st-status-txt{color:var(--ox-mute)}
+.st-sandbox{background:var(--ox-2); border:1px dashed var(--ox-line-hi)}
+.st-sandbox > span{font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.12em; color:var(--ox-mute)}
+
+/* dialogs */
+.st-modal{color:var(--ox-txt); background:var(--ox-panel); border:1px solid var(--ox-line-hi);
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06); -webkit-backdrop-filter:none; backdrop-filter:none}
+.st-modal::backdrop{background:rgba(3,3,6,.78)}
+.st-modal-h h2{font-weight:600}
+.st-x{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.st-x:hover{color:var(--ox-txt)}
+.st-frame-opt{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line)}
+.st-frame-opt:hover{border-color:var(--ox-line-hi)}
+.st-frame-opt:has(input:checked){color:var(--ox-txt); border-color:rgba(var(--ox-accent-rgb),.6); background:rgba(var(--ox-accent-rgb),.08); box-shadow:inset 0 0 0 1px rgba(var(--ox-accent-rgb),.6)}
+.st-at span{font-family:var(--display); color:var(--ox-mute); background:var(--ox-3); border-color:var(--ox-line-hi)}
+.ap-foot a{color:var(--ox-txt)}

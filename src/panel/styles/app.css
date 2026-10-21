@@ -173,12 +173,12 @@ body.app::after{
 .ag{display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); gap:14px; margin-top:14px}
 .ac-me{grid-column:span 4}
 .ak-grid{grid-column:span 8}
-.ac-next{grid-column:span 12}
+.ac-next{grid-column:span 5}
 .ac-quests{grid-column:span 12}
 .ac-wallet{grid-column:span 4}
 .ac-aff{grid-column:span 4}
 .ac-badges{grid-column:span 4}
-.ac-board{grid-column:span 12}
+.ac-board{grid-column:span 7}
 
 .ac{position:relative; min-width:0; padding:18px; border-radius:18px; scroll-margin-top:90px}
 .ac-h{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px}
@@ -311,10 +311,6 @@ body.app::after{
 .ar-spark{display:block; width:100%; height:38px}
 .ar-spark polyline{fill:none; stroke:#22E39A; stroke-width:1.8; vector-effect:non-scaling-stroke; stroke-linejoin:round; filter:drop-shadow(0 0 4px rgba(34,227,154,.7))}
 .ar-spark path{fill:url(#ar-fill); stroke:none}
-.ar-you{display:flex; align-items:center; gap:12px; margin:12px 0 0; padding:12px 14px; border-radius:14px; border:1.5px dashed rgba(166,77,255,.5); background:rgba(166,77,255,.06); font-size:13px}
-.ar-you span{padding:2px 8px; font-family:var(--accent); font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#fff; background:#A64DFF; border-radius:4px}
-.ar-you b{min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-.ar-you em{margin-left:auto; font-style:normal; color:var(--muted); white-space:nowrap}
 
 .ap-foot{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin-top:18px; padding:14px 4px 0; border-top:1px solid var(--line)}
 .ap-foot p{margin:0; font-size:12px; color:rgba(255,255,255,.42); max-width:70ch}
@@ -333,7 +329,7 @@ body.app::after{
 @media (max-width:1240px){
   .ac-me{grid-column:span 5}
   .ak-grid{grid-column:span 7}
-  .ac-next,.ac-quests{grid-column:span 12}
+  .ac-next,.ac-quests,.ac-board{grid-column:span 12}
   .ac-wallet,.ac-aff{grid-column:span 6}
   .ac-badges{grid-column:span 12}
   .ab-list{grid-template-columns:repeat(6, minmax(0,1fr))}
@@ -376,7 +372,6 @@ body.app::after{
   .ac{padding:16px 14px}
   .as{padding:14px}
   .as-btn{width:100%; justify-content:center}
-  .ar-you em{display:none}
 }
 @media (max-width:360px){
   .ak-sub{display:none}
@@ -935,11 +930,15 @@ body.app::after{display:none}
 .ar-meta{color:var(--ox-mute)}
 .ar-meta b{font-weight:500}
 .ar-spark polyline{filter:none}
-.ar-you{background:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:12px}
-.ar-you span{color:#0B0B0C; background:#F2F2F3}
 
 /* ---- leaderboard table (Market Overview style): header band, hairline rows, change pills, 7-day sparklines ---- */
 .lb-scroll{margin:0 -18px; overflow-x:auto}
+/* beside Next battles (wide desktop only) the card is ~7/12 wide: drop Win rate + Wins so it fits without scrolling */
+@media (min-width:1241px){
+  .ac-board .lb th:nth-child(4),.ac-board .lb td:nth-child(4),
+  .ac-board .lb th:nth-child(5),.ac-board .lb td:nth-child(5){display:none}
+  .ac-board .lb-spark{width:96px}
+}
 .lb{width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums}
 .lb th{padding:10px 14px; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; text-align:left; white-space:nowrap; color:var(--ox-mute); background:var(--ox-2); border-top:1px solid var(--ox-line); border-bottom:1px solid var(--ox-line)}
 .lb td{padding:12px 14px; border-bottom:1px solid var(--ox-line); white-space:nowrap; vertical-align:middle}
@@ -970,7 +969,6 @@ body.app::after{display:none}
 .lb-go:hover{color:var(--ox-txt); border-color:var(--ox-line-hi); background:var(--ox-2)}
 .lb-go svg{width:14px; height:14px}
 .lb-vh{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
-.ac-board .ar-you{margin-top:14px}
 @media (max-width:640px){
   .lb .lb-opt{display:none}
   .lb th,.lb td{padding:10px 8px}

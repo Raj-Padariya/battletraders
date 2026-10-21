@@ -190,3 +190,117 @@
   .wl-modal[open]{animation:none}
   .wl-field,.wl-tab,.wl-quick button,.wl-method{transition:none}
 }
+
+/* =====================================================================
+   ONYX: same design language as the dashboard (tokens from app.css .app).
+   Graphite surfaces, hairlines, violet accent used sparingly; green/red only
+   for money in/out and status. Every selector stays under the wl- prefix so
+   nothing here can reach the dashboard. Placed last on purpose.
+   ===================================================================== */
+
+/* hero: tag + icon tile on the left, balance on a graphite bank card on the right */
+.wl-hero-ico{width:40px; height:40px; border-radius:12px; clip-path:none; filter:none; color:#C99BFF;
+  background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419;
+  border:1px solid rgba(var(--ox-accent-rgb),.28); box-shadow:inset 0 1px 0 rgba(255,255,255,.09)}
+.wl-hero-ico svg{width:19px; height:19px}
+.wl-tag{gap:8px; padding:4px 10px; font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.12em; color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line); border-radius:999px}
+.wl-tag svg{display:none}
+.wl-tag::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--ox-accent)}
+
+.wl-bal{overflow:hidden; isolation:isolate; align-items:flex-start; text-align:left; border-radius:16px;
+  background:radial-gradient(120% 90% at 100% 0%, rgba(var(--ox-accent-rgb),.18), transparent 55%), linear-gradient(150deg, #242427, #121214 60%, #0B0B0C);
+  border:1px solid rgba(var(--ox-accent-rgb),.22); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 34px -20px rgba(0,0,0,.9);
+  -webkit-backdrop-filter:none; backdrop-filter:none}
+.wl-bal::after{content:""; position:absolute; z-index:-1; right:-50px; bottom:-70px; width:180px; height:180px; border-radius:50%;
+  border:1px solid rgba(var(--ox-accent-rgb),.16); box-shadow:0 0 0 22px rgba(var(--ox-accent-rgb),.035), 0 0 0 44px rgba(var(--ox-accent-rgb),.02)}
+.wl-bal-lbl{font-family:inherit; font-size:11.5px; font-weight:500; letter-spacing:.1em; color:var(--ox-mute)}
+.wl-bal-num{font-family:var(--display); font-size:clamp(30px,3.6vw,42px); font-weight:500; letter-spacing:-.02em; color:var(--ox-txt); text-shadow:none}
+.wl-bal-meta{justify-content:flex-start}
+.wl-credits{font-family:inherit; font-size:12px; font-weight:500; letter-spacing:0; text-transform:none; color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line)}
+.wl-credits svg{color:var(--ox-accent)}
+.wl-credits b{font-family:var(--display); font-weight:600; color:var(--ox-txt)}
+/* KYC stays red: it is a blocking status, not decoration */
+.wl-kyc,.wl-chip-kyc{font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.08em; color:#F87171; background:rgba(248,113,113,.08); border:1px solid rgba(248,113,113,.3)}
+.wl-kyc:hover{color:#fff; background:rgba(248,113,113,.16)}
+
+/* cards: the paragraph and the copy button both used .wl-copy; give the paragraph its own look back */
+.wl-card .wl-copy{display:block; min-height:0; padding:0; font-size:13.5px; font-weight:400; line-height:1.55; color:var(--ox-mute); background:none; border:0; border-radius:0; cursor:auto}
+.wl-form .wl-copy{font-weight:600; color:var(--ox-txt)}
+.wl-chip-crypto{font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line)}
+.wl-perks li{color:var(--ox-mute)}
+.wl-perks svg{padding:3px; color:var(--ox-accent); background:rgba(var(--ox-accent-rgb),.1)}
+.wl-label{font-weight:500; color:var(--ox-mute)}
+.wl-field{min-height:44px; border-radius:12px; background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.wl-field:focus-within{border-color:rgba(var(--ox-accent-rgb),.6); box-shadow:0 0 0 3px rgba(var(--ox-accent-rgb),.14)}
+.wl-field > span,.wl-field input{font-family:var(--display); font-variant-numeric:tabular-nums}
+.wl-field input{color:var(--ox-txt)}
+.wl-field:has(input[aria-invalid="true"]){border-color:rgba(248,113,113,.6); box-shadow:0 0 0 3px rgba(248,113,113,.12)}
+.wl-hint{color:var(--ox-dim)}
+.wl-reason,.wl-err{color:#F87171}
+.wl-kyc-link{color:#F87171}
+
+/* activity: segmented tabs + table-like rows split by hairlines (dashboard "Next battles" rows) */
+.wl-tabs{padding:3px; border-radius:10px; background:var(--ox-2); border:1px solid var(--ox-line)}
+.wl-tab{min-height:34px; font-size:12.5px; font-weight:600; color:var(--ox-mute); border-radius:8px}
+.wl-tab:hover{color:var(--ox-txt)}
+.wl-tab[aria-selected="true"]{color:var(--ox-txt); background:var(--ox-3); box-shadow:inset 0 0 0 1px var(--ox-line-hi)}
+.wl-count{font-family:var(--display); font-weight:600; color:var(--ox-mute); background:rgba(255,255,255,.05)}
+.wl-list{gap:0}
+.wl-row{padding:12px 4px; border-radius:0; background:transparent; border:0; border-top:1px solid var(--ox-line); box-shadow:none; transition:background .2s}
+.wl-list > .wl-row:first-child{border-top:0}
+.wl-row:hover{background:rgba(255,255,255,.015)}
+/* row icons: one calm tile for every type; the amount colour carries the meaning */
+.wl-row-ico{width:34px; height:34px; border-radius:10px; color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.wl-row-ico svg{width:16px; height:16px}
+.wl-row-txt b{font-weight:600; color:var(--ox-txt)}
+.wl-row-txt small{color:var(--ox-mute)}
+.wl-amt{font-family:var(--display); font-weight:600}
+.wl-amt.is-in{color:#4ADE80}
+.wl-amt.is-out{color:#F87171}
+.wl-status{padding:3px 9px; font-family:inherit; font-size:10.5px; font-weight:600; letter-spacing:.08em; border-radius:999px}
+.s-completed{color:#4ADE80; background:rgba(74,222,128,.08); border-color:rgba(74,222,128,.22)}
+.s-pending{color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line-hi)}
+.s-failed{color:#F87171; background:rgba(248,113,113,.08); border-color:rgba(248,113,113,.22)}
+.wl-empty{border:1px dashed var(--ox-line-hi); border-radius:14px}
+.wl-empty-ico{width:48px; height:48px; border-radius:14px; color:#C99BFF; box-shadow:inset 0 1px 0 rgba(255,255,255,.09);
+  background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.wl-empty-ico svg{width:22px; height:22px}
+.wl-empty b{font-weight:600; color:var(--ox-txt)}
+.wl-empty p,.wl-foot{color:var(--ox-mute)}
+
+/* top-up dialog: graphite panel, no glass blur, violet only on the active choice */
+.wl-modal{color:var(--ox-txt); border-radius:18px; background:var(--ox-panel); border:1px solid var(--ox-line-hi);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06); -webkit-backdrop-filter:none; backdrop-filter:none}
+.wl-modal::backdrop{background:rgba(3,3,6,.78)}
+.wl-modal-h h2{font-weight:600}
+.wl-modal-h p{color:var(--ox-mute)}
+.wl-x{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.wl-x:hover{color:var(--ox-txt)}
+.wl-steps li{font-family:inherit; font-size:11px; font-weight:600; color:var(--ox-dim); border-top:2px solid var(--ox-line-hi)}
+.wl-steps li.is-done{color:var(--ox-mute); border-top-color:rgba(var(--ox-accent-rgb),.45)}
+.wl-steps li.is-on{color:var(--ox-txt); border-image:none; border-top-color:var(--ox-accent)}
+.wl-quick button{font-family:var(--display); font-weight:600; color:var(--ox-txt); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.wl-quick button:hover{border-color:rgba(var(--ox-accent-rgb),.45)}
+.wl-quick button[aria-pressed="true"]{background:rgba(var(--ox-accent-rgb),.14); border-color:rgba(var(--ox-accent-rgb),.6); box-shadow:none}
+.wl-method{background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.wl-method::after{border-color:var(--ox-dim)}
+.wl-method:has(input:checked){background:rgba(var(--ox-accent-rgb),.1); border-color:rgba(var(--ox-accent-rgb),.55)}
+.wl-method:has(input:checked)::after{border-color:var(--ox-accent); background:radial-gradient(circle, var(--ox-accent) 0 4px, transparent 5px)}
+.wl-method-ico{width:36px; height:36px; border-radius:10px; color:#C99BFF;
+  background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.wl-method-txt b{font-weight:600}
+.wl-method-txt small{color:var(--ox-mute)}
+.wl-sandbox{color:var(--ox-mute); background:var(--ox-2); border:1px dashed var(--ox-line-hi)}
+.wl-pay div{background:var(--ox-2); border:1px solid var(--ox-line)}
+.wl-pay dt{color:var(--ox-mute)}
+.wl-pay dd{font-family:var(--display); font-weight:600}
+.wl-addr{background:rgba(var(--ox-accent-rgb),.05); border:1px dashed rgba(var(--ox-accent-rgb),.38)}
+.wl-addr code{color:var(--ox-txt)}
+.wl-addr .wl-copy{color:var(--ox-txt); background:var(--ox-3); border:1px solid var(--ox-line-hi)}
+.wl-addr .wl-copy:hover{background:rgba(var(--ox-accent-rgb),.16); border-color:rgba(var(--ox-accent-rgb),.45)}
+.wl-done-ico{color:#4ADE80; background:rgba(74,222,128,.08); border:1px solid rgba(74,222,128,.3); box-shadow:none}
+.wl-done-txt{color:var(--ox-mute)}
+.wl-done-txt b{font-family:var(--display); color:#4ADE80}
+@media (max-width:640px){
+  .wl-row{padding:10px 2px}
+}

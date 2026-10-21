@@ -129,3 +129,91 @@
 @media (prefers-reduced-motion:reduce){
   .tr-bar-track i,.tr-back,.tr-share,.tr-icon,.tr-follow{transition:none}
 }
+
+/* =====================================================================
+   ONYX: same design language as the dashboard (tokens from app.css .app).
+   The four tiles reuse the dashboard .ak cell, which is built to live inside
+   the dashboard's .ak-grid panel (no frame of its own, tall, 2-col inner grid).
+   Here .tr-tiles becomes that panel: one card split by hairlines. Every
+   selector keeps the tr- prefix so nothing reaches the dashboard. Placed last.
+   ===================================================================== */
+
+/* top bar */
+.tr-back,.tr-share,.tr-icon{min-height:36px; font-size:12.5px; color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:10px}
+.tr-back:hover,.tr-share:hover,.tr-icon:hover{color:var(--ox-txt); border-color:rgba(255,255,255,.2); background:var(--ox-3)}
+.tr-icon{width:36px}
+.tr-recid{font-family:var(--display); font-size:11.5px; color:var(--ox-dim)}
+.tr-recid b{color:var(--ox-txt); font-weight:600}
+
+/* profile card: same graphite card + soft violet corner light as the dashboard trader card */
+.tr-card{--av:var(--ox-accent);
+  background:radial-gradient(420px 220px at 50% 0%, rgba(var(--ox-accent-rgb),.1), transparent 60%), var(--ox-panel);
+  border:1px solid var(--ox-line); box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 20px 40px -24px rgba(0,0,0,.8);
+  -webkit-backdrop-filter:none; backdrop-filter:none}
+.tr-card::before{height:1px; background:linear-gradient(90deg, transparent, rgba(var(--ox-accent-rgb),.55), transparent); box-shadow:none}
+.tr-av-wrap{padding:3px; background:var(--ox-panel); box-shadow:0 0 0 1px var(--ox-line-hi)}
+.tr-av{width:96px; height:96px; font-weight:600; background:linear-gradient(160deg, #2A2A2E, #141416); box-shadow:inset 0 0 0 1px var(--ox-line-hi), inset 0 1px 0 rgba(255,255,255,.08)}
+.tr-online{background:#4ADE80; border-color:var(--ox-panel); box-shadow:none}
+.tr-handle{font-weight:600}
+.tr-sub,.tr-alliance{color:var(--ox-mute)}
+.tr-alliance a{color:var(--ox-txt); font-weight:600}
+/* follow = the one white pill on the card; following = ghost */
+.tr-follow{min-height:40px; font-size:13.5px; font-weight:600; color:#0B0B0C; background:#F2F2F3; border:1px solid transparent; border-radius:999px; box-shadow:none}
+.tr-follow:hover{filter:none; background:#fff}
+.tr-follow.is-on,.tr-edit{color:var(--ox-txt); background:transparent; border-color:var(--ox-line-hi)}
+.tr-follow.is-on:hover,.tr-edit:hover{background:var(--ox-2)}
+.tr-community,.tr-status{background:var(--ox-2); border:1px solid var(--ox-line)}
+.tr-community span,.tr-status span,.tr-style-h span{font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.12em; color:var(--ox-mute)}
+.tr-community b span{font-family:var(--display); font-weight:600; color:var(--ox-txt)}
+.tr-status b{font-family:inherit; font-size:11.5px; font-weight:600; letter-spacing:.1em; color:#4ADE80}
+.tr-style{background:var(--ox-2); border:1px solid var(--ox-line)}
+.tr-style-h b{font-weight:600; color:var(--ox-txt)}
+.tr-style.is-empty .tr-style-h b{color:var(--ox-mute)}
+
+/* bars: violet fill, no glow; the three old tones collapse to one accent */
+.tr-bar,.b-cyan,.b-magenta,.b-gold{--b:var(--ox-accent)}
+.tr-bar p{color:var(--ox-mute)}
+.tr-bar p b{font-family:var(--display); font-weight:600; color:var(--ox-txt)}
+.tr-bar-track{height:4px; background:rgba(255,255,255,.07)}
+.tr-bar-track i{background:linear-gradient(90deg, #3DBCFF, var(--ox-accent)); box-shadow:none}
+
+/* stat tiles: one panel split by hairlines, like the dashboard stats */
+.tr-tiles{gap:0; border-radius:18px; overflow:hidden; background:var(--ox-panel); border:1px solid var(--ox-line); box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 20px 40px -24px rgba(0,0,0,.8)}
+.tr-tiles .tr-tile{display:flex; flex-direction:column; align-items:flex-start; gap:10px; min-height:0; padding:18px 20px; border:0; border-left:1px solid var(--ox-line)}
+.tr-tiles .tr-tile:first-child{border-left:0}
+.tr-tiles .tr-tile .ak-ico{display:grid; place-items:center; width:30px; height:30px; border-radius:9px; color:#C99BFF;
+  background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419;
+  border:1px solid rgba(var(--ox-accent-rgb),.28); box-shadow:inset 0 1px 0 rgba(255,255,255,.09)}
+.tr-tiles .tr-tile .ak-ico svg{width:15px; height:15px}
+.tr-tiles .tr-tile .ak-val{margin-top:0; font-size:28px}
+
+.tr-chip{font-family:inherit; font-size:10.5px; font-weight:600; letter-spacing:.1em; color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:999px}
+
+/* mini stats: neutral tiles, no per-tile colour */
+.tr-mini div,.tr-mini .m-pink,.tr-mini .m-cyan{--m:var(--ox-txt); background:var(--ox-2); border:1px solid var(--ox-line)}
+.tr-mini dt{color:var(--ox-mute)}
+.tr-mini dt svg{color:var(--ox-mute)}
+.tr-mini dd{font-family:var(--display); font-weight:600; color:var(--ox-txt)}
+
+/* ledger: table-like rows split by hairlines; a top-3 finish gets a violet place */
+.tr-led-list{gap:0}
+.tr-led-list li{padding:12px 4px; border-radius:0; background:transparent; border:0; border-top:1px solid var(--ox-line); transition:background .2s}
+.tr-led-list li:first-child{border-top:0}
+.tr-led-list li:hover{background:rgba(255,255,255,.015)}
+.tr-led-ico{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.tr-led-txt b{font-weight:600}
+.tr-led-txt small{color:var(--ox-mute)}
+.tr-led-place{font-family:var(--display); font-weight:600; color:var(--ox-mute)}
+.tr-led-list li.is-top{border-color:var(--ox-line); background:transparent}
+.tr-led-list li.is-top .tr-led-ico{color:#C99BFF; background:rgba(var(--ox-accent-rgb),.1); border-color:rgba(var(--ox-accent-rgb),.3)}
+.tr-led-list li.is-top .tr-led-place{color:var(--ox-accent); text-shadow:none}
+.tr-empty{border:1px dashed var(--ox-line-hi)}
+.tr-empty > span{color:#C99BFF; box-shadow:inset 0 1px 0 rgba(255,255,255,.09);
+  background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.tr-empty b{font-weight:600}
+.tr-empty p,.tr-note{color:var(--ox-mute)}
+
+@media (max-width:1480px){
+  .tr-tiles .tr-tile:nth-child(odd){border-left:0}
+  .tr-tiles .tr-tile:nth-child(n+3){border-top:1px solid var(--ox-line)}
+}

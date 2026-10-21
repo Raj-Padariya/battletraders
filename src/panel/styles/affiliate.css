@@ -197,3 +197,155 @@
   .aff-btn,.aff-btn2,.aff-danger{transition:none}
   .aff-spin{animation:none}
 }
+
+/* =====================================================================
+   ONYX: same design language as the dashboard (tokens from app.css .app).
+   The four stat tiles reuse the dashboard .ak cell, which is built to sit
+   inside the dashboard .ak-grid panel; .aff-tiles becomes that panel here
+   (same fix as trader.css). Referral code + link use the dashboard invite-
+   ticket look. Affiliate rank colours (bronze..) stay as text only.
+   Every selector keeps the aff- prefix. Placed last on purpose.
+   ===================================================================== */
+
+/* hero */
+.aff-hero-ico,.aff-hero-ico.is-bolt{width:48px; height:54px; filter:none; background:linear-gradient(160deg, #3DBCFF, #B45CFF 55%, #FF33FF)}
+.aff-hero-ico svg{width:22px; height:22px}
+.aff-tag{color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line)}
+.aff-code-big{display:inline-block; padding:10px 18px; font-family:var(--display); font-size:clamp(24px,4vw,38px); font-weight:600; letter-spacing:.14em; color:var(--ox-txt); text-shadow:none;
+  background:linear-gradient(135deg, rgba(var(--ox-accent-rgb),.14), rgba(var(--ox-accent-rgb),.03) 60%), var(--ox-2);
+  border:1px dashed rgba(var(--ox-accent-rgb),.4); border-radius:14px}
+.aff-hero-stats{gap:0; border-radius:16px; overflow:hidden; background:var(--ox-2); border:1px solid var(--ox-line)}
+.aff-hero-stats div{border-radius:0; background:transparent; border:0; border-top:1px solid var(--ox-line); -webkit-backdrop-filter:none; backdrop-filter:none}
+.aff-hero-stats div:first-child{border-top:0}
+.aff-hero-stats dt{font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.1em; color:var(--ox-mute)}
+.aff-hero-stats dd{font-family:var(--display); font-weight:500; color:var(--ox-txt); font-variant-numeric:tabular-nums}
+.aff-hero-stats dd.is-cash{color:#4ADE80}
+
+/* buttons: white pill primary, ghost secondary, red outline for destructive */
+.aff-btn,.aff-btn2,.aff-danger{font-family:inherit; font-size:13px; font-weight:600; letter-spacing:0; text-transform:none; border-radius:999px}
+.aff-btn{color:#0B0B0C; background:#F2F2F3; background-size:auto; box-shadow:none}
+.aff-btn:hover{background:#fff}
+.aff-btn2{color:var(--ox-txt); background:transparent; border-color:var(--ox-line-hi)}
+.aff-btn2:hover{border-color:rgba(255,255,255,.22); background:var(--ox-2)}
+.aff-danger{color:#F87171; background:transparent; border-color:rgba(248,113,113,.35)}
+.aff-danger:hover{color:#fff; background:rgba(248,113,113,.14)}
+.aff-spin{border-color:rgba(11,11,12,.25); border-top-color:#0B0B0C}
+
+/* join card */
+.aff-join-ico{color:#C99BFF; box-shadow:inset 0 1px 0 rgba(255,255,255,.09);
+  background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.aff-join h2{font-weight:600}
+.aff-join p,.aff-lead{color:var(--ox-mute)}
+
+/* note: success info → green tint, calm */
+.aff-note{color:var(--ox-mute); background:rgba(74,222,128,.05); border-color:rgba(74,222,128,.22)}
+.aff-note svg,.aff-note b{color:#4ADE80}
+
+/* ranks: hairline rows; the rank's own colour stays on the name only */
+.aff-rank-list,.aff-tiers{gap:0}
+.aff-rank{padding:12px 4px; border-radius:0; background:transparent; border:0; border-top:1px solid var(--ox-line)}
+.aff-rank:first-child{border-top:0}
+.aff-rank-ico{color:var(--rk); background:var(--ox-2); box-shadow:inset 0 0 0 1px var(--ox-line-hi)}
+.aff-rank-txt b{font-family:inherit; font-weight:600}
+.aff-rank-txt em{font-family:inherit; font-size:10px; font-weight:600; letter-spacing:.08em; color:#fff; background:var(--ox-accent); border-radius:999px}
+.aff-rank-txt small,.aff-rank-vals dt{color:var(--ox-mute)}
+.aff-rank-vals dd{font-family:var(--display); font-weight:600}
+.aff-bullets li{color:var(--ox-mute)}
+.aff-bullets svg{color:#4ADE80; background:rgba(74,222,128,.08); border-color:rgba(74,222,128,.25)}
+
+/* tiles: one hairline-split panel around the dashboard .ak cells */
+.aff-tiles{gap:0; border-radius:18px; overflow:hidden; background:var(--ox-panel); border:1px solid var(--ox-line); box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 20px 40px -24px rgba(0,0,0,.8)}
+.aff-tiles .aff-tile{display:flex; flex-direction:column; align-items:flex-start; gap:8px; min-height:0; padding:18px 20px; color:var(--ox-txt); background:transparent; border:0; border-left:1px solid var(--ox-line); border-radius:0}
+.aff-tiles .aff-tile:first-child{border-left:0}
+.aff-tiles .aff-tile:hover{background:rgba(255,255,255,.02)}
+.aff-tiles .aff-tile .ak-ico{display:grid; place-items:center; width:30px; height:30px; border-radius:9px; color:#C99BFF;
+  background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419;
+  border:1px solid rgba(var(--ox-accent-rgb),.28); box-shadow:inset 0 1px 0 rgba(255,255,255,.09)}
+.aff-tiles .aff-tile .ak-ico svg{width:15px; height:15px}
+.aff-tiles .aff-tile .ak-val{margin-top:0; font-size:26px}
+.aff-tile .ak-sub{color:var(--ox-dim)}
+.aff-tile:hover .ak-sub{color:var(--ox-mute)}
+.k-pink .ak-val{color:var(--ox-txt)}
+.k-green .ak-val{color:#4ADE80}
+.aff-tix .t-mini svg,.aff-tix .t-circuit svg,.aff-tix .t-main svg{color:var(--ox-mute)}
+
+/* link: dashed invite-ticket field */
+.aff-link{font-family:var(--display); color:var(--ox-txt); background:linear-gradient(135deg, rgba(var(--ox-accent-rgb),.12), rgba(var(--ox-accent-rgb),.02) 60%), var(--ox-2); border:1px dashed rgba(var(--ox-accent-rgb),.4)}
+
+/* my rank + progress */
+.aff-me-txt b{font-weight:600; letter-spacing:.04em}
+.aff-me-txt small{color:var(--ox-mute)}
+.aff-mult{background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.aff-mult small{font-family:inherit; font-weight:600; color:var(--ox-mute)}
+.aff-mult b{font-family:var(--display); color:var(--ox-accent)}
+.aff-prog{background:var(--ox-2); border:1px solid var(--ox-line)}
+.aff-prog-row{font-weight:600}
+.aff-prog-row b{font-family:var(--display); color:var(--ox-mute)}
+.aff-bar{height:4px; background:rgba(255,255,255,.07)}
+.aff-bar i{background:linear-gradient(90deg, #3DBCFF, var(--ox-accent)); box-shadow:none}
+.aff-prog p{color:var(--ox-mute)}
+.aff-prog p b{color:var(--ox-txt)}
+
+/* reward program */
+.aff-boxes{gap:0; border-radius:14px; overflow:hidden; background:var(--ox-2); border:1px solid var(--ox-line)}
+.aff-boxes div{border-radius:0; background:transparent; border:0; border-left:1px solid var(--ox-line)}
+.aff-boxes div:first-child{border-left:0}
+.aff-boxes dt,.aff-boxes dd small{color:var(--ox-mute)}
+.aff-boxes dd{font-family:var(--display); font-weight:600}
+.aff-strip{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.aff-strip svg{color:var(--ox-accent)}
+.aff-strip b{font-family:inherit; font-size:11.5px; font-weight:600; letter-spacing:.1em; color:var(--ox-txt)}
+.aff-sub-h{font-family:inherit; font-size:11.5px; font-weight:600; letter-spacing:.12em; color:var(--ox-mute)}
+.aff-tier{padding:12px 4px; border-radius:0; background:transparent; border:0; border-top:1px solid var(--ox-line)}
+.aff-tier:first-child{border-top:0}
+.aff-tier.is-current{padding:12px; border-radius:12px; background:rgba(var(--ox-accent-rgb),.08); border:1px solid rgba(var(--ox-accent-rgb),.4); box-shadow:none}
+.aff-tier.is-current + .aff-tier{border-top:0}
+.aff-tier-name b{font-weight:600}
+.aff-tier-name small,.aff-tier-val small{color:var(--ox-mute)}
+.aff-tier-val b{font-family:var(--display); font-weight:600}
+
+/* how it works: hairline steps with a violet number */
+.aff-steps{gap:0}
+.aff-steps li{padding:12px 4px; border-radius:0; background:transparent; border:0; border-top:1px solid var(--ox-line)}
+.aff-steps li:first-child{border-top:0}
+.aff-steps i{font-family:var(--display); font-weight:600; color:#C99BFF; background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28); box-shadow:none}
+.aff-steps b{font-weight:600}
+.aff-steps small{color:var(--ox-mute)}
+
+/* empty + foot */
+.aff-empty{border:1px dashed var(--ox-line-hi)}
+.aff-empty-ico{color:#C99BFF; background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.aff-empty b{font-weight:600}
+.aff-empty > span:not(.aff-empty-ico){color:var(--ox-mute)}
+.aff-foot{border-top-color:var(--ox-line)}
+.aff-foot p,.aff-leave{color:var(--ox-dim)}
+.aff-leave:hover{color:#F87171; background:rgba(248,113,113,.08)}
+
+/* dialogs */
+.aff-modal{color:var(--ox-txt); background:var(--ox-panel); border:1px solid var(--ox-line-hi);
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06); -webkit-backdrop-filter:none; backdrop-filter:none}
+.aff-modal::backdrop{background:rgba(3,3,6,.78)}
+.aff-modal-h h2{font-weight:600}
+.aff-x{color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line-hi)}
+.aff-x:hover{color:var(--ox-txt)}
+.aff-modal-sub{color:var(--ox-mute)}
+.aff-modal-sub b{font-family:var(--display); color:var(--ox-txt)}
+
+@media (max-width:1240px){
+  .aff-tiles .aff-tile:nth-child(odd){border-left:0}
+  .aff-tiles .aff-tile:nth-child(n+3){border-top:1px solid var(--ox-line)}
+}
+@media (max-width:860px){
+  .aff-hero-stats div{border-top:0; border-left:1px solid var(--ox-line)}
+  .aff-hero-stats div:first-child{border-left:0}
+}
+@media (max-width:640px){
+  .aff-boxes div{border-left:0; border-top:1px solid var(--ox-line)}
+  .aff-boxes div:first-child{border-top:0}
+}
+@media (max-width:380px){
+  .aff-tiles .aff-tile{border-left:0}
+  .aff-tiles .aff-tile + .aff-tile{border-top:1px solid var(--ox-line)}
+  .aff-hero-stats div{border-left:0; border-top:1px solid var(--ox-line)}
+  .aff-hero-stats div:first-child{border-top:0}
+}

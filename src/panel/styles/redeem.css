@@ -111,3 +111,78 @@
   .rd-v.is-new,.rd-spin{animation:none}
   .rd-btn,.rd-input,.rd-tab{transition:none}
 }
+
+/* =====================================================================
+   ONYX: same design language as the dashboard (tokens from app.css .app).
+   The code field sits on the dashboard "invite ticket" look (violet tint,
+   dashed edge); vouchers are hairline rows with one calm icon tile. Green =
+   available / success, red = expired / error, everything else neutral.
+   Every selector keeps the rd- prefix. Placed last on purpose.
+   ===================================================================== */
+
+.rd-hero-ico{width:48px; height:54px; filter:none; color:#fff; background:linear-gradient(160deg, #3DBCFF, #B45CFF 55%, #FF33FF)}
+.rd-hero-ico svg{width:22px; height:22px}
+.rd-lead{color:var(--ox-mute)}
+
+/* code field: ticket look */
+.rd-input{font-family:var(--display); font-weight:600; letter-spacing:.14em; color:var(--ox-txt);
+  background:linear-gradient(135deg, rgba(var(--ox-accent-rgb),.12), rgba(var(--ox-accent-rgb),.02) 60%), var(--ox-2);
+  border:1px dashed rgba(var(--ox-accent-rgb),.4); border-radius:14px}
+.rd-input::placeholder{color:var(--ox-dim)}
+.rd-input:focus{border-style:solid; border-color:rgba(var(--ox-accent-rgb),.65); box-shadow:0 0 0 3px rgba(var(--ox-accent-rgb),.14)}
+.rd-input:focus-visible{outline:none}
+.rd-input[aria-invalid="true"]{border-color:rgba(248,113,113,.6)}
+/* the one white pill on the page */
+.rd-btn{font-family:inherit; font-size:13.5px; font-weight:600; letter-spacing:0; text-transform:none; color:#0B0B0C; background:#F2F2F3; background-size:auto; border-radius:999px; box-shadow:none}
+.rd-btn:hover:not(:disabled){background:#fff}
+.rd-spin{border-color:rgba(11,11,12,.25); border-top-color:#0B0B0C}
+
+.rd-result{border-radius:12px}
+.rd-result.is-ok{color:#4ADE80; background:rgba(74,222,128,.06); border-color:rgba(74,222,128,.25)}
+.rd-result.is-bad{color:#F87171; background:rgba(248,113,113,.06); border-color:rgba(248,113,113,.25)}
+.rd-result.is-warn{color:var(--ox-txt); background:var(--ox-2); border-color:var(--ox-line-hi)}
+.rd-result b{font-family:var(--display)}
+.rd-hint{color:var(--ox-mute)}
+.rd-sample{font-family:var(--display); color:var(--ox-mute); background:var(--ox-2); border:1px dashed var(--ox-line-hi); border-radius:999px}
+.rd-sample:hover{color:var(--ox-txt); border-color:rgba(var(--ox-accent-rgb),.5)}
+
+/* tabs */
+.rd-tabs{padding:3px; background:var(--ox-2); border:1px solid var(--ox-line)}
+.rd-tab{min-height:36px; font-size:13px; font-weight:600; color:var(--ox-mute)}
+.rd-tab:hover{color:var(--ox-txt)}
+.rd-tab[aria-selected="true"]{color:var(--ox-txt); background:var(--ox-3); box-shadow:inset 0 0 0 1px var(--ox-line-hi)}
+.rd-tab em{font-family:var(--display); font-weight:600; color:var(--ox-mute); background:rgba(255,255,255,.05)}
+.rd-tab[aria-selected="true"] em{color:#fff; background:var(--ox-accent)}
+
+/* voucher rows: hairline-separated, one calm icon tile */
+.rd-list{gap:0}
+.rd-v{padding:14px 4px; border-radius:0; background:transparent; border:0; border-top:1px solid var(--ox-line); box-shadow:none}
+.rd-v:first-child{border-top:0}
+@keyframes rd-flash{0%,30%{background:rgba(74,222,128,.08)}}
+.rd-v-ico,.rd-v-ico.is-ticket,.rd-v-ico.is-amount{width:38px; height:38px; border-radius:11px; color:#C99BFF;
+  background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419;
+  border:1px solid rgba(var(--ox-accent-rgb),.28); box-shadow:inset 0 1px 0 rgba(255,255,255,.09)}
+.rd-v-ico svg{width:17px; height:17px}
+.rd-v.is-past .rd-v-ico{color:var(--ox-dim); background:var(--ox-2); border-color:var(--ox-line-hi)}
+.rd-v-code{font-family:var(--display); font-weight:600}
+.rd-chip{font-size:10.5px; font-weight:600; letter-spacing:.04em}
+.rd-chip.is-off{color:var(--ox-txt); background:var(--ox-3); border:1px solid var(--ox-line-hi)}
+.rd-chip.is-avail{color:#4ADE80; background:rgba(74,222,128,.08); border-color:rgba(74,222,128,.22)}
+.rd-chip.is-used{color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line-hi)}
+.rd-chip.is-expired{color:#F87171; background:rgba(248,113,113,.08); border-color:rgba(248,113,113,.22)}
+.rd-meta{color:var(--ox-mute)}
+.rd-meta .is-soon{color:#F87171; font-weight:600}
+.rd-use{font-weight:600; color:var(--ox-txt); background:transparent; border:1px solid var(--ox-line-hi); border-radius:999px}
+.rd-use:hover{background:var(--ox-2); border-color:rgba(255,255,255,.22)}
+
+/* empty + foot */
+.rd-empty{border:1px dashed var(--ox-line-hi)}
+.rd-empty-ico{color:#C99BFF; background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.rd-empty b{font-weight:600}
+.rd-empty > span:not(.rd-empty-ico){color:var(--ox-mute)}
+.rd-ghost{font-weight:600; color:var(--ox-txt); background:transparent; border:1px solid var(--ox-line-hi); border-radius:999px}
+.rd-ghost:hover{border-color:rgba(255,255,255,.22); background:var(--ox-2)}
+.rd-foot{color:var(--ox-dim); border-top-color:var(--ox-line)}
+@media (max-width:640px){
+  .rd-v{padding:12px 2px}
+}

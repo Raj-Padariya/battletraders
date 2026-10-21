@@ -299,3 +299,147 @@
   .al-card,.al-create,.al-act-btn,.al-btn,.al-mem,.al-field input,.al-field textarea{transition:none}
   .al-card:hover{transform:none}
 }
+
+/* =====================================================================
+   ONYX: same design language as the dashboard (tokens from app.css .app).
+   Each alliance picks its own crest colour, so the crest keeps it (no glow);
+   cards show it only as a thin top edge. Tier chips keep bronze/silver/gold
+   as text only. Members are hairline table rows. Every selector keeps al-.
+   Placed last on purpose.
+   ===================================================================== */
+
+/* graphite surface for card / banner / stat */
+.al-card,.al-banner,.al-stat{background:var(--ox-panel); border:1px solid var(--ox-line);
+  box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 20px 40px -24px rgba(0,0,0,.8); -webkit-backdrop-filter:none; backdrop-filter:none}
+.al-crest{font-weight:600; text-shadow:none; filter:none}
+
+/* list hero */
+.al-tag{color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line)}
+.al-hero-shield{width:56px; height:62px; filter:none; animation:none; background:linear-gradient(160deg, #3DBCFF, #B45CFF 55%, #FF33FF)}
+.al-hero-shield svg{width:26px; height:26px}
+.al-create,.al-btn{font-family:inherit; font-size:13.5px; font-weight:600; letter-spacing:0; text-transform:none; color:#0B0B0C; background:#F2F2F3; background-size:auto; border-radius:999px; box-shadow:none}
+.al-create:hover,.al-btn:hover{background:#fff}
+.al-btn:disabled,.al-btn.is-locked:disabled,.al-btn.is-gold:disabled{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.al-btn.is-green:disabled{color:#4ADE80; background:rgba(74,222,128,.06); border-color:rgba(74,222,128,.25)}
+.al-btn-ghost{color:var(--ox-txt); background:transparent; border:1px solid var(--ox-line-hi); border-radius:999px}
+.al-btn-ghost:hover{color:var(--ox-txt); border-color:rgba(255,255,255,.22); background:var(--ox-2)}
+
+/* search */
+.al-search{background:var(--ox-2); border:1px solid var(--ox-line-hi); -webkit-backdrop-filter:none; backdrop-filter:none}
+.al-search:focus-within{border-color:rgba(var(--ox-accent-rgb),.6); box-shadow:0 0 0 3px rgba(var(--ox-accent-rgb),.14)}
+.al-search > svg{color:var(--ox-mute)}
+.al-search input{color:var(--ox-txt)}
+.al-search input::placeholder{color:var(--ox-dim)}
+.al-count{font-family:var(--display); color:var(--ox-mute)}
+
+/* cards: crest colour only as a 1px top edge, no glow on hover */
+.al-card::before{height:1px; opacity:.7}
+.al-card:hover{transform:translateY(-2px); border-color:var(--ox-line-hi); box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 24px 44px -24px rgba(0,0,0,.9)}
+.al-card-name{font-weight:600}
+.al-card-tag{font-family:var(--display); font-weight:600; color:var(--ox-mute)}
+.al-tier,.al-tierchip{font-family:inherit; font-size:10.5px; font-weight:600; letter-spacing:.08em; background:var(--ox-2); border-color:var(--ox-line-hi); border-radius:999px}
+.t-silver{color:#D4D4D8; background:var(--ox-2); border-color:var(--ox-line-hi)}
+.t-gold{color:#E5C07B; background:var(--ox-2); border-color:var(--ox-line-hi)}
+.al-card-cap{font-family:var(--display); color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line); border-radius:999px}
+.al-card-stats{background:var(--ox-line); border:1px solid var(--ox-line)}
+.al-card-stats div{background:var(--ox-2)}
+.al-card-stats dt{color:var(--ox-mute)}
+.c-pts dt svg,.c-win dt svg,.c-rec dt svg{color:var(--ox-dim)}
+.c-mom dt svg{color:var(--ox-dim)}
+.al-card-stats dd{font-family:var(--display); font-weight:600; color:var(--ox-txt)}
+.c-mom dd{color:#4ADE80}
+.al-card-f{border-top-color:var(--ox-line)}
+.al-dom{font-family:inherit; font-size:11.5px; font-weight:600; letter-spacing:.08em; color:var(--ox-mute)}
+.al-dom svg{fill:none; color:var(--ox-accent); filter:none}
+.al-dom b{font-family:var(--display); color:var(--ox-txt)}
+.al-act{font-weight:600; border-radius:999px}
+.al-act-btn{color:var(--ox-txt); background:transparent; border:1px solid var(--ox-line-hi)}
+.al-act-btn:hover{background:var(--ox-2); border-color:rgba(255,255,255,.22); box-shadow:none}
+.al-act-btn.is-requested,.al-act-btn:disabled{color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line)}
+.al-act-invite{color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line-hi)}
+.al-act-in{color:#4ADE80; background:rgba(74,222,128,.06); border-color:rgba(74,222,128,.25)}
+
+/* empty + missing */
+.al-empty,.al-missing{background:transparent; border:1px dashed var(--ox-line-hi)}
+.al-empty-ico{color:#C99BFF; background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.al-empty b,.al-missing h1{font-weight:600}
+.al-empty p,.al-missing p,.al-note{color:var(--ox-mute)}
+
+/* create dialog */
+.al-modal{color:var(--ox-txt); background:var(--ox-panel); border:1px solid var(--ox-line-hi);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06); -webkit-backdrop-filter:none; backdrop-filter:none}
+.al-modal::backdrop{background:rgba(3,3,6,.78)}
+.al-modal-ico{background:linear-gradient(160deg, #3DBCFF, #B45CFF 55%, #FF33FF)}
+.al-modal-h h2{font-weight:600}
+.al-modal-h p,.al-hint,.al-field label small{color:var(--ox-mute)}
+.al-x{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.al-x:hover{color:var(--ox-txt)}
+.al-field label{font-weight:500; color:var(--ox-mute)}
+.al-field label i{color:var(--ox-accent)}
+.al-field input,.al-field textarea,.al-select select{color:var(--ox-txt); background:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:12px}
+#al-tag{font-family:var(--display)}
+.al-field input:focus-visible,.al-field textarea:focus-visible,.al-select select:focus-visible{outline:none; border-color:rgba(var(--ox-accent-rgb),.6); box-shadow:0 0 0 3px rgba(var(--ox-accent-rgb),.14)}
+.al-field [aria-invalid="true"]{border-color:rgba(248,113,113,.6); box-shadow:0 0 0 3px rgba(248,113,113,.12)}
+.al-counter{font-family:var(--display)}
+.al-err{color:#F87171}
+.al-select select option{background:#121214}
+.al-select svg{color:var(--ox-mute)}
+
+/* detail: banner with a soft crest-tinted corner, no gradient stripe */
+.al-back{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.al-back:hover{color:var(--ox-txt); border-color:rgba(255,255,255,.2)}
+.al-banner{background:radial-gradient(90% 120% at 0% 0%, color-mix(in srgb, var(--crest) 12%, transparent), transparent 60%), var(--ox-panel); border-color:var(--ox-line)}
+.al-banner::before{height:1px; background:linear-gradient(90deg, color-mix(in srgb, var(--crest) 70%, transparent), transparent 70%)}
+.al-d-name{font-weight:600}
+.al-tagbadge{font-family:var(--display); font-weight:600; color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:999px; box-shadow:none}
+.al-d-desc{color:var(--ox-mute)}
+.al-d-desc.is-empty{color:var(--ox-dim)}
+.al-chips li{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line); border-radius:999px}
+.al-chips svg{color:var(--ox-dim)}
+.al-policy.p-invite,.al-policy.p-approval{font-family:inherit; font-weight:600; letter-spacing:.04em; color:var(--ox-txt); background:var(--ox-2); border-color:var(--ox-line-hi)}
+.al-policy.p-invite svg,.al-policy.p-approval svg{color:var(--ox-mute)}
+.al-policy.p-open{color:#4ADE80; border-color:rgba(74,222,128,.25)}
+.al-policy.p-open svg{color:#4ADE80}
+.al-led{color:var(--ox-accent) !important; border-color:rgba(var(--ox-accent-rgb),.35) !important}
+.al-led svg{color:var(--ox-accent) !important}
+.al-join-ico{background:linear-gradient(160deg, #3DBCFF, #B45CFF 55%, #FF33FF)}
+.al-joincard h2{font-weight:600}
+.al-joincard p,.al-ach-empty p{color:var(--ox-mute)}
+.al-ach-empty{border:1px dashed var(--ox-line-hi)}
+.al-ach-empty span{color:var(--ox-dim); background:var(--ox-2)}
+.al-ach-empty b{font-weight:600}
+
+/* stat cards: graphite, no side glow; icon tile, numbers in ink */
+.al-stat::before,.al-stat::after{content:none}
+.al-stat,.s-dom,.s-mom,.s-rec,.s-pts{--c:var(--ox-accent)}
+.al-stat-ico{color:#C99BFF; background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.al-stat-h h2{font-family:inherit; font-size:12px; font-weight:600; letter-spacing:.1em; color:var(--ox-mute)}
+.al-info:hover,.al-info[aria-expanded="true"]{color:var(--ox-txt); background:var(--ox-2)}
+.al-tip{color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line-hi)}
+.al-stat-val{font-family:var(--display); font-weight:500; color:var(--ox-txt); text-shadow:none; font-variant-numeric:tabular-nums}
+.s-mom .al-stat-val{color:#4ADE80}
+.al-stat-rows{border-top-color:var(--ox-line)}
+.al-stat-rows dt{color:var(--ox-mute)}
+.al-stat-rows dd{font-family:var(--display); font-weight:600; color:var(--ox-txt)}
+
+/* members: header band + hairline rows, like the dashboard leaderboard */
+.al-mem-head{margin:0 -4px; padding:10px 14px; font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.08em; color:var(--ox-mute); background:var(--ox-2); border-top:1px solid var(--ox-line); border-bottom:1px solid var(--ox-line)}
+.al-mem-list{gap:0}
+.al-mem{padding:12px 14px; border-radius:0; background:transparent; border:0; border-bottom:1px solid var(--ox-line)}
+.al-mem:hover{border-color:var(--ox-line); background:rgba(255,255,255,.02)}
+.al-mem-av{font-weight:600; box-shadow:0 0 0 2px var(--ox-panel), 0 0 0 3px var(--ox-line-hi)}
+.al-mem-id b{font-weight:600}
+.al-role{font-family:inherit; font-size:10px; font-weight:600; letter-spacing:.06em; color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line-hi); border-radius:999px}
+.al-role.r-leader{color:var(--ox-accent); background:rgba(var(--ox-accent-rgb),.08); border-color:rgba(var(--ox-accent-rgb),.3)}
+.al-role.r-recruit{color:#4ADE80; background:rgba(74,222,128,.06); border-color:rgba(74,222,128,.22)}
+.al-mem-c small{color:var(--ox-mute)}
+.al-mem-c b{font-family:var(--display); font-weight:600}
+.al-mem-c.c-style b{font-family:inherit; font-weight:500; color:var(--ox-mute)}
+.al-mem-c.c-online b{color:var(--ox-mute)}
+.al-mem-c.c-online b.is-on{color:#4ADE80}
+.al-mem-c.c-pts b{color:var(--ox-txt)}
+.al-mem-go{color:var(--ox-dim)}
+.al-mem:hover .al-mem-go{color:var(--ox-txt)}
+@media (max-width:960px){
+  .al-mem{padding:12px 4px}
+}

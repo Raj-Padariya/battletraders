@@ -250,3 +250,158 @@ select.pa-in option{background:#12121c}
   .pa-gate-glow,.pa-start-ico{animation:none}
   .pa-begin,.pa-sym-btn svg,.pa-tool,.pa-side,.pa-submit{transition:none}
 }
+
+/* =====================================================================
+   ONYX: same design language as the dashboard (tokens from app.css .app).
+   Terminal stays dense: smaller radii, hairlines, tabular numbers. Green /
+   red only for buy / sell and P&L; violet only for the active tool, symbol
+   and timeframe. The chart uses the dashboard dotted grid. Every selector
+   keeps the pa- prefix. Placed last on purpose.
+   ===================================================================== */
+
+/* graphite surface, no glass blur */
+.pa-strip,.pa-chart,.pa-rail,.pa-ohlc,.pa-sym-list,.pa-set-pop,.pa-modal{background:var(--ox-panel); border:1px solid var(--ox-line);
+  box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 20px 40px -24px rgba(0,0,0,.8); -webkit-backdrop-filter:none; backdrop-filter:none}
+.pa-up{color:#4ADE80}
+.pa-dn{color:#F87171}
+
+/* start gate */
+.pa-gate{background:var(--ox-0); border-color:var(--ox-line)}
+.pa-start-ico{color:#fff; border:0; background:linear-gradient(160deg, #3DBCFF, #B45CFF 55%, #FF33FF)}
+.pa-start-card h1{font-weight:600}
+.pa-start-sub{color:var(--ox-mute)}
+.pa-start-stats{gap:0; border-radius:14px; overflow:hidden; background:var(--ox-2); border:1px solid var(--ox-line)}
+.pa-start-stats li{border-radius:0; background:transparent; border:0; border-left:1px solid var(--ox-line)}
+.pa-start-stats li:first-child{border-left:0}
+.pa-start-stats b{font-family:var(--display); font-weight:600; color:var(--ox-txt)}
+.pa-start-stats span{color:var(--ox-mute)}
+.pa-start-list li{color:var(--ox-mute)}
+.pa-start-list svg{color:#4ADE80}
+.pa-begin{font-family:inherit; font-size:14px; font-weight:600; letter-spacing:0; text-transform:none; color:#0B0B0C; background:#F2F2F3; border-radius:999px}
+.pa-begin:hover{filter:none; background:#fff}
+.pa-note{color:var(--ox-dim)}
+
+/* top strip */
+.pa-ibtn{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi); box-shadow:none}
+.pa-ibtn:hover{color:var(--ox-txt); border-color:rgba(255,255,255,.2)}
+.pa-fav[aria-pressed="true"]{color:var(--ox-accent); border-color:rgba(var(--ox-accent-rgb),.5)}
+.pa-fav[aria-pressed="true"] svg{fill:var(--ox-accent); filter:none}
+.pa-sym-btn{color:var(--ox-txt); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.pa-sym-btn:hover,.pa-sym-btn[aria-expanded="true"]{border-color:rgba(var(--ox-accent-rgb),.5)}
+.pa-sym-btn b,.pa-sym-opt b,.pa-sym-opt em,.pa-quote b,.pa-quote span{font-family:var(--display); font-weight:600}
+.pa-sym-list{background-color:var(--ox-panel)}
+.pa-sym-opt small{color:var(--ox-mute)}
+.pa-sym-opt.is-active{background:var(--ox-3); box-shadow:inset 0 0 0 1px var(--ox-line-hi)}
+.pa-sym-opt[aria-selected="true"] b{color:var(--ox-accent)}
+.pa-title{font-weight:600}
+.pa-av{font-weight:600; background:linear-gradient(160deg, #3DBCFF, #B45CFF 55%, #FF33FF)}
+.pa-practice{color:var(--ox-dim); background:var(--ox-2); border-color:var(--ox-line)}
+.pa-set-pop{background-color:var(--ox-panel)}
+.pa-set-pop label,.pa-f label{color:var(--ox-mute)}
+.pa-pop-reset{color:#F87171; background:transparent; border-color:rgba(248,113,113,.35); border-radius:999px}
+
+/* rail + timeframes: violet marks the active one, no glow */
+.pa-tool{color:var(--ox-mute)}
+.pa-tool:hover{color:var(--ox-txt); background:var(--ox-2)}
+.pa-tool[aria-pressed="true"]{color:#C99BFF; background:rgba(var(--ox-accent-rgb),.12); border-color:rgba(var(--ox-accent-rgb),.4); box-shadow:none}
+.pa-ohlc-dl{font-family:var(--display)}
+.pa-ohlc-dl dt{color:var(--ox-mute)}
+.pa-tf{font-family:var(--display); font-weight:600; color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line)}
+.pa-tf:hover{color:var(--ox-txt)}
+.pa-tf[aria-pressed="true"]{color:var(--ox-txt); background:rgba(var(--ox-accent-rgb),.14); border-color:rgba(var(--ox-accent-rgb),.5)}
+
+/* chart: dashboard dotted grid, no violet floor glow */
+.pa-chart::before{background-image:radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1.4px); background-size:22px 22px}
+.pa-chart::after{content:none}
+.pa-chart-ico{color:#C99BFF; box-shadow:inset 0 1px 0 rgba(255,255,255,.09);
+  background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border:1px solid rgba(var(--ox-accent-rgb),.28)}
+.pa-chart-h{font-weight:600}
+.pa-chart-sub{color:var(--ox-mute)}
+
+/* order ticket: buy/sell keep green/red but flat, no glow */
+.pa-side{color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line-hi)}
+.pa-side span{font-family:inherit; font-size:13px; font-weight:600; letter-spacing:.06em}
+.pa-side small{font-family:var(--display)}
+.pa-buy[aria-pressed="true"]{color:#4ADE80; background:rgba(74,222,128,.1); border-color:rgba(74,222,128,.55); box-shadow:none}
+.pa-sell[aria-pressed="true"]{color:#F87171; background:rgba(248,113,113,.1); border-color:rgba(248,113,113,.55); box-shadow:none}
+.pa-in{font-family:var(--display); color:var(--ox-txt); background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.pa-in:focus{border-color:rgba(var(--ox-accent-rgb),.6); box-shadow:0 0 0 3px rgba(var(--ox-accent-rgb),.14)}
+.pa-in[aria-invalid="true"]{border-color:rgba(248,113,113,.6); box-shadow:0 0 0 3px rgba(248,113,113,.12)}
+select.pa-in option{background:#121214}
+.pa-step-b{color:var(--ox-txt); background:var(--ox-2); border-color:var(--ox-line-hi)}
+.pa-step-b:hover{border-color:rgba(255,255,255,.22)}
+.pa-hint{color:var(--ox-mute)}
+.pa-hint b{font-family:var(--display); color:var(--ox-txt)}
+.pa-err{color:#F87171}
+.pa-submit{font-family:inherit; font-size:14px; font-weight:600; letter-spacing:.02em}
+.pa-submit.is-buy{color:#04140B; background:#4ADE80; box-shadow:none}
+.pa-submit.is-sell{color:#fff; background:#EF4444; box-shadow:none}
+.pa-submit:hover{filter:brightness(1.06)}
+
+/* account bar: one hairline-split strip */
+.pa-acct-dl{gap:0; border-radius:12px; overflow:hidden; background:var(--ox-2); border:1px solid var(--ox-line)}
+.pa-acct-dl div{border-radius:0; background:transparent; border:0; border-left:1px solid var(--ox-line)}
+.pa-acct-dl div:first-child{border-left:0}
+.pa-acct-dl dt{color:var(--ox-mute)}
+.pa-acct-dl dd{font-family:var(--display); font-weight:600}
+.pa-reset{color:var(--ox-mute); background:transparent; border-color:var(--ox-line-hi); border-radius:999px}
+.pa-reset:hover{color:#F87171; border-color:rgba(248,113,113,.45)}
+
+/* positions / orders / history */
+.pa-tabs{padding:3px; background:var(--ox-2); border-color:var(--ox-line)}
+.pa-tab{min-height:34px; font-size:13px; font-weight:600; color:var(--ox-mute)}
+.pa-tab:hover{color:var(--ox-txt)}
+.pa-tab[aria-selected="true"]{color:var(--ox-txt); background:var(--ox-3); box-shadow:inset 0 0 0 1px var(--ox-line-hi)}
+.pa-tab span{font-family:var(--display)}
+/* table: header band + hairline rows (dashboard .lb look) */
+.pa-tbl{border-spacing:0}
+.pa-tbl th{padding:9px 10px; font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.08em; color:var(--ox-mute); background:var(--ox-2); border-top:1px solid var(--ox-line); border-bottom:1px solid var(--ox-line)}
+.pa-tbl td,.pa-tbl td:first-child,.pa-tbl td:last-child{font-family:var(--display); background:transparent; border:0; border-bottom:1px solid var(--ox-line); border-radius:0}
+.pa-tbl td:first-child{font-weight:600}
+.pa-tbl tr:hover td{background:rgba(255,255,255,.02)}
+.pa-tag{font-family:inherit; font-size:10.5px; font-weight:600; letter-spacing:.06em; border-radius:999px}
+.pa-tag.is-buy{color:#4ADE80; background:rgba(74,222,128,.08); border-color:rgba(74,222,128,.25)}
+.pa-tag.is-sell{color:#F87171; background:rgba(248,113,113,.08); border-color:rgba(248,113,113,.25)}
+.pa-row-btn{font-weight:600; color:var(--ox-txt); background:transparent; border-color:var(--ox-line-hi); border-radius:999px}
+.pa-row-btn:hover{color:#F87171; border-color:rgba(248,113,113,.5); background:rgba(248,113,113,.08)}
+.pa-empty{border:1px dashed var(--ox-line-hi)}
+.pa-empty > span{color:#C99BFF; background:linear-gradient(160deg, rgba(var(--ox-accent-rgb),.2), rgba(var(--ox-accent-rgb),.05)), #151419; border-color:rgba(var(--ox-accent-rgb),.28)}
+.pa-empty b{font-weight:600}
+.pa-empty p{color:var(--ox-mute)}
+.pa-empty button{font-weight:600; color:var(--ox-txt); background:transparent; border-color:var(--ox-line-hi); border-radius:999px}
+.pa-empty button:hover{background:var(--ox-2); border-color:rgba(255,255,255,.22)}
+
+/* reset dialog: destructive, so the confirm is solid red */
+.pa-modal{color:var(--ox-txt); background-color:var(--ox-panel); border-color:var(--ox-line-hi)}
+.pa-modal::backdrop{background:rgba(3,3,6,.78)}
+.pa-modal-ico{color:#F87171; background:rgba(248,113,113,.08); border-color:rgba(248,113,113,.3)}
+.pa-modal h2{font-weight:600}
+.pa-x:hover{color:var(--ox-txt); background:var(--ox-2)}
+.pa-modal p{color:var(--ox-mute)}
+.pa-modal p b{font-family:var(--display); color:var(--ox-txt)}
+.pa-ghost,.pa-danger{font-weight:600; border-radius:999px}
+.pa-ghost{color:var(--ox-txt); background:transparent; border-color:var(--ox-line-hi)}
+.pa-ghost:hover{border-color:rgba(255,255,255,.22); background:var(--ox-2)}
+.pa-danger{background:#DC2626; box-shadow:none}
+.pa-danger:hover{background:#EF4444}
+
+@media (max-width:1100px){
+  .pa-acct-dl div:nth-child(3n+1){border-left:0}
+  .pa-acct-dl div:nth-child(n+4){border-top:1px solid var(--ox-line)}
+}
+@media (max-width:900px){
+  .pa-tbl tr{background:var(--ox-2); border-color:var(--ox-line)}
+  .pa-tbl td,.pa-tbl td:first-child,.pa-tbl td:last-child{border:0}
+  .pa-tbl tr:hover td{background:transparent}
+  .pa-tbl td::before{font-family:inherit; font-weight:600; color:var(--ox-mute)}
+}
+@media (max-width:760px){
+  .pa-acct-dl div{border-left:0; border-top:0}
+  .pa-acct-dl div:nth-child(even){border-left:1px solid var(--ox-line)}
+  .pa-acct-dl div:nth-child(n+3){border-top:1px solid var(--ox-line)}
+  .pa-acct-dl div:last-child{border-left:0}
+}
+@media (max-width:520px){
+  .pa-start-stats li{border-left:0; border-top:1px solid var(--ox-line)}
+  .pa-start-stats li:first-child{border-top:0}
+}
