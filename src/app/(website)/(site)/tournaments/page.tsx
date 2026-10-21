@@ -49,6 +49,7 @@ const formats: Format[] = [
       { icon: ICON.bolt, label: "Quick & accessible" },
       { icon: ICON.target, label: "Skill building" },
       { icon: ICON.trophy, label: "Twice a week" },
+      { icon: ICON.layers, label: "400 points to the winner" },
     ],
     stats: [
       { label: "Entry", value: "$10" },
@@ -68,6 +69,7 @@ const formats: Format[] = [
       { icon: ICON.pin, label: "Monthly circuit" },
       { icon: ICON.trophy, label: "Substantial rewards" },
       { icon: ICON.users, label: "Build your reputation" },
+      { icon: ICON.layers, label: "1,200 points to the winner" },
     ],
     stats: [
       { label: "Entry", value: "$50" },
@@ -148,19 +150,6 @@ export default function TournamentsPage() {
               )}
             </section>
           ))}
-
-          <h2 className="mt-h2">Side by side</h2>
-          <div className="tbl-wrap">
-            <table>
-              <thead><tr><th>Format</th><th>Entry</th><th>Duration</th><th className="num">Field</th><th className="num">Prize pool</th><th className="num">Winner points</th></tr></thead>
-              <tbody>
-                <tr><td><b>Daily Battle</b></td><td>Free</td><td>1 hour</td><td className="num">Unlimited</td><td className="num">&mdash;</td><td className="num">100</td></tr>
-                <tr><td><b>Mini Tournament</b></td><td>$10</td><td>1 trading day</td><td className="num">256</td><td className="num">$1,500</td><td className="num">400</td></tr>
-                <tr><td><b>Circuit Championship</b></td><td>$50</td><td>5 trading days</td><td className="num">512</td><td className="num">$15,000</td><td className="num">1,200</td></tr>
-                <tr><td><b>World Championship</b></td><td>Invite</td><td>24 hours</td><td className="num">100</td><td className="num">$250,000+</td><td className="num">&mdash;</td></tr>
-              </tbody>
-            </table>
-          </div>
 
           <aside className="mt-cta">
             <h2>Ready to compete?</h2>

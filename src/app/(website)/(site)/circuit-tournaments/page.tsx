@@ -112,7 +112,7 @@ export default function CircuitTournamentsPage() {
                 <ul>
                   {region.countries.map(([code, country, city]) => (
                     <li key={code}>
-                      <span className="ct-code">{code}</span>
+                      <img className="ct-flag" src={`/assets/img/flags/${code.toLowerCase()}.svg`} alt="" width={36} height={24} loading="lazy" />
                       <span><b>{country}</b><small>{city}</small></span>
                     </li>
                   ))}

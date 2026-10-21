@@ -1,6 +1,9 @@
 import Link from "next/link";
 
 export const upcomingMini = {
+  slug: "trick-or-trade-2026",
+  startsAt: "2026-10-30T09:00:00Z",
+  endsAt: "2026-10-30T17:00:00Z",
   date: "Oct 30 · 9:00 AM UTC",
   name: "WTT Trick Or Trade 2026",
   prize: "$1,500",

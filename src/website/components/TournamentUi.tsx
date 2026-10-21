@@ -46,7 +46,7 @@ export function UpcomingMiniCard() {
         <div><small>Prize pool</small><b className="is-prize">{upcomingMini.prize}</b></div>
         <div><small>Entry fee</small><b>$10</b></div>
       </div>
-      <Link className="mt-event-cta" href="/#join">View details<Icon d={ICON.arrow} /></Link>
+      <Link className="mt-event-cta" href={`/mini-tournaments/${upcomingMini.slug}/`}>View details<Icon d={ICON.arrow} /></Link>
     </article>
   );
 }

@@ -444,6 +444,80 @@
 .sc-legend li.is-final::before{background:#B266FF}
 .sc-legend li.is-world::before{background:var(--gold)}
 
+/* Tournament detail page */
+.td-page{padding-block:32px 80px}
+.td-page .col{max-width:1120px}
+.td-back{display:inline-flex; align-items:center; gap:10px; color:var(--muted); font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; text-decoration:none}
+.td-back:hover{color:#fff}
+.td-back svg{width:16px; height:16px; transform:rotate(180deg)}
+
+.td-head{display:flex; flex-wrap:wrap; align-items:center; gap:18px 24px; margin:26px 0 22px}
+.td-head-ico{display:inline-grid; place-items:center; flex:none; width:52px; height:52px; border:1px solid rgba(153,51,255,.5); border-radius:10px; background:rgba(153,51,255,.12); color:#C08BFF}
+.td-head-ico svg{width:26px; height:26px}
+.td-head-title{flex:1 1 320px; min-width:0}
+.td-tags{display:flex; gap:6px; margin-bottom:8px}
+.td-status{display:inline-flex; align-items:center; padding:3px 9px; border-radius:6px; background:rgba(255,255,255,.08); font-size:12px; font-weight:700}
+.td-head h1{font-size:clamp(26px,3.4vw,36px); font-weight:800; line-height:1.1}
+.td-head-stats{display:flex; flex-wrap:wrap; gap:14px 26px; margin:0}
+.td-head-stats div{text-align:right}
+.td-head-stats dt{color:var(--muted); font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase}
+.td-head-stats dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:800}
+.td-countdown{display:inline-block; padding:4px 10px; border-radius:6px; background:linear-gradient(90deg,#B44CFF,#7E22CE); color:#fff; font-size:13px; white-space:nowrap}
+
+.td-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px; align-items:start}
+/* Poster art: bull candles (left) and bear candles (right) clash at the centre — generated SVG, no third-party image. */
+.td-poster{position:sticky; top:96px; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:14px; aspect-ratio:4/3.4; padding:32px 24px 28px; overflow:hidden; border:1px solid rgba(255,51,255,.3); border-radius:14px; text-align:center; isolation:isolate;
+  background:
+    linear-gradient(180deg, rgba(11,9,18,0) 40%, rgba(11,9,18,.75) 70%, rgba(11,9,18,.95)),
+    url("/assets/img/trick-or-trade-battle.svg") center / cover no-repeat,
+    #0B0912}
+.td-poster::before{content:""; position:absolute; inset:0; z-index:-1; background:radial-gradient(60% 45% at 50% 115%, rgba(153,51,255,.4), transparent 70%)}
+.td-poster-kicker{color:rgba(255,255,255,.75); font-size:12px; font-weight:700; letter-spacing:.28em; text-transform:uppercase}
+.td-poster strong{font-family:var(--display); font-size:clamp(40px,5.4vw,64px); font-weight:900; line-height:.92; text-transform:uppercase; color:#fff; background:linear-gradient(90deg,#22E39A,#33CCFF 35%,#FF33FF 65%,#FF3366); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 0 18px rgba(255,51,255,.45))}
+.td-poster strong em{display:block; font-style:normal; font-size:.4em; letter-spacing:.3em; color:#fff; -webkit-text-fill-color:#fff}
+.td-poster-prize{font-family:var(--display); font-size:clamp(20px,2.6vw,28px); font-weight:900; text-transform:uppercase; color:#fff}
+.td-poster-pills{display:flex; flex-wrap:wrap; justify-content:center; gap:8px}
+.td-poster-pills span{padding:5px 14px; border:1px solid rgba(153,51,255,.7); border-radius:999px; background:rgba(0,0,0,.35); font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase}
+.td-poster-pills .is-hot{border-color:transparent; background:linear-gradient(90deg,#33CCFF,#FF33FF)}
+
+.td-side{display:grid; gap:16px}
+.td-card{padding:22px; background:var(--alt); border:1px solid rgba(153,51,255,.2); border-radius:14px}
+.td-card h2{display:flex; align-items:center; gap:9px; font-size:18px; font-weight:800; margin-bottom:16px}
+.td-card h2 svg{width:18px; height:18px; color:#C08BFF}
+.td-details{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px 18px; margin:0}
+.td-details div{display:flex; gap:12px}
+.td-details svg{width:18px; height:18px; flex:none; margin-top:2px; color:var(--muted)}
+.td-details dt{color:var(--muted); font-size:13px}
+.td-details dd{margin:2px 0 0; font-weight:700; font-size:14.5px}
+.td-instruments{margin-top:18px; padding-top:16px; border-top:1px solid var(--line)}
+.td-instruments h3{display:flex; align-items:center; gap:8px; font-size:14.5px; font-weight:800}
+.td-instruments h3 svg{width:16px; height:16px; color:#C08BFF}
+.td-instruments p{margin:6px 0 0; color:var(--muted); font-size:14px}
+
+.td-money{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
+.td-money small{display:flex; align-items:center; gap:7px; color:var(--muted); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase}
+.td-money small svg{width:15px; height:15px; color:#FF33FF}
+.td-money b{display:block; margin-top:10px; font-family:var(--mono); font-size:24px}
+.td-money .is-prize,.td-round-meta .is-prize{color:#FF33FF}
+
+.td-prizes{display:grid; gap:8px; margin:0; padding:0; list-style:none}
+.td-prizes li{display:flex; justify-content:space-between; align-items:center; padding:11px 14px; border:1px solid var(--line); border-radius:10px}
+.td-prizes span{padding:2px 9px; border-radius:6px; background:rgba(255,255,255,.08); font-size:12.5px; font-weight:700}
+.td-prizes b{font-family:var(--mono); color:var(--bull)}
+
+.td-round{padding:16px; border:1px solid var(--line); border-radius:10px}
+.td-round-h{display:flex; justify-content:space-between; align-items:center; gap:10px}
+.td-round-h em{font-style:normal; color:#FF33FF}
+.td-round-meta{display:flex; flex-wrap:wrap; gap:8px 20px; margin-top:12px; color:var(--muted); font-size:13.5px}
+.td-round-meta span{display:inline-flex; align-items:center; gap:6px}
+.td-round-meta svg{width:15px; height:15px}
+.td-rules{margin-top:14px}
+
+.td-enroll{display:flex; align-items:center; justify-content:center; min-height:48px; border-radius:10px; background:linear-gradient(90deg,#33CCFF,#9933FF 55%,#FF33FF); color:#fff; font-weight:800; text-decoration:none; transition:filter .2s}
+.td-enroll:hover{filter:brightness(1.12)}
+.td-enroll:focus-visible{outline:2px solid var(--steel); outline-offset:3px}
+.td-closes{display:flex; justify-content:center; margin:0}
+
 /* Violet variant of the tournament page kit (Circuit) */
 .mt-badge.is-violet{border-color:rgba(153,51,255,.4); background:rgba(153,51,255,.1); color:#C08BFF}
 .mt-page.is-violet .mt-ico{background:rgba(153,51,255,.16); color:#C08BFF}
@@ -459,7 +533,7 @@
 .ct-region header p{margin:3px 0 0; color:var(--muted); font-size:14px}
 .ct-region ul{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin:16px 0 0; padding:0; list-style:none}
 .ct-region li{display:flex; align-items:center; gap:10px; min-width:0; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:rgba(255,255,255,.02)}
-.ct-code{display:inline-grid; place-items:center; flex:none; width:34px; height:24px; border-radius:5px; background:rgba(153,51,255,.16); color:#D9B8FF; font-family:var(--mono); font-size:11.5px; font-weight:700}
+.ct-flag{flex:none; width:36px; height:24px; border-radius:4px; object-fit:cover; box-shadow:0 0 0 1px rgba(255,255,255,.14)}
 .ct-region li b{display:block; font-size:13.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .ct-region li small{display:block; color:var(--muted); font-size:12px}
 
@@ -474,6 +548,8 @@
 .mt-cta .btn-row{justify-content:center}
 
 @media (max-width:960px){
+  .td-grid{grid-template-columns:minmax(0,1fr)}
+  .td-poster{position:static}
   .sc-sessions{grid-template-columns:repeat(2,minmax(0,1fr))}
   .sc-months{grid-template-columns:repeat(4,minmax(0,1fr))}
   .ct-region ul{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -488,6 +564,8 @@
   .tr-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .ct-region ul{grid-template-columns:repeat(2,minmax(0,1fr))}
   .rs-grid,.rs-steps{grid-template-columns:minmax(0,1fr)}
+  .td-head-stats div{text-align:left}
+  .td-details,.td-money{grid-template-columns:minmax(0,1fr)}
   .sc-timeline{--sc-label:84px; padding:18px 14px 12px}
   .sc-track-label{font-size:12px}
   .sc-hours span:nth-child(even){visibility:hidden}
