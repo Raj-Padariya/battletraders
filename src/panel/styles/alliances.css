@@ -1,0 +1,301 @@
+/* =====================================================================
+   BattleTrader app — Alliances (alliances.html) + Alliance detail (alliance.html). Prefix al-.
+   Shared glass (.ac, .ah, .ab2, .tour-*) comes from app.css.
+   ===================================================================== */
+
+.al-page{display:flex; flex-direction:column; gap:14px}
+.al-sr{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap}
+
+/* glass surface for the al- card types (matches .ac in app.css) */
+.al-card,.al-banner,.al-stat{
+  position:relative; isolation:isolate; overflow:hidden; min-width:0;
+  background:radial-gradient(220px circle at var(--mx,50%) var(--my,-40%), rgba(255,255,255,.08), transparent 70%), linear-gradient(155deg, rgba(255,255,255,.075), rgba(255,255,255,.018) 45%, rgba(255,255,255,.035)), rgba(14,14,24,.5);
+  border:1px solid rgba(255,255,255,.1); border-radius:18px;
+  box-shadow:0 24px 50px -28px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.12);
+  -webkit-backdrop-filter:blur(22px) saturate(160%); backdrop-filter:blur(22px) saturate(160%);
+}
+
+/* ---------- crest avatar: initials on a coloured shield ---------- */
+.al-crest{
+  --crest:#A64DFF; flex:none; position:relative; width:52px; height:58px; display:grid; place-items:center; padding-bottom:4px;
+  font-family:var(--display); font-size:17px; font-weight:800; letter-spacing:.02em; color:#fff; text-shadow:0 1px 4px rgba(0,0,0,.5);
+  background:linear-gradient(160deg, color-mix(in srgb, var(--crest) 85%, #fff), var(--crest) 45%, color-mix(in srgb, var(--crest) 35%, #0B0C10));
+  clip-path:polygon(50% 0, 100% 14%, 100% 58%, 50% 100%, 0 58%, 0 14%);
+  filter:drop-shadow(0 0 10px color-mix(in srgb, var(--crest) 55%, transparent));
+}
+.al-crest::after{content:""; position:absolute; inset:3px; clip-path:inherit; border:0; background:linear-gradient(180deg, rgba(255,255,255,.28), transparent 45%); pointer-events:none}
+.al-crest-xl{width:96px; height:108px; font-size:32px}
+
+/* ---------- list hero ---------- */
+.al-hero{min-height:220px; padding-bottom:84px}
+.al-tag{color:#5CDBFF; background:rgba(51,204,255,.1); border-color:rgba(51,204,255,.45)}
+.al-tag svg{width:14px; height:14px}
+.al-hero-side{display:flex; flex-direction:column; align-items:flex-end; gap:16px}
+.al-hero-shield{width:76px; height:84px; display:grid; place-items:center; color:#fff; background:linear-gradient(160deg,#33CCFF,#A64DFF 55%,#FF33FF); clip-path:polygon(50% 0, 100% 14%, 100% 58%, 50% 100%, 0 58%, 0 14%); filter:drop-shadow(0 0 18px rgba(166,77,255,.9)); animation:ap-bob 4s ease-in-out infinite}
+.al-hero-shield svg{width:34px; height:34px}
+.al-create{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:46px; padding:10px 20px; font:inherit; font-family:var(--display); font-size:13.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#fff; text-decoration:none; background:var(--grad); background-size:200% 100%; border:0; border-radius:11px; cursor:pointer; box-shadow:0 10px 26px -10px rgba(255,51,255,.9); transition:background-position .4s}
+.al-create:hover{background-position:100% 0}
+.al-create svg{width:17px; height:17px}
+.al-create[hidden]{display:none}
+
+/* ---------- search ---------- */
+.al-search{position:relative; display:flex; align-items:center; gap:10px; padding:0 14px; min-height:52px; border-radius:14px; background:linear-gradient(155deg, rgba(255,255,255,.06), rgba(255,255,255,.015)), rgba(14,14,24,.55); border:1px solid rgba(255,255,255,.1); -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px)}
+.al-search:focus-within{border-color:rgba(51,204,255,.6); box-shadow:0 0 0 3px rgba(51,204,255,.15)}
+.al-search > svg{width:18px; height:18px; color:var(--muted)}
+.al-search input{flex:1; min-width:0; min-height:48px; font:inherit; font-size:15px; color:#fff; background:none; border:0; outline:none}
+.al-search input::placeholder{color:rgba(255,255,255,.4)}
+.al-count{flex:none; font-family:var(--mono); font-size:12px; color:var(--muted); white-space:nowrap}
+
+/* ---------- alliance card grid ---------- */
+.al-grid{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px}
+.al-grid[hidden]{display:none}
+.al-card{--crest:#A64DFF; display:flex; flex-direction:column; transition:transform .2s, border-color .2s, box-shadow .2s}
+.al-card::before{content:""; position:absolute; left:0; right:0; top:0; height:3px; z-index:1; background:linear-gradient(90deg, var(--crest), transparent 80%); opacity:.85}
+.al-card:hover{transform:translateY(-3px); border-color:color-mix(in srgb, var(--crest) 50%, transparent); box-shadow:0 30px 60px -28px rgba(0,0,0,.95), 0 0 36px -16px color-mix(in srgb, var(--crest) 80%, transparent)}
+.al-card-link{display:block; flex:1; padding:18px 18px 12px; color:inherit; text-decoration:none; border-radius:18px 18px 0 0}
+.al-card-h{display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:12px}
+.al-card-id{display:flex; flex-direction:column; gap:5px; min-width:0}
+.al-card-name{font-family:var(--display); font-size:15.5px; font-weight:800; text-transform:uppercase; letter-spacing:.01em; line-height:1.2; overflow-wrap:anywhere}
+.al-card-meta{display:flex; flex-wrap:wrap; align-items:center; gap:6px}
+.al-card-tag{font-family:var(--mono); font-size:12px; font-style:normal; font-weight:700; color:#5CDBFF}
+.al-tier,.al-tierchip{display:inline-flex; align-items:center; padding:1px 8px; font-family:var(--accent); font-size:11px; font-style:normal; font-weight:700; letter-spacing:.12em; text-transform:uppercase; border-radius:4px; color:#E09A5B; background:rgba(224,154,91,.12); border:1px solid rgba(224,154,91,.45)}
+.t-silver{color:#C9D1E0; background:rgba(201,209,224,.1); border-color:rgba(201,209,224,.45)}
+.t-gold{color:#FFC433; background:rgba(255,196,51,.12); border-color:rgba(255,196,51,.5)}
+.al-card-cap{display:inline-flex; align-items:center; gap:5px; padding:4px 9px; font-family:var(--mono); font-size:12px; color:rgba(255,255,255,.8); background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:8px; white-space:nowrap}
+.al-card-cap svg{width:14px; height:14px; color:var(--muted)}
+.al-card-stats{display:grid; grid-template-columns:1fr 1fr; gap:1px; margin:16px 0 0; border-radius:13px; overflow:hidden; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.08)}
+.al-card-stats div{display:flex; flex-direction:column; gap:3px; padding:10px 12px; background:rgba(10,10,18,.72)}
+.al-card-stats dt{display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--muted)}
+.al-card-stats dt svg{width:13px; height:13px}
+.al-card-stats dd{margin:0; font-family:var(--mono); font-size:15px; font-weight:700; color:#fff}
+.c-pts dt svg{color:#FFC433}
+.c-win dt svg{color:#33CCFF}
+.c-mom dt svg,.c-mom dd{color:#22E39A}
+.c-rec dt svg{color:#FF5CFF}
+.al-card-f{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 18px 16px; border-top:1px solid rgba(255,255,255,.06)}
+.al-dom{display:flex; align-items:center; gap:6px; margin:0; min-width:0; font-family:var(--accent); font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#FFC433}
+.al-dom svg{width:15px; height:15px; fill:#FFC433; filter:drop-shadow(0 0 6px rgba(255,196,51,.7))}
+.al-dom b{font-family:var(--mono); letter-spacing:0}
+.al-act{flex:none; display:inline-flex; align-items:center; gap:6px; min-height:36px; padding:6px 13px; font:inherit; font-size:12.5px; font-weight:700; border-radius:9px; white-space:nowrap}
+.al-act svg{width:14px; height:14px}
+.al-act-btn{color:#fff; background:linear-gradient(90deg, rgba(51,204,255,.3), rgba(166,77,255,.35)); border:1px solid rgba(51,204,255,.55); cursor:pointer; transition:background .15s, box-shadow .15s}
+.al-act-btn:hover{background:linear-gradient(90deg, rgba(51,204,255,.5), rgba(166,77,255,.55)); box-shadow:0 0 18px -6px rgba(51,204,255,.9)}
+.al-act-btn.is-requested,.al-act-btn:disabled{cursor:default; color:#FFC433; background:rgba(255,196,51,.08); border-color:rgba(255,196,51,.4); box-shadow:none}
+.al-act-invite{color:#FF8CFF; background:rgba(255,51,255,.08); border:1px solid rgba(255,51,255,.4)}
+.al-act-in{color:#22E39A; background:rgba(34,227,154,.08); border:1px solid rgba(34,227,154,.4)}
+
+/* empty search */
+.al-empty,.al-missing{display:flex; flex-direction:column; align-items:center; gap:8px; padding:44px 20px; text-align:center; border-radius:18px; background:rgba(14,14,24,.5); border:1.5px dashed rgba(166,77,255,.4)}
+.al-empty[hidden],.al-missing[hidden]{display:none}
+.al-empty-ico{width:58px; height:58px; display:grid; place-items:center; margin-bottom:6px; border-radius:16px; color:#C77DFF; background:rgba(166,77,255,.12); border:1px solid rgba(166,77,255,.35)}
+.al-empty-ico svg{width:26px; height:26px}
+.al-empty b{font-size:16px; overflow-wrap:anywhere}
+.al-empty p,.al-missing p{margin:0; font-size:13.5px; color:var(--muted)}
+.al-empty-btns{display:flex; flex-wrap:wrap; justify-content:center; gap:10px}
+.al-empty-btns .ab2{font:inherit; font-size:13.5px; font-weight:600; cursor:pointer}
+.al-empty-btns .ab2[hidden]{display:none}
+.al-missing h1{font-size:22px; text-transform:none}
+.al-missing .al-btn{margin-top:8px}
+
+.al-note{display:flex; align-items:center; gap:7px; margin:2px 0 0; font-size:12px; color:rgba(255,255,255,.42)}
+.al-note svg{width:14px; height:14px}
+
+/* ---------- buttons ---------- */
+.al-btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:10px 18px; font:inherit; font-size:14px; font-weight:700; color:#fff; text-decoration:none; background:var(--grad); background-size:200% 100%; border:0; border-radius:11px; cursor:pointer; box-shadow:0 8px 22px -10px rgba(255,51,255,.9); transition:background-position .4s}
+.al-btn:hover{background-position:100% 0}
+.al-btn svg{width:16px; height:16px}
+.al-btn:disabled{cursor:default; background:rgba(255,255,255,.05); box-shadow:none; color:rgba(255,255,255,.75); border:1px solid var(--line)}
+.al-btn.is-locked:disabled{color:#FF8CFF; background:rgba(255,51,255,.08); border-color:rgba(255,51,255,.4)}
+.al-btn.is-gold:disabled{color:#FFC433; background:rgba(255,196,51,.1); border-color:rgba(255,196,51,.45)}
+.al-btn.is-green:disabled{color:#22E39A; background:rgba(34,227,154,.08); border-color:rgba(34,227,154,.45)}
+.al-btn-ghost{min-height:44px; padding:10px 18px; font:inherit; font-size:14px; font-weight:600; color:rgba(255,255,255,.8); background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:11px; cursor:pointer}
+.al-btn-ghost:hover{color:#fff; border-color:rgba(255,255,255,.25)}
+
+/* ---------- create dialog ---------- */
+.al-modal{width:min(520px, calc(100vw - 24px)); max-height:calc(100dvh - 24px); margin:auto; padding:0; color:#fff; border-radius:18px; background:linear-gradient(160deg, rgba(30,20,56,.88), rgba(10,10,20,.92)); border:1px solid rgba(166,77,255,.5); box-shadow:0 40px 90px -30px rgba(0,0,0,.95), 0 0 50px -18px rgba(166,77,255,.8), inset 0 1px 0 rgba(255,255,255,.08); -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px); overflow:auto}
+.al-modal::backdrop{background:rgba(3,3,8,.75); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px)}
+.al-modal[open]{animation:al-pop .25s ease-out both}
+@keyframes al-pop{from{opacity:0; transform:translateY(10px) scale(.98)}}
+.al-form{display:flex; flex-direction:column; gap:16px; padding:22px}
+.al-modal-h{display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:start; gap:12px}
+.al-modal-ico{width:44px; height:48px; display:grid; place-items:center; color:#fff; background:linear-gradient(160deg,#33CCFF,#A64DFF 55%,#FF33FF); clip-path:polygon(50% 0, 100% 14%, 100% 58%, 50% 100%, 0 58%, 0 14%)}
+.al-modal-ico svg{width:20px; height:20px}
+.al-modal-h h2{font-family:var(--display); font-size:19px; font-weight:800; text-transform:none; letter-spacing:-.01em}
+.al-modal-h p{margin:3px 0 0; font-size:13px; color:var(--muted)}
+.al-x{width:36px; height:36px; display:grid; place-items:center; color:var(--muted); background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:9px; cursor:pointer}
+.al-x:hover{color:#fff}
+.al-x svg{width:16px; height:16px}
+.al-field{display:flex; flex-direction:column; gap:6px}
+.al-field label{font-size:13px; font-weight:700}
+.al-field label i{font-style:normal; color:#FF5CFF}
+.al-field label small{font-weight:500; color:var(--muted)}
+.al-field input,.al-field textarea,.al-select select{width:100%; min-height:44px; padding:10px 12px; font:inherit; font-size:14.5px; color:#fff; background:rgba(8,8,14,.7); border:1px solid rgba(255,255,255,.12); border-radius:10px; outline:none; transition:border-color .15s, box-shadow .15s}
+.al-field textarea{resize:vertical; min-height:84px; line-height:1.5}
+#al-tag{font-family:var(--mono); letter-spacing:.12em; text-transform:uppercase}
+.al-field input:focus-visible,.al-field textarea:focus-visible,.al-select select:focus-visible{border-color:#33CCFF; box-shadow:0 0 0 3px rgba(51,204,255,.2); outline:2px solid var(--steel); outline-offset:1px}
+.al-field [aria-invalid="true"]{border-color:#FF4D6D; box-shadow:0 0 0 3px rgba(255,77,109,.15)}
+.al-hint{margin:0; font-size:12px; color:var(--muted)}
+.al-counter{align-self:flex-end; font-family:var(--mono)}
+.al-err{display:flex; align-items:center; gap:6px; margin:0; font-size:12.5px; font-weight:600; color:#FF6B85}
+.al-err[hidden]{display:none}
+.al-select{position:relative}
+.al-select select{appearance:none; -webkit-appearance:none; padding-right:38px; cursor:pointer}
+.al-select select option{background:#12121C; color:#fff}
+.al-select svg{position:absolute; right:12px; top:50%; width:16px; height:16px; transform:translateY(-50%); color:var(--muted); pointer-events:none}
+.al-modal-f{display:flex; justify-content:flex-end; gap:10px; padding-top:4px}
+
+/* ---------- detail ---------- */
+.al-back{align-self:flex-start; display:inline-flex; align-items:center; gap:7px; min-height:38px; padding:6px 12px; font-size:13px; font-weight:600; color:var(--muted); text-decoration:none; border-radius:10px; background:rgba(255,255,255,.03); border:1px solid var(--line)}
+.al-back:hover{color:#fff; border-color:rgba(255,255,255,.25)}
+.al-back svg{width:15px; height:15px}
+#al-found{display:flex; flex-direction:column; gap:14px}
+#al-found[hidden]{display:none}
+.al-top{display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:14px; align-items:stretch}
+.al-banner{--crest:#A64DFF; display:flex; align-items:flex-start; gap:22px; padding:26px; background:radial-gradient(90% 120% at 0% 0%, color-mix(in srgb, var(--crest) 30%, transparent), transparent 60%), linear-gradient(155deg, rgba(255,255,255,.075), rgba(255,255,255,.018) 45%), rgba(14,14,24,.55); border-color:color-mix(in srgb, var(--crest) 40%, transparent)}
+.al-banner::before{content:""; position:absolute; left:0; right:0; top:0; height:3px; background:linear-gradient(90deg, var(--crest), #FF33FF, transparent)}
+.al-banner-txt{display:flex; flex-direction:column; align-items:flex-start; gap:10px; min-width:0}
+.al-tierchip{font-size:12px; padding:3px 10px}
+.al-d-name{display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; font-size:clamp(22px,3vw,32px); font-weight:800; line-height:1.1; text-transform:uppercase; letter-spacing:-.015em; overflow-wrap:anywhere}
+.al-d-name > span:first-child{min-width:0}
+.al-tagbadge{padding:3px 10px; font-family:var(--mono); font-size:14px; font-weight:700; letter-spacing:.06em; color:#5CDBFF; background:rgba(51,204,255,.1); border:1px solid rgba(51,204,255,.5); border-radius:7px; box-shadow:0 0 16px -6px rgba(51,204,255,.9)}
+.al-d-desc{margin:0; max-width:64ch; font-size:14.5px; line-height:1.6; color:rgba(255,255,255,.75); overflow-wrap:anywhere}
+.al-d-desc.is-empty{font-style:italic; color:var(--muted)}
+.al-chips{display:flex; flex-wrap:wrap; gap:8px; margin:4px 0 0; padding:0; list-style:none}
+.al-chips li{display:inline-flex; align-items:center; gap:6px; min-height:30px; padding:4px 10px; font-size:12.5px; font-weight:600; color:rgba(255,255,255,.8); background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:8px}
+.al-chips svg{width:14px; height:14px; color:var(--muted)}
+.al-policy.p-invite{color:#FF8CFF; background:rgba(255,51,255,.08); border-color:rgba(255,51,255,.45); text-transform:uppercase; letter-spacing:.08em; font-family:var(--accent); font-weight:700}
+.al-policy.p-invite svg{color:#FF8CFF}
+.al-policy.p-approval{color:#FFC433; border-color:rgba(255,196,51,.4)}
+.al-policy.p-approval svg{color:#FFC433}
+.al-policy.p-open{color:#22E39A; border-color:rgba(34,227,154,.4)}
+.al-policy.p-open svg{color:#22E39A}
+.al-led{color:#FFC433!important; border-color:rgba(255,196,51,.35)!important}
+.al-led svg{color:#FFC433!important}
+
+.al-side{display:flex; flex-direction:column; gap:14px; min-width:0}
+.al-joincard{--glow:#33CCFF; display:flex; flex-direction:column; align-items:flex-start; gap:8px}
+.al-join-ico{width:44px; height:48px; display:grid; place-items:center; color:#fff; background:linear-gradient(160deg,#33CCFF,#A64DFF); clip-path:polygon(50% 0, 100% 14%, 100% 58%, 50% 100%, 0 58%, 0 14%)}
+.al-join-ico svg{width:20px; height:20px}
+.al-joincard h2{font-family:var(--display); font-size:16px; font-weight:700; text-transform:none}
+.al-joincard p{margin:0; font-size:13px; line-height:1.55; color:var(--muted)}
+.al-join-btn{width:100%; margin-top:6px}
+.al-ach{--glow:#FFC433}
+.al-ach .ac-h{margin-bottom:10px}
+.al-ach-empty{display:flex; flex-direction:column; align-items:center; gap:4px; padding:14px 8px; text-align:center; border-radius:12px; border:1px dashed rgba(255,255,255,.14)}
+.al-ach-empty span{width:40px; height:40px; display:grid; place-items:center; margin-bottom:4px; color:rgba(255,255,255,.4); background:rgba(255,255,255,.05); border-radius:12px}
+.al-ach-empty svg{width:19px; height:19px}
+.al-ach-empty b{font-size:13.5px}
+.al-ach-empty p{margin:0; font-size:12px; color:var(--muted)}
+
+/* stat cards */
+.al-kpis{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px}
+.al-stat{--c:#FFC433; padding:18px; border-color:color-mix(in srgb, var(--c) 30%, rgba(255,255,255,.1))}
+.al-stat::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--c); box-shadow:0 0 14px var(--c)}
+.al-stat::after{content:""; position:absolute; z-index:-1; right:-50px; top:-60px; width:170px; height:170px; border-radius:50%; background:radial-gradient(circle, color-mix(in srgb, var(--c) 26%, transparent), transparent 65%); pointer-events:none}
+.s-dom{--c:#FFC433}
+.s-mom{--c:#22E39A}
+.s-rec{--c:#33CCFF}
+.s-pts{--c:#FF33FF}
+.al-stat-h{display:flex; align-items:center; gap:9px}
+.al-stat-ico{flex:none; width:32px; height:32px; display:grid; place-items:center; border-radius:9px; color:var(--c); background:color-mix(in srgb, var(--c) 14%, transparent); border:1px solid color-mix(in srgb, var(--c) 40%, transparent)}
+.al-stat-ico svg{width:16px; height:16px}
+.al-stat-h h2{flex:1; min-width:0; font-family:var(--accent); font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.75)}
+.al-info{flex:none; width:32px; height:32px; display:grid; place-items:center; color:var(--muted); background:none; border:0; border-radius:8px; cursor:pointer}
+.al-info:hover,.al-info[aria-expanded="true"]{color:#fff; background:rgba(255,255,255,.06)}
+.al-info svg{width:16px; height:16px}
+.al-tip{margin:10px 0 0; padding:9px 11px; font-size:12px; line-height:1.5; color:rgba(255,255,255,.8); background:rgba(8,8,14,.7); border:1px solid color-mix(in srgb, var(--c) 35%, transparent); border-radius:10px}
+.al-stat-val{margin:12px 0 0; font-family:var(--mono); font-size:30px; font-weight:700; line-height:1.1; color:var(--c); text-shadow:0 0 18px color-mix(in srgb, var(--c) 50%, transparent); overflow-wrap:anywhere}
+.al-stat-rows{display:flex; flex-direction:column; gap:7px; margin:14px 0 0; padding-top:12px; border-top:1px solid rgba(255,255,255,.07)}
+.al-stat-rows div{display:flex; justify-content:space-between; gap:10px; font-size:12.5px}
+.al-stat-rows dt{color:var(--muted)}
+.al-stat-rows dd{margin:0; font-family:var(--mono); font-weight:700; color:#fff; white-space:nowrap}
+
+/* members */
+.al-members{--glow:#A64DFF}
+.al-members .ac-h h2 > span{display:inline}
+.al-mem-head{display:grid; grid-template-columns:minmax(0,1.6fr) repeat(4, minmax(0,1fr)) 28px; gap:12px; padding:0 14px 8px; font-family:var(--accent); font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.42)}
+.al-mem-head span:last-child{text-align:right}
+.al-mem-list{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+.al-mem{display:grid; grid-template-columns:minmax(0,1.6fr) repeat(4, minmax(0,1fr)) 28px; align-items:center; gap:12px; padding:10px 14px; color:inherit; text-decoration:none; border-radius:14px; background:linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.015) 60%); border:1px solid rgba(255,255,255,.09); transition:border-color .15s, background .15s}
+.al-mem:hover{border-color:rgba(166,77,255,.5); background:linear-gradient(160deg, rgba(166,77,255,.14), rgba(255,255,255,.02) 60%)}
+.al-mem-who{display:flex; align-items:center; gap:11px; min-width:0}
+.al-mem-av{--av:#A64DFF; flex:none; width:40px; height:40px; display:grid; place-items:center; border-radius:50%; font-family:var(--display); font-size:13px; font-weight:800; color:#fff; background:linear-gradient(140deg, var(--av), color-mix(in srgb, var(--av) 40%, #0B0C10)); box-shadow:0 0 0 2px rgba(255,255,255,.08)}
+.al-mem-id{display:flex; flex-direction:column; align-items:flex-start; gap:3px; min-width:0}
+.al-mem-id b{max-width:100%; font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.al-role{display:inline-flex; align-items:center; gap:4px; padding:1px 7px; font-family:var(--accent); font-size:11px; font-style:normal; font-weight:700; letter-spacing:.1em; text-transform:uppercase; border-radius:4px; color:#5CDBFF; background:rgba(51,204,255,.1); border:1px solid rgba(51,204,255,.4)}
+.al-role svg{width:11px; height:11px}
+.al-role.r-leader{color:#FFC433; background:rgba(255,196,51,.12); border-color:rgba(255,196,51,.5)}
+.al-role.r-recruit{color:#22E39A; background:rgba(34,227,154,.1); border-color:rgba(34,227,154,.4)}
+.al-mem-c{display:flex; flex-direction:column; min-width:0}
+.al-mem-c small{display:none; font-size:11px; color:var(--muted)}
+.al-mem-c b{font-family:var(--mono); font-size:13.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.al-mem-c.c-style b{font-family:inherit; font-weight:700; color:#C77DFF}
+.al-mem-c.c-online b{font-family:inherit; font-weight:600; font-size:13px; color:rgba(255,255,255,.7)}
+.al-mem-c.c-online b.is-on{color:#22E39A}
+.al-mem-c.c-pts b{color:#FFC433}
+.al-mem-go{display:grid; place-items:center; color:var(--muted)}
+.al-mem-go svg{width:16px; height:16px}
+.al-mem:hover .al-mem-go{color:#fff}
+
+/* focus */
+.al-create:focus-visible,.al-act-btn:focus-visible,.al-card-link:focus-visible,.al-btn:focus-visible,.al-btn-ghost:focus-visible,.al-x:focus-visible,.al-back:focus-visible,.al-info:focus-visible,.al-mem:focus-visible,.al-empty-btns .ab2:focus-visible{outline:2px solid var(--steel); outline-offset:2px}
+.al-search input:focus-visible{outline:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1240px){
+  .al-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .al-kpis{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .al-top{grid-template-columns:minmax(0,1fr) 280px}
+}
+@media (max-width:960px){
+  .al-top{grid-template-columns:1fr}
+  .al-side{display:grid; grid-template-columns:1fr 1fr}
+  .al-mem-head{display:none}
+  .al-mem{grid-template-columns:minmax(0,1fr) repeat(2, minmax(0,auto)) 20px; row-gap:10px}
+  .al-mem-who{grid-column:1 / span 3}
+  .al-mem-go{grid-column:4; grid-row:1}
+  .al-mem-c small{display:block}
+  .al-mem .c-trades{grid-column:1; grid-row:2}
+  .al-mem .c-style{grid-column:2 / span 2; grid-row:2}
+  .al-mem .c-online{grid-column:1; grid-row:3}
+  .al-mem .c-pts{grid-column:2 / span 2; grid-row:3}
+}
+@media (max-width:860px){
+  .al-hero{grid-template-columns:1fr}
+  .al-hero-side{flex-direction:row; align-items:center; justify-content:space-between}
+  .al-hero-shield{display:none}
+}
+@media (max-width:720px){
+  .al-grid{grid-template-columns:1fr}
+  .al-side{grid-template-columns:1fr}
+  .al-banner{flex-direction:column; gap:14px; padding:20px 16px}
+  .al-crest-xl{width:76px; height:86px; font-size:26px}
+  .al-mem{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 20px}
+  .al-mem-who{grid-column:1 / span 2}
+  .al-mem-go{grid-column:3}
+  .al-mem .c-style,.al-mem .c-pts{grid-column:2}
+}
+@media (max-width:560px){
+  .al-kpis{grid-template-columns:1fr}
+  .al-hero-side .al-create{width:100%}
+  .al-hero-side{flex-direction:column; align-items:stretch}
+  .al-search{padding:0 10px}
+  .al-count{display:none}
+  .al-card-link{padding:16px 14px 10px}
+  .al-card-f{padding:10px 14px 14px; flex-wrap:wrap}
+  .al-card-stats div{padding:9px 10px}
+  .al-form{padding:18px 16px}
+  .al-modal-f{flex-direction:column-reverse}
+  .al-modal-f button{width:100%}
+}
+@media (max-width:360px){
+  .al-card-h{grid-template-columns:auto minmax(0,1fr)}
+  .al-card-cap{grid-column:1 / -1; justify-self:start}
+  .al-crest{width:44px; height:50px; font-size:15px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .al-hero-shield,.al-modal[open]{animation:none}
+  .al-card,.al-create,.al-act-btn,.al-btn,.al-mem,.al-field input,.al-field textarea{transition:none}
+  .al-card:hover{transform:none}
+}

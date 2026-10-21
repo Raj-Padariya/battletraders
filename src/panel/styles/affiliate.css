@@ -1,0 +1,199 @@
+/* =====================================================================
+   BattleTrader app — Affiliate page (prefix aff-)
+   Builds on app.css: .ah hero, .ac cards, .ak tiles.
+   ===================================================================== */
+
+.aff-sr{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap}
+
+/* hero */
+.aff-hero{grid-template-columns:minmax(0,1fr) auto; min-height:230px}
+.aff-hero-ico{width:52px; height:58px; margin-bottom:14px; display:grid; place-items:center; color:#fff; clip-path:polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background:linear-gradient(160deg,#33CCFF,#A64DFF 55%,#FF33FF); filter:drop-shadow(0 0 12px rgba(166,77,255,.8))}
+.aff-hero-ico svg{width:24px; height:24px}
+.aff-hero-ico.is-bolt{background:linear-gradient(160deg,#FFE27A,#FF33FF)}
+.aff-tag{color:#fff; background:rgba(166,77,255,.16); border-color:rgba(166,77,255,.5)}
+.aff-tag svg{width:14px; height:14px}
+.aff-code-big{margin:10px 0 0; font-family:var(--mono); font-size:clamp(28px,5vw,46px); font-weight:700; letter-spacing:.16em; color:#5CDBFF; text-shadow:0 0 22px rgba(51,204,255,.6); overflow-wrap:anywhere}
+.aff-hero-stats{display:grid; gap:10px; margin:0; min-width:200px}
+.aff-hero-stats div{display:flex; flex-direction:column-reverse; gap:2px; padding:12px 16px; border-radius:14px; background:rgba(8,8,14,.55); border:1px solid rgba(255,255,255,.1); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
+.aff-hero-stats dt{font-family:var(--accent); font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.aff-hero-stats dd{margin:0; font-family:var(--mono); font-size:26px; font-weight:700; color:#fff}
+.aff-hero-stats dd.is-cash{color:#22E39A}
+
+/* buttons */
+.aff-btn,.aff-btn2,.aff-danger{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:10px 20px; font:inherit; font-family:var(--display); font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#fff; border-radius:11px; cursor:pointer; transition:background-position .4s, border-color .15s, background .15s, opacity .15s}
+.aff-btn{background:linear-gradient(90deg,#33CCFF,#A64DFF 50%,#FF33FF,#A64DFF); background-size:200% 100%; border:0; box-shadow:0 10px 26px -12px rgba(255,51,255,.9)}
+.aff-btn:hover{background-position:100% 0}
+.aff-btn[aria-busy="true"]{cursor:progress; opacity:.75}
+.aff-btn2{background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.18)}
+.aff-btn2:hover{border-color:rgba(166,77,255,.6); background:rgba(166,77,255,.14)}
+.aff-danger{background:rgba(255,77,109,.16); border:1px solid rgba(255,77,109,.55)}
+.aff-danger:hover{background:rgba(255,77,109,.3)}
+.aff-btn svg,.aff-btn2 svg,.aff-danger svg{width:16px; height:16px}
+.aff-spin{width:16px; height:16px; border-radius:50%; border:2px solid rgba(255,255,255,.35); border-top-color:#fff; animation:aff-spin .7s linear infinite}
+@keyframes aff-spin{to{transform:rotate(360deg)}}
+
+/* join card */
+.aff-join{display:flex; flex-direction:column; align-items:center; max-width:640px; margin:14px auto 0; padding:30px 22px; text-align:center; --glow:#FF33FF}
+.aff-join-ico{width:60px; height:60px; display:grid; place-items:center; border-radius:16px; color:#FF8CFF; background:linear-gradient(160deg, rgba(255,51,255,.22), rgba(166,77,255,.08)); border:1px solid rgba(255,51,255,.45); box-shadow:0 0 30px -8px rgba(255,51,255,.7)}
+.aff-join-ico svg{width:28px; height:28px}
+.aff-join h2{margin:16px 0 0; font-family:var(--display); font-size:clamp(16px,2.4vw,20px); font-weight:800; letter-spacing:.04em; text-transform:uppercase}
+.aff-join p{margin:10px 0 20px; max-width:46ch; font-size:14px; line-height:1.6; color:rgba(255,255,255,.72)}
+
+/* layout */
+.aff-grid{display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); gap:14px; margin-top:14px}
+.aff-span-7{grid-column:span 7}
+.aff-span-5{grid-column:span 5}
+.aff-span-12{grid-column:span 12}
+.aff-lead{margin:0 0 14px; font-size:13.5px; line-height:1.6; color:rgba(255,255,255,.72)}
+
+/* ranks */
+.aff-note{display:flex; align-items:flex-start; gap:10px; margin:0 0 14px; padding:12px 14px; font-size:13px; line-height:1.55; color:rgba(255,255,255,.82); border-radius:12px; background:rgba(34,227,154,.08); border:1px solid rgba(34,227,154,.5)}
+.aff-note svg{width:18px; height:18px; margin-top:1px; color:#22E39A}
+.aff-note b{color:#22E39A}
+.aff-rank-list,.aff-tiers,.aff-bullets,.aff-steps,.aff-hist{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.aff-rank{--rk:#A64DFF; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:14px; padding:12px 14px; border-radius:14px; background:linear-gradient(90deg, color-mix(in srgb, var(--rk) 12%, transparent), rgba(255,255,255,.02) 70%); border:1px solid color-mix(in srgb, var(--rk) 35%, transparent)}
+.aff-rank-ico{--rk:#A64DFF; width:42px; height:46px; display:grid; place-items:center; color:var(--rk); background:color-mix(in srgb, var(--rk) 16%, rgba(8,8,14,.6)); clip-path:polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%)}
+.aff-rank .aff-rank-ico{--rk:inherit}
+.aff-rank-ico svg{width:19px; height:19px}
+.aff-rank-ico.is-big{width:56px; height:62px}
+.aff-rank-ico.is-big svg{width:26px; height:26px}
+.aff-rank-txt{display:flex; flex-direction:column; min-width:0}
+.aff-rank-txt b{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-family:var(--display); font-size:14.5px; color:var(--rk)}
+.aff-rank-txt em{padding:1px 8px; font-style:normal; font-family:var(--accent); font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#fff; background:#A64DFF; border-radius:4px}
+.aff-rank-txt small{font-size:12.5px; color:var(--muted)}
+.aff-rank-vals{display:flex; gap:16px; margin:0}
+.aff-rank-vals div{display:flex; flex-direction:column-reverse; align-items:flex-end}
+.aff-rank-vals dt{font-size:11px; color:var(--muted); white-space:nowrap}
+.aff-rank-vals dd{margin:0; font-family:var(--mono); font-size:15px; font-weight:700}
+
+.aff-bullets li{display:flex; align-items:flex-start; gap:10px; font-size:13.5px; line-height:1.55; color:rgba(255,255,255,.8)}
+.aff-bullets svg{width:18px; height:18px; margin-top:1px; padding:3px; border-radius:50%; color:#22E39A; background:rgba(34,227,154,.14); border:1px solid rgba(34,227,154,.4)}
+
+/* tiles */
+.aff-tiles{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px; margin-top:14px}
+.aff-tile{width:100%; font:inherit; text-align:left; color:#fff; cursor:pointer}
+.aff-tile .ak-val{font-size:24px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.aff-tile .ak-sub{color:var(--muted); font-size:11.5px}
+.aff-tile:hover .ak-sub{color:var(--c)}
+.k-pink .ak-val{color:#FF8CFF}
+.k-green .ak-val{color:#22E39A}
+.aff-tix{display:flex; flex-wrap:wrap; gap:6px 10px; font-size:16px!important}
+.aff-tix i{display:inline-flex; align-items:center; gap:4px; font-style:normal}
+.aff-tix svg{width:16px; height:16px}
+.aff-tix .t-mini svg{color:#C77DFF}
+.aff-tix .t-circuit svg{color:#FF5CFF}
+.aff-tix .t-main svg{color:#FFC433}
+
+/* link */
+.aff-link{display:block; width:100%; min-height:46px; padding:10px 14px; font-family:var(--mono); font-size:13.5px; color:#5CDBFF; background:rgba(8,8,14,.6); border:1.5px dashed rgba(51,204,255,.45); border-radius:12px; text-overflow:ellipsis}
+.aff-link:focus-visible{outline:2px solid var(--steel); outline-offset:2px}
+.aff-btn-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
+
+/* my rank */
+.aff-me-rank{display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:14px}
+.aff-me-txt{display:flex; flex-direction:column; min-width:0}
+.aff-me-txt b{font-family:var(--display); font-size:20px; font-weight:800; letter-spacing:.06em; text-transform:uppercase}
+.aff-me-txt small{font-size:12.5px; color:var(--muted)}
+.aff-mult{display:flex; flex-direction:column; align-items:flex-end; padding:8px 12px; border-radius:12px; background:rgba(255,196,51,.08); border:1px solid rgba(255,196,51,.35)}
+.aff-mult small{font-family:var(--accent); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+.aff-mult b{font-family:var(--mono); font-size:18px; color:#FFC433}
+.aff-prog{margin-top:16px; padding:14px; border-radius:13px; background:rgba(8,8,14,.5); border:1px solid var(--line)}
+.aff-prog-row{display:flex; flex-wrap:wrap; justify-content:space-between; gap:4px 10px; font-size:13px; font-weight:700}
+.aff-prog-row b{font-family:var(--mono); font-size:12px; font-weight:500; color:var(--muted)}
+.aff-bar{height:8px; margin-top:9px; border-radius:6px; background:rgba(255,255,255,.07); overflow:hidden}
+.aff-bar i{display:block; width:0; min-width:4px; height:100%; border-radius:6px; background:linear-gradient(90deg,#E09A5B,#FFC433); box-shadow:0 0 10px rgba(224,154,91,.8)}
+.aff-prog p{margin:9px 0 0; font-size:12.5px; color:var(--muted)}
+.aff-prog p b{color:#E09A5B}
+
+/* reward program */
+.aff-boxes{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; margin:0}
+.aff-boxes div{display:flex; flex-direction:column-reverse; gap:3px; padding:12px; border-radius:12px; background:linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.015) 60%); border:1px solid rgba(255,255,255,.09)}
+.aff-boxes dt{font-size:11.5px; color:var(--muted)}
+.aff-boxes dd{margin:0; font-family:var(--mono); font-size:18px; font-weight:700; text-transform:uppercase}
+.aff-boxes dd small{font-family:var(--accent); font-size:12px; color:var(--muted); text-transform:none}
+.aff-strip{display:flex; align-items:flex-start; gap:10px; margin:12px 0 0; padding:12px 14px; font-size:13px; line-height:1.5; color:rgba(255,255,255,.78); border-radius:12px; background:linear-gradient(90deg, rgba(51,204,255,.14), rgba(51,204,255,.03)); border:1px solid rgba(51,204,255,.45)}
+.aff-strip svg{width:18px; height:18px; color:#5CDBFF}
+.aff-strip b{display:block; font-family:var(--accent); font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:#5CDBFF}
+.aff-sub-h{margin:18px 0 10px; font-family:var(--accent); font-size:13px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+.aff-tier{--rk:#A64DFF; display:grid; grid-template-columns:minmax(0,1fr) auto auto; align-items:center; gap:16px; padding:10px 14px; border-radius:12px; background:rgba(255,255,255,.025); border:1px solid var(--line)}
+.aff-tier.is-current{background:linear-gradient(90deg, rgba(166,77,255,.2), rgba(166,77,255,.04)); border-color:rgba(166,77,255,.6); box-shadow:0 0 22px -10px rgba(166,77,255,.9)}
+.aff-tier-name{display:flex; align-items:center; gap:10px; min-width:0}
+.aff-tier-name > svg{width:18px; height:18px; color:var(--rk)}
+.aff-tier-name span{display:flex; flex-direction:column; min-width:0}
+.aff-tier-name b{font-size:14px; color:var(--rk)}
+.aff-tier-name small{font-size:11.5px; color:var(--muted)}
+.aff-tier-val{display:flex; flex-direction:column; align-items:flex-end}
+.aff-tier-val small{font-size:11px; color:var(--muted)}
+.aff-tier-val b{font-family:var(--mono); font-size:14px}
+
+/* how it works */
+.aff-steps li{display:flex; align-items:flex-start; gap:12px; padding:12px; border-radius:12px; background:rgba(255,255,255,.025); border:1px solid var(--line)}
+.aff-steps i{flex:none; width:32px; height:32px; display:grid; place-items:center; font-style:normal; font-family:var(--display); font-weight:800; color:#fff; border-radius:50%; background:linear-gradient(135deg,#7B2CFF,#FF33FF); box-shadow:0 0 14px -4px rgba(255,51,255,.8)}
+.aff-steps span{display:flex; flex-direction:column; gap:2px; min-width:0}
+.aff-steps b{font-size:14px}
+.aff-steps small{font-size:12.5px; line-height:1.5; color:var(--muted)}
+
+/* empty state */
+.aff-empty{display:flex; flex-direction:column; align-items:center; gap:6px; padding:26px 16px; text-align:center; border-radius:14px; border:1.5px dashed rgba(255,255,255,.14)}
+.aff-empty.is-small{padding:18px 12px}
+.aff-empty-ico{width:48px; height:48px; margin-bottom:6px; display:grid; place-items:center; border-radius:14px; color:#FF8CFF; background:rgba(255,51,255,.1); border:1px solid rgba(255,51,255,.35)}
+.aff-empty-ico svg{width:22px; height:22px}
+.aff-empty b{font-size:14.5px}
+.aff-empty > span:not(.aff-empty-ico){max-width:52ch; font-size:13px; line-height:1.55; color:var(--muted)}
+.aff-empty .aff-btn2{margin-top:10px}
+
+.aff-foot{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; margin-top:18px; padding:14px 4px 0; border-top:1px solid var(--line)}
+.aff-foot p{margin:0; font-size:12px; color:rgba(255,255,255,.42)}
+.aff-leave{display:inline-flex; align-items:center; gap:6px; min-height:38px; padding:6px 12px; font:inherit; font-size:12.5px; font-weight:600; color:rgba(255,255,255,.5); background:none; border:0; border-radius:8px; cursor:pointer}
+.aff-leave:hover{color:#FF8FA3; background:rgba(255,77,109,.08)}
+.aff-leave svg{width:15px; height:15px}
+
+/* dialogs */
+.aff-modal{width:min(440px, calc(100vw - 24px)); max-height:calc(100vh - 40px); padding:20px; color:#fff; border-radius:18px; background:linear-gradient(160deg, rgba(22,16,44,.88), rgba(10,10,20,.92)); border:1px solid rgba(166,77,255,.5); box-shadow:0 30px 80px -20px rgba(0,0,0,.95), 0 0 40px -14px rgba(166,77,255,.8); -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px)}
+.aff-modal::backdrop{background:rgba(3,3,8,.75); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px)}
+.aff-modal-h{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.aff-modal-h h2{font-family:var(--display); font-size:17px; font-weight:700; text-transform:none; letter-spacing:-.01em}
+.aff-x{flex:none; width:36px; height:36px; display:grid; place-items:center; color:var(--muted); background:none; border:1px solid var(--line); border-radius:9px; cursor:pointer}
+.aff-x:hover{color:#fff; border-color:rgba(255,255,255,.3)}
+.aff-x svg{width:16px; height:16px}
+.aff-modal-sub{margin:8px 0 14px; font-size:13.5px; line-height:1.55; color:rgba(255,255,255,.72)}
+.aff-modal-sub b{font-family:var(--mono); color:#5CDBFF}
+.aff-modal-btns{display:flex; flex-wrap:wrap; justify-content:flex-end; gap:10px}
+.aff-hist:empty{display:none}
+
+/* focus */
+.aff-btn:focus-visible,.aff-btn2:focus-visible,.aff-danger:focus-visible,.aff-tile:focus-visible,.aff-leave:focus-visible,.aff-x:focus-visible{outline:2px solid var(--steel); outline-offset:2px}
+
+/* responsive */
+@media (max-width:1240px){
+  .aff-tiles{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .aff-span-7,.aff-span-5{grid-column:span 12}
+}
+@media (max-width:860px){
+  .aff-hero{grid-template-columns:1fr}
+  .aff-hero-stats{grid-template-columns:1fr 1fr; min-width:0}
+}
+@media (max-width:640px){
+  .aff-tiles{gap:10px}
+  .aff-tile .ak-val{font-size:19px}
+  .aff-rank{grid-template-columns:auto minmax(0,1fr)}
+  .aff-rank-vals{grid-column:1 / -1; justify-content:space-between}
+  .aff-rank-vals div{align-items:flex-start}
+  .aff-me-rank{grid-template-columns:auto minmax(0,1fr)}
+  .aff-mult{grid-column:1 / -1; flex-direction:row; justify-content:space-between; align-items:center}
+  .aff-boxes{grid-template-columns:1fr}
+  .aff-tier{grid-template-columns:minmax(0,1fr) auto; gap:8px 12px}
+  .aff-tier-val:last-child{grid-column:2}
+  .aff-hero-stats dd{font-size:20px}
+  .aff-btn,.aff-btn2{padding:10px 14px}
+  .ah-btns .aff-btn,.ah-btns .aff-btn2,.aff-btn-row > *{flex:1 1 140px}
+}
+@media (max-width:380px){
+  .aff-tiles{grid-template-columns:1fr}
+  .aff-hero-stats{grid-template-columns:1fr}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .aff-btn,.aff-btn2,.aff-danger{transition:none}
+  .aff-spin{animation:none}
+}

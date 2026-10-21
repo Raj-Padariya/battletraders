@@ -1,0 +1,77 @@
+/* =====================================================================
+   BattleTrader App — base layer (tokens, reset, type, buttons, ticker).
+   The user panel is a separate app: it does NOT load the website's style.css.
+   Keep these tokens in sync with the website's brand by hand when the brand changes.
+   ===================================================================== */
+
+:root{padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+
+:root{
+  --bg:#0B0C10;
+  --alt:#111218;
+  --surface:#16171F;
+  --ink:#08090C;
+  --fg:#ECEDF3;
+  --muted:#9A9CAD;
+  --line:#24252E;
+  --ember:#9933FF;
+  --ember-soft:#1E1038;
+  --steel:#33CCFF;
+  --steel-soft:#07263A;
+  --gold:#FF33FF;
+  --gold-soft:#2C0B2C;
+  --bull:#22E39A;
+  --bear:#FF4D6D;
+  --grad:linear-gradient(90deg,#93f,#3cf,#f3f 66%,#93f);
+  --display:"Cinzel", Georgia, serif;
+  --body:"Mulish", system-ui, -apple-system, sans-serif;
+  --accent:"Rajdhani", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--display); margin:0; text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+button,input,select,textarea{font:inherit; color:inherit}
+
+/* brand mark */
+.logo{text-decoration:none; display:flex; align-items:center; gap:9px; font-family:var(--display); font-weight:800; font-size:16px; letter-spacing:-.01em; text-transform:uppercase; color:#fff}
+.logo img{display:block; height:37px; width:auto; max-width:100%}
+
+/* buttons */
+.btn{font-family:var(--accent); font-size:15px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; padding:12px 22px; border-radius:4px; border:1px solid transparent; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px; transition:opacity .15s, transform .12s, background-position .4s}
+.btn:active{transform:translateY(1px)}
+.btn:hover{opacity:.92}
+.btn:disabled{opacity:.5; cursor:not-allowed}
+.btn svg{width:17px; height:17px}
+.b-ember{background:var(--grad); background-size:200% 100%; color:#fff; padding-inline:30px; clip-path:polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%)}
+.b-ember:hover{background-position:100% 0; opacity:1}
+.b-line{background:linear-gradient(var(--ink),var(--ink)) padding-box, var(--grad) border-box; color:#fff; border:1px solid transparent}
+.btn-block{width:100%}
+.btn:focus-visible{outline:2px solid var(--steel); outline-offset:3px}
+.b-ember:focus-visible{clip-path:none}
+
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,77,109,.6)}70%{box-shadow:0 0 0 8px rgba(255,77,109,0)}100%{box-shadow:0 0 0 0 rgba(255,77,109,0)}}
+
+/* market ticker (filled by ticker.js) */
+.ticker{position:relative; display:flex; align-items:stretch; height:34px; background:#07080B; overflow:hidden; font-family:var(--mono); font-size:12px}
+.ticker-tag{flex:none; display:flex; align-items:center; gap:7px; padding:0 22px 0 14px; background:var(--bear); color:#fff; font-family:var(--accent); font-weight:700; letter-spacing:.14em; text-transform:uppercase; z-index:1; clip-path:polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%)}
+.ticker-tag i{width:7px; height:7px; border-radius:50%; background:#fff; animation:pulse 1.6s infinite}
+.ticker-track{display:flex; width:max-content; animation:tick 40s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-item{display:flex; align-items:center; gap:8px; padding:0 22px; white-space:nowrap; color:var(--muted); border-right:1px solid var(--line)}
+.ticker-item b{color:var(--fg); font-weight:700}
+.ticker-item .up{color:var(--bull)}
+.ticker-item .dn{color:var(--bear)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+@media (prefers-reduced-motion:reduce){
+  .ticker-track,.ticker-tag i{animation:none}
+  .btn{transition:none}
+}
