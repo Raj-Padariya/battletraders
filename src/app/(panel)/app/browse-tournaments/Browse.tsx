@@ -111,7 +111,6 @@ export default function Browse() {
   return (
     <div className="tn-page" id="tn-browse">
       <section className="ah tn-hero" aria-labelledby="tn-title">
-        <div className="ah-floor" aria-hidden="true"></div>
         <div className="ah-txt">
           <p className="ah-tag tn-tag"><span className="tn-tag-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z" /><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3" /></svg></span>Tournaments</p>
           <div className="tn-hero-row">

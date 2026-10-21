@@ -184,7 +184,7 @@ export default function AllianceTour() {
             {last ? "Got it!" : <>Next<Svg body={I.chev} /></>}
           </button>
         </div>
-        <button className="tour-skip" id="tour-skip" type="button" onClick={closeTour}>Skip tour</button>
+<Svg body='<path d="m5 6 6 6-6 6M13 6l6 6-6 6"/>' />Skip tour
       </div>
     </div>
   );

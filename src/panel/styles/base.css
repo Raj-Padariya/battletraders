@@ -17,15 +17,19 @@ img{max-width:100%}
   --fg:#ECEDF3;
   --muted:#9A9CAD;
   --line:#24252E;
-  --ember:#9933FF;
-  --ember-soft:#1E1038;
-  --steel:#33CCFF;
-  --steel-soft:#07263A;
+  /* Brand = the logo's cyan → magenta. Green/red are reserved for status (profit/loss, verified/pending). */
+  --accent-c:#3DBCFF;
+  --accent-soft:rgba(61,188,255,.1);
+  --accent-line:rgba(61,188,255,.3);
+  --ember:#B45CFF;
+  --ember-soft:#1A1430;
+  --steel:#3DBCFF;
+  --steel-soft:#0B2333;
   --gold:#FF33FF;
-  --gold-soft:#2C0B2C;
+  --gold-soft:#2A0E2A;
   --bull:#22E39A;
   --bear:#FF4D6D;
-  --grad:linear-gradient(90deg,#93f,#3cf,#f3f 66%,#93f);
+  --grad:linear-gradient(90deg,#3DBCFF,#FF33FF);
   --display:"Satoshi", system-ui, -apple-system, sans-serif;
   --body:"Satoshi", system-ui, -apple-system, sans-serif;
   --accent:"Satoshi", system-ui, -apple-system, sans-serif;

@@ -138,11 +138,8 @@ body.app::after{
 .ap-main:focus{outline:none}
 
 /* hero */
-.ah{position:relative; isolation:isolate; overflow:hidden; display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); align-items:center; gap:24px; min-height:260px; padding:30px 34px 96px; border-radius:20px; background:linear-gradient(110deg, rgba(10,10,20,.95) 30%, rgba(60,20,110,.55)), #0B0B14; border:1px solid rgba(166,77,255,.35); box-shadow:0 30px 80px -40px rgba(166,77,255,.8), inset 0 1px 0 rgba(255,255,255,.08)}
+.ah{position:relative; isolation:isolate; overflow:hidden; display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); align-items:center; gap:24px; min-height:240px; padding:30px 34px; border-radius:20px; background:linear-gradient(110deg, rgba(10,10,20,.95) 30%, rgba(60,20,110,.55)), #0B0B14; border:1px solid rgba(166,77,255,.35); box-shadow:0 30px 80px -40px rgba(166,77,255,.8), inset 0 1px 0 rgba(255,255,255,.08)}
 .ah::before{content:""; position:absolute; inset:0; z-index:-1; background:radial-gradient(500px 300px at 82% 50%, rgba(255,51,255,.28), transparent 65%), radial-gradient(400px 260px at 60% 120%, rgba(51,204,255,.2), transparent 70%)}
-/* Floor hinged at the horizon, pinned 70px above the hero's bottom edge so it starts below the copy at every width. */
-.ah-floor{position:absolute; left:-50%; right:-50%; top:auto; bottom:-310px; height:380px; z-index:-1; pointer-events:none; background-image:linear-gradient(rgba(200,125,255,.8) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(200,125,255,.8) 1.5px, transparent 1.5px); background-size:48px 48px; transform:perspective(380px) rotateX(68deg); transform-origin:50% 0; -webkit-mask-image:linear-gradient(to bottom, transparent 0, rgba(0,0,0,.6) 14%, #000 40%); mask-image:linear-gradient(to bottom, transparent 0, rgba(0,0,0,.6) 14%, #000 40%); filter:drop-shadow(0 0 4px rgba(166,77,255,.9)); animation:ap-floor 1.9s linear infinite}
-@keyframes ap-floor{to{background-position:0 48px}}
 .ah-tag{display:inline-flex; align-items:center; gap:8px; margin:0 0 14px; padding:4px 10px; font-family:var(--accent); font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#fff; background:rgba(255,77,109,.12); border:1px solid rgba(255,77,109,.45); border-radius:5px}
 .ah-tag i{width:7px; height:7px; border-radius:50%; background:var(--bear); animation:pulse 1.6s infinite}
 .ah h1{font-size:clamp(24px,3.2vw,38px); font-weight:800; line-height:1.08; letter-spacing:-.025em; text-transform:uppercase; overflow-wrap:anywhere}
@@ -232,7 +229,7 @@ body.app::after{
 /* KPI tiles */
 .ak-grid{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px}
 .ak{--c:#33CCFF; position:relative; overflow:hidden; display:grid; grid-template-columns:auto minmax(0,1fr); grid-template-rows:auto auto auto; column-gap:12px; align-content:center; padding:18px; border-radius:18px; transition:transform .2s, border-color .2s}
-.ak::after{content:""; position:absolute; z-index:-1; right:-40px; bottom:-60px; width:180px; height:180px; border-radius:50%; background:radial-gradient(circle, color-mix(in srgb, var(--c) 34%, transparent), transparent 65%); pointer-events:none}
+.ak::after{content:""; position:absolute; z-index:-1; right:-80px; bottom:-110px; width:260px; height:260px; border-radius:50%; background:radial-gradient(circle, color-mix(in srgb, var(--c) 12%, transparent), transparent 70%); pointer-events:none}
 .ak:hover{transform:translateY(-3px); border-color:color-mix(in srgb, var(--c) 50%, transparent)}
 .k-green{--c:#22E39A}
 .k-pink{--c:#FF33FF}
@@ -374,7 +371,7 @@ body.app::after{
 @media (max-width:860px){
   .ap-crumb{display:none}
   .ap-wallets{margin-left:auto}
-  .ah{grid-template-columns:1fr; padding:24px 20px 92px}
+  .ah{grid-template-columns:1fr; padding:24px 20px}
   .ah-emblem{display:none}
   .ac-me,.ak-grid,.ac-wallet,.ac-aff{grid-column:span 12}
   .as-steps{margin-left:0}
@@ -412,7 +409,7 @@ body.app::after{
 /* light catching the glass edge: bright top-left → clear → faint bottom-right, drawn as a 1px gradient ring */
 .ac::before,.ak::before,.as::before{
   content:""; position:absolute; inset:0; z-index:2; border-radius:inherit; padding:1px; pointer-events:none;
-  background:linear-gradient(var(--ap-rim), rgba(255,255,255,.4), rgba(255,255,255,.06) 30%, rgba(255,255,255,0) 55%, color-mix(in srgb, var(--glow,#A64DFF) 55%, transparent) 100%);
+  background:linear-gradient(var(--ap-rim), rgba(255,255,255,.16), rgba(255,255,255,.05) 30%, rgba(255,255,255,.03) 55%, color-mix(in srgb, var(--glow,#A64DFF) 22%, transparent) 100%);
   -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite:xor; mask-composite:exclude;
@@ -494,13 +491,127 @@ body.app::after{
 .tour-back:hover{color:#fff; background:rgba(255,255,255,.06)}
 .tour-next{display:inline-flex; align-items:center; gap:4px; min-height:36px; padding:6px 16px; font:inherit; font-size:13px; font-weight:700; color:#fff; background:linear-gradient(90deg,#33CCFF,#A64DFF 55%,#FF33FF); border:0; border-radius:8px; cursor:pointer; box-shadow:0 6px 18px -6px rgba(255,51,255,.8)}
 .tour-next svg{width:14px; height:14px; stroke-width:2.4}
-.tour-skip{display:block; margin:8px auto 0; min-height:32px; padding:4px 12px; font:inherit; font-size:12.5px; color:var(--muted); background:none; border:0; border-radius:6px; cursor:pointer}
-.tour-skip:hover{color:#fff}
+/* Skip is a real outlined button under a divider, so users see at a glance that the tour is optional. */
+.tour-skip{display:flex; align-items:center; justify-content:center; gap:8px; width:100%; min-height:38px; margin:14px 0 0; padding:8px 14px; font:inherit; font-size:13px; font-weight:700; letter-spacing:.02em; color:rgba(255,255,255,.82); background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.16); border-radius:8px; cursor:pointer; transition:color .15s, background .15s, border-color .15s}
+.tour-skip svg{width:15px; height:15px}
+.tour-skip:hover{color:#fff; background:rgba(255,51,102,.12); border-color:rgba(255,51,102,.5)}
+.tour-skip[hidden]{display:none}
 .tour-x:focus-visible,.tour-back:focus-visible,.tour-next:focus-visible,.tour-skip:focus-visible{outline:2px solid var(--steel); outline-offset:2px}
 
 @media (prefers-reduced-motion:reduce){
-  .ap-launch-gem,.ah-floor,.ah-tag i,.ah-emblem-3d,.ah-orbit,.am-xp-bar i,.ab-list li.is-next .bd,.tour-spot::after,.tour-pop.pop-in,body.app::after{animation:none}
+  .ap-launch-gem,.ah-tag i,.ah-emblem-3d,.ah-orbit,.am-xp-bar i,.ab-list li.is-next .bd,.tour-spot::after,.tour-pop.pop-in,body.app::after{animation:none}
   .ac:hover::before,.ak:hover::before{animation:none}
   .ap-side,.ap-nav-a,.ap-launch-btn,.ap-cta,.ak,.an li,.ab2,.af-code,.tour-spot,.tour-pop,.tour-dots i,.ac,.as,.ac::after,.as::after{transition:none}
   .ak:hover{transform:none}
 }
+
+/* =====================================================================
+   Brand theme from the logo. Surfaces are neutral graphite glass (no tint, no glow);
+   the logo's cyan → magenta gradient is the ONE signature, used only for:
+   primary buttons, active nav marker, hero hairline + one word, gradient-outlined icons, progress.
+   Green/red stay only where they carry meaning (gain/loss, verified/pending).
+   Placed last so it overrides the louder rules above.
+   ===================================================================== */
+.app{--brand:linear-gradient(90deg,#3DBCFF,#FF33FF); --brand-c:#3DBCFF; --brand-m:#FF33FF; --glass:rgba(18,19,26,.72); --tile:#15161D}
+body.app{background:#08090C}
+body.app::before{background:
+  radial-gradient(760px 440px at 0% -5%, rgba(61,188,255,.07), transparent 65%),
+  radial-gradient(760px 480px at 100% 105%, rgba(255,51,255,.06), transparent 65%)}
+/* faint brand light behind the glass so the blur reads as glass, kept very low */
+body.app::after{display:block; background:
+  radial-gradient(30vmax 30vmax at 22% 28%, rgba(61,188,255,.07), transparent 62%),
+  radial-gradient(28vmax 28vmax at 82% 72%, rgba(255,51,255,.06), transparent 62%)}
+
+/* graphite glass surfaces */
+.ap-side,.ap-top,.ac,.ak,.as{
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,.07);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 18px 40px -30px rgba(0,0,0,.9);
+  -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+}
+.ac::before,.ak::before,.as::before,.ac::after,.as::after,.ak::after{content:none}
+.ac:hover,.ak:hover,.as:hover{border-color:rgba(255,255,255,.13); box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 18px 40px -30px rgba(0,0,0,.9)}
+.ak:hover{transform:none}
+
+/* sidebar */
+.ap-launch{background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08)}
+.ap-launch::before{content:none}
+.ap-launch-gem{background:var(--brand); color:#fff; filter:none; animation:none}
+.ap-launch p b{color:#fff; text-shadow:none}
+.ap-launch-btn:hover{background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.16)}
+.ap-nav-a.is-on{background:rgba(255,255,255,.05); box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+.ap-nav-a.is-on::before{background:var(--brand); box-shadow:none}
+.ap-nav-a.is-on svg{color:#fff}
+.ap-nav-a em{color:#FF8AFF; background:rgba(255,51,255,.08); border-color:rgba(255,51,255,.3)}
+
+/* top bar */
+.p-bal svg,.p-cred svg,.p-tix svg{color:var(--muted)}
+.p-bal b,.p-cred b,.p-tix b{color:#fff}
+.ap-cta{background:var(--brand); color:#fff; box-shadow:none}
+.ap-cta:hover{filter:brightness(1.08)}
+.ap-me-av,.am-av{background:var(--brand); color:#fff}
+
+/* hero: neutral panel, a 2px brand hairline on top, one gradient word, outlined hex emblem */
+.ah{background:linear-gradient(180deg, rgba(255,255,255,.03), transparent 60%), rgba(16,17,23,.82); border-color:rgba(255,255,255,.08); box-shadow:none; -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px)}
+.ah::before{background:radial-gradient(360px 240px at 84% 45%, rgba(61,188,255,.09), transparent 70%), radial-gradient(320px 220px at 90% 65%, rgba(255,51,255,.07), transparent 70%)}
+.ah::after{content:""; position:absolute; left:0; right:0; top:0; height:2px; background:var(--brand); pointer-events:none}
+.ah-tag{color:var(--muted); background:rgba(255,255,255,.04); border-color:rgba(255,255,255,.1)}
+.ah-tag i{background:var(--brand-m)}
+.ah h1 span{background:var(--brand); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent}
+.ah-emblem-3d{width:120px; height:134px; animation:none; transform:none}
+.ah-hex.h1,.ah-hex.h2,.ah-orbit{display:none}
+.ah-core{isolation:isolate; transform:none; background:var(--brand); color:#fff; box-shadow:none}
+.ah-core::before{content:""; position:absolute; inset:2px; z-index:-1; clip-path:polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background:#121319}
+.ah-core svg{filter:none}
+
+/* account status strip */
+.as-ico{color:#fff; background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.12)}
+.as-steps .wait{color:var(--muted); background:rgba(255,255,255,.04); border-color:rgba(255,255,255,.12)}
+.as-btn{color:#fff; background:var(--brand); box-shadow:none}
+
+/* cards */
+.ac-me,.ac-wallet{background:var(--glass)}
+.ac-h h2 svg{color:#fff; background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.1)}
+.ac-chip b{color:#fff}
+.ab2:hover{border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.05)}
+
+/* icon tiles: dark tile with a 1px brand-gradient outline — the signature detail */
+.ak,.k-green,.k-pink,.k-gold{--c:var(--brand-c)}
+.ak-ico,.an .t-daily .an-ico,.an .t-mini .an-ico,.an .t-circuit .an-ico{clip-path:none; color:#fff; border:1px solid transparent; background:linear-gradient(var(--tile),var(--tile)) padding-box, var(--brand) border-box; filter:none}
+.ak-ico{width:46px; height:46px; border-radius:13px}
+.ak-val{color:#fff; text-shadow:none}
+.ak-sub{color:var(--muted)}
+
+/* trader card */
+.am-tier{color:#fff; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14)}
+.am-xp-bar i{background:var(--brand); box-shadow:none}
+.am-xp p b{color:#fff}
+
+/* next battles */
+.an li:hover{border-color:rgba(255,255,255,.14); background:rgba(255,255,255,.03)}
+.an-when b{color:#fff}
+.an-go{background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.14)}
+.an-go:hover{background:rgba(255,255,255,.1)}
+
+/* quests: the two logo colours only */
+.aq-ring,.q-week .aq-ring{--c:#3DBCFF}
+.q-month .aq-ring{--c:#FF33FF}
+
+/* wallet & affiliate */
+.aw-big{color:#fff; text-shadow:none}
+.aw-big span{color:var(--muted)}
+.af-lead b{color:#fff}
+.af-code{color:#fff; background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.16)}
+.af-code:hover{background:rgba(255,255,255,.06)}
+
+/* badges */
+.ab-list li.is-next{border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.03)}
+.ab-list li.is-next .bd{background:var(--brand); animation:none}
+.ab-list li.is-next small{color:#8AD6FF}
+
+/* leaderboard */
+.ar li.r1,.ar li.r2,.ar li.r3{background:rgba(255,255,255,.025); border-color:var(--line)}
+.ar-pts b{color:#fff}
+.ar-spark polyline{filter:none}
+.ar-you{border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.04)}
+.ar-you span{background:var(--brand)}

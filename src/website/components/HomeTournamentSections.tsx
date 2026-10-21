@@ -5,7 +5,7 @@ export const upcomingMini = {
   startsAt: "2026-10-30T09:00:00Z",
   endsAt: "2026-10-30T17:00:00Z",
   date: "Oct 30 · 9:00 AM UTC",
-  name: "WTT Trick Or Trade 2026",
+  name: "TW Trick Or Trade 2026",
   prize: "$1,500",
   entrants: "5/256",
 };

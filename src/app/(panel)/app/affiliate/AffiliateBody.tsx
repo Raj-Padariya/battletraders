@@ -252,7 +252,6 @@ export default function AffiliateBody() {
       <div className="aff-page">
         <div className="aff-view" id="aff-join-view" hidden={!loaded || !!data}>
           <section className="ah aff-hero" aria-labelledby="aff-join-title">
-            <div className="ah-floor" aria-hidden="true"></div>
             <div className="ah-txt">
               <span className="aff-hero-ico"><Svg body={ICONS.users} /></span>
               <p className="ah-tag aff-tag"><Svg body={ICONS.gift} />Affiliate program</p>
@@ -304,7 +303,6 @@ export default function AffiliateBody() {
 
         <div className="aff-view" id="aff-member-view" hidden={!data}>
           <section className="ah aff-hero aff-hero-in" aria-labelledby="aff-member-title">
-            <div className="ah-floor" aria-hidden="true"></div>
             <div className="ah-txt">
               <span className="aff-hero-ico is-bolt"><Svg body={ICONS.bolt} /></span>
               <p className="ah-tag aff-tag"><Svg body={ICONS.gift} />Affiliate program</p>

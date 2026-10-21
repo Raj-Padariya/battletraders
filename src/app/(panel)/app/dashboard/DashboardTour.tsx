@@ -189,7 +189,7 @@ export default function DashboardTour() {
             {last ? "Got it!" : <>Next<Svg body='<path d="m9 6 6 6-6 6"/>' /></>}
           </button>
         </div>
-        <button className="tour-skip" id="tour-skip" type="button" onClick={closeTour}>Skip tour</button>
+<Svg body='<path d="m5 6 6 6-6 6M13 6l6 6-6 6"/>' />Skip tour
       </div>
     </div>
   );

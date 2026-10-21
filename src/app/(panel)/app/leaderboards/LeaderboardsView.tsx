@@ -351,7 +351,6 @@ export default function LeaderboardsView() {
   return (
     <>
       <section className="ah ld-hero" aria-labelledby="ld-title">
-        <div className="ah-floor" aria-hidden="true"></div>
         <div className="ah-txt">
           <div className="ld-hero-head">
             <span className="ld-hero-ico" aria-hidden="true"><Svg body={IC.trophy} /></span>

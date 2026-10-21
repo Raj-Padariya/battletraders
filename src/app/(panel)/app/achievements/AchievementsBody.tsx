@@ -204,7 +204,6 @@ export default function AchievementsBody() {
     <>
       <EmblemDefs />
       <section className="ah av-hero" aria-labelledby="av-title">
-        <div className="ah-floor" aria-hidden="true"></div>
         <div className="ah-txt av-hero-txt">
           <span className="av-hero-ico" aria-hidden="true"><Svg body='<path d="M8 3 6 9M16 3l2 6M9 3h6"/><circle cx="12" cy="15" r="6"/><path d="m12 12 1 2 2 .3-1.5 1.4.4 2.1-1.9-1-1.9 1 .4-2.1L9 14.3l2-.3z"/>' /></span>
           <div>

@@ -13,13 +13,6 @@ const sessions = [
   { name: "London + NY overlap", tone: "overlap", start: 13, end: 17, gmt: "13:00 – 17:00", ist: "18:30 – 22:30", suits: "Deepest liquidity, tightest spreads" },
 ];
 
-const months = Array.from({ length: 12 }, (_, index) => {
-  const n = index + 1;
-  if (n === 12) return { n, kind: "world", title: "World Championship", note: "Field confirmed, travel arranged, final played." };
-  if (n === 11) return { n, kind: "final", title: "Circuit 11", note: "Final qualifier. Season ladder closes." };
-  return { n, kind: "circuit", title: `Circuit ${n}`, note: "First full week. Top 50 qualify." };
-});
-
 export default function SchedulePage() {
   return (
     <>
@@ -70,26 +63,6 @@ export default function SchedulePage() {
                 </article>
               ))}
             </div>
-          </div>
-
-          <div className="block">
-            <h3 className="sub">Season <span className="gt">calendar</span></h3>
-            <p className="lead">Eleven Circuit Championships across the season, then the World Championship. Qualification closes at the end of the eleventh Circuit, which leaves a month to confirm the field and arrange travel.</p>
-            <ol className="sc-months">
-              {months.map((month) => (
-                <li key={month.n} className={`is-${month.kind}`}>
-                  <small>Month {String(month.n).padStart(2, "0")}</small>
-                  <b>{month.title}</b>
-                  <span>{month.note}</span>
-                </li>
-              ))}
-            </ol>
-            <ul className="sc-legend">
-              <li className="is-circuit">Circuit · top 50 qualify</li>
-              <li className="is-final">Final qualifier · ladder closes</li>
-              <li className="is-world">World Championship</li>
-            </ul>
-            <div className="note"><b>Daily Battles and Mini Tournaments keep running</b> through the final month. They no longer affect qualification, but they still pay points toward the next season&apos;s opening tier.</div>
           </div>
 
         </div>

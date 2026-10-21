@@ -119,7 +119,6 @@ export default function Wallet() {
   return (
     <>
       <section className="ah wl-hero" aria-labelledby="wl-title">
-        <div className="ah-floor" aria-hidden="true"></div>
         <div className="ah-txt">
           <div className="wl-hero-head">
             <span className="wl-hero-ico" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2" /><path d="M3 10h18M16 15h2" /></svg></span>

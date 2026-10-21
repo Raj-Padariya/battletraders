@@ -49,37 +49,6 @@ const TABS: TabDef[] = [
     ),
   },
   {
-    id: "tab-tiers",
-    panelId: "panel-tiers",
-    label: "Tiers",
-    icon: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6z" /></svg>,
-    panel: (
-      <>
-        <h3 className="sub">The five <span className="gt">tiers</span></h3>
-        <p className="lead">Your tier is set by your season points total and updates the moment an event settles. Tiers unlock formats; they are not cosmetic.</p>
-        <div className="ladder">
-          <div className="tier"><div className="bar-i tier-bronze"></div><b>Bronze</b><span>0 &ndash; 499</span></div>
-          <div className="tier"><div className="bar-i tier-silver"></div><b>Silver</b><span>500 &ndash; 1,499</span></div>
-          <div className="tier"><div className="bar-i tier-gold"></div><b>Gold</b><span>1,500 &ndash; 3,999</span></div>
-          <div className="tier"><div className="bar-i tier-platinum"></div><b>Platinum</b><span>4,000 &ndash; 7,999</span></div>
-          <div className="tier"><div className="bar-i tier-elite"></div><b>Elite</b><span>8,000 +</span></div>
-        </div>
-        <div className="tbl-wrap">
-          <table>
-            <thead><tr><th>Tier</th><th>What it unlocks</th></tr></thead>
-            <tbody>
-              <tr><td><b>Bronze</b></td><td>Daily Battles</td></tr>
-              <tr><td><b>Silver</b></td><td>Daily Battles, Mini Tournaments</td></tr>
-              <tr><td><b>Gold</b></td><td>As above, plus a seeded start in Mini Tournaments</td></tr>
-              <tr><td><b>Platinum</b></td><td>Circuit Championship entry</td></tr>
-              <tr><td><b>Elite</b></td><td>Direct seat in the World Championship at season end</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </>
-    ),
-  },
-  {
     id: "tab-season",
     panelId: "panel-season",
     label: "Season",

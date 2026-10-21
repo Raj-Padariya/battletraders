@@ -160,7 +160,6 @@ export default function MyTournaments() {
   return (
     <>
       <section className="ah mt-hero" aria-labelledby="mt-title">
-        <div className="ah-floor" aria-hidden="true"></div>
         <div className="ah-txt mt-hero-txt">
           <span className="mt-hero-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z" /><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3" /></svg></span>
           <p className="ah-tag mt-tag"><i></i>Member roster</p>

@@ -103,7 +103,6 @@ export default function DashboardBody() {
   return (
     <>
       <section className="ah" id="tour-welcome" aria-labelledby="ah-title">
-        <div className="ah-floor" aria-hidden="true"></div>
         <div className="ah-txt">
           <p className="ah-tag"><i aria-hidden="true"></i>Season 1 &middot; Week 1</p>
           <h1 id="ah-title">Welcome to the arena, <span data-username="">{profile.username}</span></h1>

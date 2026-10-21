@@ -74,20 +74,6 @@
 .auth-hero-in{z-index:1}
 .auth .logo{margin-bottom:44px}
 .arena-fx{position:absolute; inset:0; pointer-events:none; overflow:hidden}
-/* Floor plane hinges on the horizon (top edge) and tilts toward the viewer, so it fills the whole strip below the horizon. */
-.ax-floor{
-  position:absolute; left:0; right:0; bottom:0; height:38%; overflow:hidden; perspective:420px; perspective-origin:50% 0;
-  -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,.35), #000 40%); mask-image:linear-gradient(to bottom, rgba(0,0,0,.35), #000 40%);
-}
-.ax-floor::before{content:""; position:absolute; inset:0; background:radial-gradient(70% 90% at 50% 0%, rgba(166,77,255,.38), transparent 70%), radial-gradient(50% 60% at 50% 100%, rgba(51,204,255,.12), transparent 70%)}
-.ax-grid{
-  position:absolute; left:-60%; right:-60%; top:0; height:380px;
-  background-image:linear-gradient(rgba(190,110,255,.75) 1px, transparent 1px), linear-gradient(90deg, rgba(190,110,255,.75) 1px, transparent 1px);
-  background-size:60px 60px; transform:rotateX(70deg); transform-origin:50% 0;
-  filter:drop-shadow(0 0 3px rgba(166,77,255,.9));
-  animation:ax-run 1.8s linear infinite;
-}
-@keyframes ax-run{to{background-position:0 60px}}
 .ax-horizon{
   position:absolute; left:0; right:0; bottom:38%; height:2px;
   background:linear-gradient(90deg, transparent, #A64DFF 18%, #33CCFF 50%, #FF33FF 82%, transparent);
@@ -402,7 +388,6 @@
   .auth-feats{margin-top:24px; gap:16px 28px}
   .auth-panel{border-left:0; border-top:1px solid var(--line); padding:36px 16px 48px}
   .ab-scene{display:none}
-  .ax-floor{height:30%}
   .ax-horizon{bottom:30%}
   .ax-candles{bottom:calc(30% + 4px); height:90px}
 }
@@ -413,7 +398,7 @@
 }
 @media (prefers-reduced-motion:reduce){
   .social-btn,.ab-tilt,.auth-form .f input{transition:none}
-  .ax-grid,.ax-orb,.ax-horizon,.ax-candles i::before,.ax-candles i::after,.ab-card,.ab-card::before,.ab-live i,
+  .ax-orb,.ax-horizon,.ax-candles i::before,.ax-candles i::after,.ab-card,.ab-card::before,.ab-live i,
   .ab-chip,.auth-card,.auth-card::before,.ab-av::before,.ab-clash::before,.ab-clash::after,.ab-x,.ab-spark,.ab-f.hit .ab-av,.ab-pop{animation:none}
   .ab-spark,.ab-pop{display:none}
   .ab-feed{opacity:1; animation:none}

@@ -580,7 +580,6 @@ export default function ArenaTerminal() {
   return (
     <>
       <section className="pa-gate" id="pa-start" aria-labelledby="pa-start-h" hidden={!loaded || started}>
-        <div className="ah-floor" aria-hidden="true"></div>
         <div className="pa-gate-glow" aria-hidden="true"></div>
         <div className="ac pa-start-card" data-glass="">
           <span className="pa-start-ico" aria-hidden="true"><Svg body='<path d="m3 17 6-6 4 4 8-8M15 7h6v6"/>' /></span>

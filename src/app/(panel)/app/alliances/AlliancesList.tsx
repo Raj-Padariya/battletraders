@@ -150,7 +150,6 @@ function AlliancesBody({ onOpenCreate }: { onOpenCreate: (from: HTMLElement) => 
   return (
     <div className="al-page" id="al-list-page">
       <section className="ah al-hero" aria-labelledby="al-title">
-        <div className="ah-floor" aria-hidden="true"></div>
         <div className="ah-txt">
           <p className="ah-tag al-tag"><Svg body={I.search} />Search alliances</p>
           <h1 id="al-title">Create or join an alliance to <span>compete as a team</span></h1>

@@ -38,7 +38,7 @@ const daily = (time: string, ist: string, city: string): ScheduleEvent => ({
   time,
   status: "Every weekday",
   title: <>Daily Battle &mdash; {city}</>,
-  signUpLabel: "Sign up for Daily Battle - " + city,
+  signUpLabel: "Battle now: Daily Battle - " + city,
   meta: [
     <><ClockIcon />{time} GMT &middot; {ist} IST</>,
     <><TagIcon /><strong>Free</strong> entry</>,
@@ -52,7 +52,7 @@ const mini = (day: string): ScheduleEvent => ({
   time: "07:00",
   status: "Weekly",
   title: "Mini Tournament",
-  signUpLabel: "Sign up for Mini Tournament",
+  signUpLabel: "Battle now: Mini Tournament",
   meta: [
     <><ClockIcon />07:00 GMT &middot; 12:30 IST</>,
     <><TagIcon /><strong>$10</strong> entry</>,
@@ -74,7 +74,7 @@ const EVENTS: ScheduleEvent[] = [
     time: "Mon",
     status: <>Monthly &middot; 5 days</>,
     title: "Circuit Championship",
-    signUpLabel: "Sign up for Circuit Championship",
+    signUpLabel: "Battle now: Circuit Championship",
     meta: [
       <><ClockIcon />Mon 07:00 GMT &middot; 12:30 IST</>,
       <><TagIcon /><strong>$50</strong> entry</>,
@@ -131,7 +131,7 @@ export default function ScheduleEvents() {
                 {ev.meta.map((item, metaIndex) => <li key={metaIndex}>{item}</li>)}
               </ul>
             </div>
-            <Link className="btn b-solid" href="/signup/" aria-label={ev.signUpLabel}>Sign Up</Link>
+            <Link className="btn b-solid" href="/signup/" aria-label={ev.signUpLabel}>Battle now</Link>
           </article>
         ))}
         <div className="ev-empty" id="events-empty" hidden={shown !== 0}>

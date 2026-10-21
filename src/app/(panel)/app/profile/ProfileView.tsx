@@ -621,7 +621,6 @@ function ProfileBody({ rev, onSaved, onOpenFrames, onOpenNet }: BodyProps) {
   return (
     <>
       <section className="ah st-hero" aria-labelledby="st-title">
-        <div className="ah-floor" aria-hidden="true"></div>
         <div className="st-hero-id">
           <Avatar cls="st-hero-av" frame={frame} avatar={avatar} initials={initials} />
           <div className="ah-txt">

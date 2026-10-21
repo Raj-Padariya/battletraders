@@ -17,9 +17,6 @@ export default function AuthHero({ headingLead, intro, chip }: AuthHeroProps) {
         <span className="ax-orb o1"></span>
         <span className="ax-orb o2"></span>
         <ArenaCandles />
-        <div className="ax-floor">
-          <div className="ax-grid"></div>
-        </div>
         <span className="ax-horizon"></span>
       </div>
       <div className="auth-hero-in">

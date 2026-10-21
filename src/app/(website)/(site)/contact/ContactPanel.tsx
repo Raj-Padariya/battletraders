@@ -63,10 +63,14 @@ export default function ContactPanel() {
 
   return (
     <div className="block cx">
-      <aside className="cx-side">
-        <h3 className="sub">Pick your <span className="gt">channel</span></h3>
-        <p className="lead">Four inboxes, each watched by the people who can actually answer. Pick one and your message is routed straight there.</p>
+      <div className="cx-intro">
+        <div>
+          <h3 className="sub">Pick your <span className="gt">channel</span></h3>
+          <p className="lead">Four inboxes, each watched by the people who can actually answer. Pick one and your message is routed straight there.</p>
+        </div>
         <span className="cx-live"><i aria-hidden="true"></i>Support online</span>
+      </div>
+      <aside className="cx-side">
         <div className="cx-chans" role="group" aria-label="Choose an inbox">
           <button className="cx-chan" type="button" data-topic="support" aria-pressed={isPressed("support")} onClick={() => setTopic("support")}>
             <span className="cx-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2" /><rect x="3" y="14" width="4" height="6" rx="1.5" /><rect x="17" y="14" width="4" height="6" rx="1.5" /></svg></span>

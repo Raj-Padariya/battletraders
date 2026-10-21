@@ -169,7 +169,6 @@ export default function RedeemBody() {
   return (
     <div className="rd-page">
       <section className="ah rd-hero" aria-labelledby="rd-title">
-        <div className="ah-floor" aria-hidden="true"></div>
         <div className="ah-txt">
           <span className="rd-hero-ico"><Svg body={ICONS.ticket} /></span>
           <h1 id="rd-title"><span>Redeem</span></h1>

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "@site/styles/style.css";
 import "@site/styles/home-tournaments.css";
-import "@site/styles/ladder-home.css";
+
 
 export const metadata: Metadata = {
   title: "BattleTrader — Simulated Trading Tournaments",
