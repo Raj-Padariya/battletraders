@@ -182,8 +182,8 @@ body.app::after{
 .ag{display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); gap:14px; margin-top:14px}
 .ac-me{grid-column:span 4}
 .ak-grid{grid-column:span 8}
-.ac-next{grid-column:span 7}
-.ac-quests{grid-column:span 5}
+.ac-next{grid-column:span 12}
+.ac-quests{grid-column:span 12}
 .ac-wallet{grid-column:span 4}
 .ac-aff{grid-column:span 4}
 .ac-badges{grid-column:span 4}
@@ -261,18 +261,6 @@ body.app::after{
 
 /* quests */
 .aq-list{list-style:none; margin:0; padding:0; display:grid; gap:10px}
-.aq{display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:14px; padding:12px 14px; border-radius:14px; background:rgba(255,255,255,.03); border:1px solid var(--line)}
-.aq-ring{--p:0; --c:#33CCFF; position:relative; width:46px; height:46px; display:grid; place-items:center; border-radius:50%; color:var(--c); background:conic-gradient(var(--c) calc(var(--p) * 1%), rgba(255,255,255,.08) 0)}
-.aq-ring::before{content:""; position:absolute; inset:4px; border-radius:50%; background:#11111B}
-.aq-ring svg{position:relative; width:19px; height:19px}
-.q-week .aq-ring{--c:#A64DFF}
-.q-month .aq-ring{--c:#FF33FF}
-.aq-txt{display:flex; flex-direction:column; min-width:0}
-.aq-txt b{font-family:var(--display); font-size:14px; text-transform:uppercase; letter-spacing:.04em}
-.aq-txt small{font-size:12px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-.aq-n{display:flex; flex-direction:column; align-items:flex-end}
-.aq-n b{font-family:var(--mono); font-size:15px}
-.aq-n small{font-size:11px; color:var(--muted)}
 
 /* wallet */
 .ac-wallet{background:radial-gradient(120% 80% at 100% 0%, rgba(51,204,255,.16), transparent 60%), linear-gradient(160deg, rgba(255,255,255,.055), rgba(255,255,255,.012) 60%), rgba(13,13,22,.78)}
@@ -436,19 +424,18 @@ body.app::after{
 .ak{--glow:var(--c)}
 
 /* inner rows: lighter frosted glass sitting on the card */
-.an li,.aq,.am-xp,.am-stats div,.aw-split div,.af-stats div,.ab-list li,.ar li{
+.an li,.am-xp,.am-stats div,.aw-split div,.af-stats div,.ab-list li,.ar li{
   position:relative;
   background:linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.015) 60%);
   border:1px solid rgba(255,255,255,.09);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 10px 22px -18px rgba(0,0,0,.9);
   -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
 }
-.an li:hover,.aq:hover,.ar li:hover{border-color:rgba(255,255,255,.2); background:linear-gradient(160deg, rgba(255,255,255,.1), rgba(255,255,255,.025) 60%)}
+.an li:hover,.ar li:hover{border-color:rgba(255,255,255,.2); background:linear-gradient(160deg, rgba(255,255,255,.1), rgba(255,255,255,.025) 60%)}
 .ar li.r1{background:linear-gradient(90deg, rgba(255,196,51,.18), rgba(255,196,51,.03) 70%), linear-gradient(160deg, rgba(255,255,255,.06), transparent 60%)}
 .ar li.r2{background:linear-gradient(90deg, rgba(201,209,224,.13), rgba(201,209,224,.02) 70%), linear-gradient(160deg, rgba(255,255,255,.06), transparent 60%)}
 .ar li.r3{background:linear-gradient(90deg, rgba(224,154,91,.15), rgba(224,154,91,.02) 70%), linear-gradient(160deg, rgba(255,255,255,.06), transparent 60%)}
 .ab-list li.is-next{background:linear-gradient(160deg, rgba(255,51,255,.16), rgba(255,51,255,.03) 60%)}
-.aq-ring::before{background:rgba(14,14,24,.92)}
 
 /* frosted icon chips, like the reference's glass icon buttons */
 .ac-h h2 svg,.ap-icon-btn,.ap-burger,.ap-close{
@@ -506,112 +493,510 @@ body.app::after{
 }
 
 /* =====================================================================
-   Brand theme from the logo. Surfaces are neutral graphite glass (no tint, no glow);
-   the logo's cyan → magenta gradient is the ONE signature, used only for:
-   primary buttons, active nav marker, hero hairline + one word, gradient-outlined icons, progress.
-   Green/red stay only where they carry meaning (gain/loss, verified/pending).
-   Placed last so it overrides the louder rules above.
+   ONYX: premium panel theme modelled on the GFT (goatfundedtrader) dashboard.
+   What makes it feel rich is design detail, not colour:
+   - graphite surfaces (#0E0E0F → #141415) with whisper hairlines;
+   - LIGHT-weight numerals with dimmed decimals ($91,670.20);
+   - segmented stat strips divided by hairlines, not separate glowing cards;
+   - dotted-grid chart panels with a single champagne line;
+   - uppercase, letter-spaced nav;
+   - one white pill CTA; everything else neutral.
+   Accent = champagne #D6B97A (sparingly). Green/red only for gain/loss & verified.
+   Placed last on purpose.
    ===================================================================== */
-.app{--brand:linear-gradient(90deg,#3DBCFF,#FF33FF); --brand-c:#3DBCFF; --brand-m:#FF33FF; --glass:rgba(18,19,26,.72); --tile:#15161D}
-body.app{background:#08090C}
-body.app::before{background:
-  radial-gradient(760px 440px at 0% -5%, rgba(61,188,255,.07), transparent 65%),
-  radial-gradient(760px 480px at 100% 105%, rgba(255,51,255,.06), transparent 65%)}
-/* faint brand light behind the glass so the blur reads as glass, kept very low */
-body.app::after{display:block; background:
-  radial-gradient(30vmax 30vmax at 22% 28%, rgba(61,188,255,.07), transparent 62%),
-  radial-gradient(28vmax 28vmax at 82% 72%, rgba(255,51,255,.06), transparent 62%)}
-
-/* graphite glass surfaces */
-.ap-side,.ap-top,.ac,.ak,.as{
-  background:var(--glass);
-  border:1px solid rgba(255,255,255,.07);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 18px 40px -30px rgba(0,0,0,.9);
-  -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+.app{
+  --ox-0:#0B0B0C;   /* page */
+  --ox-1:#111112;   /* panel */
+  --ox-2:#161617;   /* inner / chip */
+  --ox-3:#1C1C1E;   /* hover / active */
+  --ox-line:rgba(255,255,255,.06);
+  --ox-line-hi:rgba(255,255,255,.11);
+  --ox-txt:#EDEDEF;
+  --ox-mute:#7D7D85;
+  --ox-dim:#55555C;
+  --ox-gold:#D6B97A;
+  --ox-panel:linear-gradient(180deg, rgba(255,255,255,.022), rgba(255,255,255,0) 30%), var(--ox-1);
 }
+
+/* ---- page & surfaces ---- */
+body.app{background:var(--ox-0)}
+body.app::before{background:radial-gradient(1400px 700px at 30% -25%, rgba(255,255,255,.03), transparent 60%)}
+body.app::after{display:none}
+.ap-side,.ap-top,.ac,.as{background:var(--ox-panel); border:1px solid var(--ox-line); box-shadow:0 1px 0 rgba(255,255,255,.03) inset; -webkit-backdrop-filter:none; backdrop-filter:none; border-radius:16px}
+.ap-side{background:var(--ox-1)}
 .ac::before,.ak::before,.as::before,.ac::after,.as::after,.ak::after{content:none}
-.ac:hover,.ak:hover,.as:hover{border-color:rgba(255,255,255,.13); box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 18px 40px -30px rgba(0,0,0,.9)}
-.ak:hover{transform:none}
+.ac,.as{transition:border-color .2s}
+.ac:hover,.as:hover{border-color:var(--ox-line-hi); box-shadow:0 1px 0 rgba(255,255,255,.03) inset}
 
-/* sidebar */
-.ap-launch{background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08)}
+/* ---- type: section headers like GFT ("Trading Objectives") ---- */
+.ac-h{margin-bottom:16px}
+.ac-h h2{gap:0; font-size:15px; font-weight:500; letter-spacing:-.005em; color:var(--ox-txt)}
+.ac-h h2 svg{display:none}
+.ac-h a{font-size:12.5px; color:var(--ox-mute)}
+.ac-h a:hover{color:#fff}
+.ac-chip{font-size:12px; color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:999px}
+.ac-chip b{color:var(--ox-txt); font-weight:500}
+
+/* numbers: light weight, tabular, dim decimals */
+.ak-val,.aw-big,.am-stats dd,.af-stats dd,.aw-split b,.an-when b,.ar-pts b,.ah-strip b,.ah-chart-val{font-family:var(--display); font-weight:400; font-variant-numeric:tabular-nums; letter-spacing:-.02em; color:var(--ox-txt); background:none; -webkit-text-fill-color:currentColor; text-shadow:none}
+.ak-val span,.aw-big span,.ah-chart-val span{color:var(--ox-dim); -webkit-text-fill-color:currentColor}
+
+/* ---- buttons: white pill primary, quiet outline secondary ---- */
+.app .btn{text-transform:none; letter-spacing:0; font-family:var(--display); font-weight:600; font-size:14px; border-radius:999px; padding:11px 22px}
+.app .b-ember{clip-path:none; color:#0B0B0C; background:#F2F2F3; padding-inline:22px}
+.app .b-ember:hover{background:#fff; opacity:1}
+.app .b-line{color:var(--ox-txt); background:transparent; border:1px solid var(--ox-line-hi)}
+.app .b-line:hover{background:var(--ox-2); border-color:rgba(255,255,255,.2)}
+
+/* ---- sidebar: uppercase letter-spaced nav, raised active row ---- */
+.ap-launch{background:var(--ox-2); border:1px solid var(--ox-line); box-shadow:none; border-radius:14px}
 .ap-launch::before{content:none}
-.ap-launch-gem{background:var(--brand); color:#fff; filter:none; animation:none}
-.ap-launch p b{color:#fff; text-shadow:none}
-.ap-launch-btn:hover{background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.16)}
-.ap-nav-a.is-on{background:rgba(255,255,255,.05); box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
-.ap-nav-a.is-on::before{background:var(--brand); box-shadow:none}
+.ap-launch-gem{color:#D4D4D8; background:var(--ox-3); border:1px solid var(--ox-line-hi); filter:none; animation:none}
+.ap-launch p{color:var(--ox-mute)}
+.ap-launch p b{font-family:var(--display); font-weight:400; color:var(--ox-txt); background:none; -webkit-text-fill-color:currentColor; text-shadow:none; letter-spacing:.02em}
+.ap-launch-btn{color:var(--ox-txt); background:var(--ox-3); border:1px solid var(--ox-line-hi); border-radius:999px}
+.ap-launch-btn:hover{background:#232325}
+.ap-nav-a{font-size:12.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#8A8A92}
+.ap-nav-a:hover{color:#fff; background:rgba(255,255,255,.025)}
+.ap-nav-a.is-on{color:#fff; background:var(--ox-3); box-shadow:inset 0 0 0 1px var(--ox-line-hi), 0 1px 0 rgba(255,255,255,.05) inset}
+.ap-nav-a.is-on::before{display:none}
 .ap-nav-a.is-on svg{color:#fff}
-.ap-nav-a em{color:#FF8AFF; background:rgba(255,51,255,.08); border-color:rgba(255,51,255,.3)}
+.ap-nav-a em{color:#C9CBD1; background:var(--ox-3); border-color:var(--ox-line-hi); border-radius:999px}
 
-/* top bar */
-.p-bal svg,.p-cred svg,.p-tix svg{color:var(--muted)}
-.p-bal b,.p-cred b,.p-tix b{color:#fff}
-.ap-cta{background:var(--brand); color:#fff; box-shadow:none}
-.ap-cta:hover{filter:brightness(1.08)}
-.ap-me-av,.am-av{background:var(--brand); color:#fff}
+/* ---- top bar ---- */
+.ap-wallets{gap:0; padding:3px; border-radius:999px; background:var(--ox-2); border:1px solid var(--ox-line)}
+.ap-pill{background:transparent; border:0; border-radius:999px}
+.ap-pill + .ap-pill{border-left:1px solid var(--ox-line); border-radius:0}
+.p-bal svg,.p-cred svg,.p-tix svg{color:var(--ox-mute)}
+.p-bal b,.p-cred b,.p-tix b{color:var(--ox-txt); font-weight:500}
+.ap-cta{color:#0B0B0C; background:#F2F2F3; border-radius:999px; box-shadow:none; text-transform:none; letter-spacing:0; font-weight:600}
+.ap-cta:hover{background:#fff; filter:none}
+.ap-icon-btn{background:var(--ox-2); border-color:var(--ox-line-hi); border-radius:999px}
+.ap-me-av{color:#fff; background:var(--ox-3); border:1px solid var(--ox-line-hi)}
 
-/* hero: neutral panel, a 2px brand hairline on top, one gradient word, outlined hex emblem */
-.ah{background:linear-gradient(180deg, rgba(255,255,255,.03), transparent 60%), rgba(16,17,23,.82); border-color:rgba(255,255,255,.08); box-shadow:none; -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px)}
-.ah::before{background:radial-gradient(360px 240px at 84% 45%, rgba(61,188,255,.09), transparent 70%), radial-gradient(320px 220px at 90% 65%, rgba(255,51,255,.07), transparent 70%)}
-.ah::after{content:""; position:absolute; left:0; right:0; top:0; height:2px; background:var(--brand); pointer-events:none}
-.ah-tag{color:var(--muted); background:rgba(255,255,255,.04); border-color:rgba(255,255,255,.1)}
-.ah-tag i{background:var(--brand-m)}
-.ah h1 span{background:var(--brand); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent}
-.ah-emblem-3d{width:120px; height:134px; animation:none; transform:none}
-.ah-hex.h1,.ah-hex.h2,.ah-orbit{display:none}
-.ah-core{isolation:isolate; transform:none; background:var(--brand); color:#fff; box-shadow:none}
-.ah-core::before{content:""; position:absolute; inset:2px; z-index:-1; clip-path:polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background:#121319}
-.ah-core svg{filter:none}
+/* ---- hero: copy left, dotted-grid equity panel right ---- */
+.ah{position:relative; isolation:isolate; overflow:hidden; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:28px; align-items:stretch; padding:30px 30px 30px 34px;
+  background:radial-gradient(640px 420px at -4% 0%, rgba(78,98,150,.30), rgba(78,98,150,.08) 45%, transparent 70%), #09090A;
+  border:1px solid var(--ox-line); box-shadow:0 1px 0 rgba(255,255,255,.03) inset; -webkit-backdrop-filter:none; backdrop-filter:none; border-radius:18px}
+.ah::before,.ah::after{content:none}
+.ah-txt{position:relative; z-index:1; align-self:center}
 
-/* account status strip */
-.as-ico{color:#fff; background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.12)}
-.as-steps .wait{color:var(--muted); background:rgba(255,255,255,.04); border-color:rgba(255,255,255,.12)}
-.as-btn{color:#fff; background:var(--brand); box-shadow:none}
+/* silk backdrop: soft white ribbons fanning in from the top-right, fading out toward the copy */
+.ah-silk{position:absolute; z-index:0; inset:0; width:100%; height:100%; pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg, transparent 18%, #000 52%); mask-image:linear-gradient(90deg, transparent 18%, #000 52%)}
+.app .ah-silk path{fill:none; stroke:url(#ah-silk-grad); stroke-linecap:round; opacity:.5}
+.app .ah-silk path.is-soft{opacity:.32; filter:url(#ah-silk-blur)}
+.ah-silk-fan{transform-box:view-box; transform-origin:100% 0; animation:ah-silk-drift 22s ease-in-out infinite alternate}
+@keyframes ah-silk-drift{
+  from{transform:translate(0,0) rotate(0deg)}
+  to{transform:translate(-26px,8px) rotate(-2.5deg)}
+}
+.ah h1{font-size:clamp(24px,2.6vw,34px); font-weight:500; text-transform:uppercase; letter-spacing:-.01em; color:var(--ox-txt)}
+.ah h1 span{background:none; -webkit-text-fill-color:currentColor; color:var(--ox-txt)}
+.ah-txt>p:not(.ah-tag){color:var(--ox-mute); font-size:14px}
+.ah-tag{gap:8px; color:#C9CBD1; background:var(--ox-2); border-color:var(--ox-line-hi); border-radius:999px; text-transform:none; letter-spacing:0; font-weight:500; font-size:12px}
+.ah-tag i{background:#4ADE80; box-shadow:none}
 
-/* cards */
-.ac-me,.ac-wallet{background:var(--glass)}
-.ac-h h2 svg{color:#fff; background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.1)}
-.ac-chip b{color:#fff}
-.ab2:hover{border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.05)}
+.ah-strip{display:flex; flex-wrap:wrap; margin:24px 0 0; padding:0; list-style:none; width:fit-content; max-width:100%; border-radius:14px; background:var(--ox-2); border:1px solid var(--ox-line)}
+.ah-strip li{display:flex; flex-direction:column; justify-content:center; gap:6px; min-width:140px; padding:12px 18px}
+.ah-strip li + li{border-left:1px solid var(--ox-line)}
+.ah-strip small{font-size:11.5px; color:var(--ox-mute)}
+.ah-strip b{font-size:18px; line-height:1.1}
+.ah-strip b em{font-style:normal; font-size:12px; color:var(--ox-dim); margin-left:5px}
+.ah-strip-bar{display:block; height:3px; margin-top:2px; border-radius:3px; background:rgba(255,255,255,.07); overflow:hidden}
+.ah-strip-bar i{display:block; height:100%; border-radius:inherit; background:var(--ox-gold)}
 
-/* icon tiles: dark tile with a 1px brand-gradient outline — the signature detail */
-.ak,.k-green,.k-pink,.k-gold{--c:var(--brand-c)}
-.ak-ico,.an .t-daily .an-ico,.an .t-mini .an-ico,.an .t-circuit .an-ico{clip-path:none; color:#fff; border:1px solid transparent; background:linear-gradient(var(--tile),var(--tile)) padding-box, var(--brand) border-box; filter:none}
-.ak-ico{width:46px; height:46px; border-radius:13px}
-.ak-val{color:#fff; text-shadow:none}
-.ak-sub{color:var(--muted)}
+.ah-chart{position:relative; display:flex; flex-direction:column; margin:0; min-height:240px; padding:18px 20px 0; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0) 40%), var(--ox-0); border:1px solid var(--ox-line); box-shadow:inset 0 1px 0 rgba(255,255,255,.04); overflow:hidden}
+.ah-chart-h{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.ah-chart-meta{display:inline-flex; align-items:center; flex-wrap:wrap; gap:8px 12px}
+.ah-chart-lbl{display:inline-flex; align-items:center; gap:7px; font-size:12px; color:var(--ox-mute)}
+.ah-chart-lbl::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--ox-gold)}
+/* LIVE badge with a blinking dot and the round countdown */
+.ah-chart-live{display:inline-flex; align-items:center; gap:6px; padding:2px 8px 2px 7px; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#FCA5A5; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.3); border-radius:999px}
+.ah-chart-live i{width:6px; height:6px; border-radius:50%; background:#EF4444; animation:ah-live-blink 1.2s ease-in-out infinite}
+.ah-chart-live b{margin-left:2px; padding-left:7px; border-left:1px solid rgba(239,68,68,.3); font-weight:500; letter-spacing:.02em; color:var(--ox-txt); font-variant-numeric:tabular-nums}
+@keyframes ah-live-blink{
+  0%,100%{opacity:1; box-shadow:0 0 0 0 rgba(239,68,68,.5)}
+  50%{opacity:.35; box-shadow:0 0 0 4px rgba(239,68,68,0)}
+}
+.ah-chart-range{display:flex; gap:2px; padding:2px; border-radius:8px; background:var(--ox-2); border:1px solid var(--ox-line)}
+.ah-chart-range i{padding:3px 8px; font-style:normal; font-size:10.5px; color:var(--ox-dim); border-radius:6px}
+.ah-chart-range i.is-on{color:var(--ox-txt); background:var(--ox-3)}
+.ah-chart-val{display:flex; align-items:baseline; flex-wrap:wrap; gap:0 2px; margin:8px 0 0; font-size:32px; line-height:1.1}
+.ah-chart-num{font-weight:inherit; border-radius:6px}
+/* every tick re-mounts the number (React key), so this flash replays green on an up-tick, red on a down-tick */
+.ah-chart-num.is-up{animation:ah-tick-up .6s ease-out}
+.ah-chart-num.is-down{animation:ah-tick-down .6s ease-out}
+@keyframes ah-tick-up{from{color:#4ADE80; text-shadow:0 0 18px rgba(74,222,128,.45)}}
+@keyframes ah-tick-down{from{color:#F87171; text-shadow:0 0 18px rgba(248,113,113,.45)}}
+.ah-chart-val em{align-self:center; margin-left:10px; font-style:normal; font-size:12px; font-weight:500; letter-spacing:0; font-variant-numeric:tabular-nums}
+.ah-chart-val em.is-up{color:#4ADE80}
+.ah-chart-val em.is-down{color:#F87171}
+.ah-chart-plot{position:relative; flex:1; min-height:150px; margin:14px -20px 0;
+  background-image:radial-gradient(rgba(255,255,255,.085) .8px, transparent 1.1px); background-size:7px 7px; background-position:3px 3px;
+  -webkit-mask-image:linear-gradient(180deg, transparent, #000 14%); mask-image:linear-gradient(180deg, transparent, #000 14%)}
+.ah-chart-svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+/* The panel-wide icon rule (.app svg{stroke:currentColor; stroke-width:2}) must not touch chart shapes. */
+.app .ah-chart-svg *{stroke:none; stroke-width:0}
 
-/* trader card */
-.am-tier{color:#fff; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14)}
-.am-xp-bar i{background:var(--brand); box-shadow:none}
-.am-xp p b{color:#fff}
+.app .ah-chart-svg .ah-chart-zone{fill:rgba(214,185,122,.035)}
+.app .ah-chart-svg .ah-chart-vol{fill:none; stroke:rgba(255,255,255,.13); stroke-width:1.1; vector-effect:non-scaling-stroke}
+.app .ah-chart-svg .ah-chart-vol.is-battle{stroke:rgba(214,185,122,.3)}
+.app .ah-chart-svg .ah-chart-split{fill:none; stroke:rgba(255,255,255,.4); stroke-width:1; stroke-dasharray:3 3; vector-effect:non-scaling-stroke}
+.app .ah-chart-svg .ah-chart-area{fill:url(#ah-battle-fill)}
+.app .ah-chart-svg .ah-chart-price-line{fill:none; stroke:rgba(214,185,122,.45); stroke-width:1; stroke-dasharray:2 3; vector-effect:non-scaling-stroke}
+.app .ah-chart-svg .ah-chart-warm{fill:none; stroke:rgba(236,236,240,.62); stroke-width:1.2; stroke-linejoin:round; stroke-linecap:round; vector-effect:non-scaling-stroke}
+.app .ah-chart-svg .ah-chart-line{fill:none; stroke:var(--ox-gold); stroke-width:1.4; stroke-linejoin:round; stroke-linecap:round; vector-effect:non-scaling-stroke; filter:drop-shadow(0 0 3px rgba(214,185,122,.7))}
+.ah-chart-tag{position:absolute; top:6px; margin-left:7px; padding:1px 7px; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ox-gold); background:rgba(214,185,122,.08); border:1px solid rgba(214,185,122,.25); border-radius:999px; pointer-events:none}
+/* "now" cursor: a faint vertical beam at the live edge */
+.ah-chart-now{position:absolute; top:0; bottom:0; width:1px; background:linear-gradient(180deg, transparent, rgba(214,185,122,.4) 30%, rgba(214,185,122,.4) 70%, transparent); pointer-events:none}
+.ah-chart-tip{position:absolute; z-index:1; width:7px; height:7px; border-radius:50%; transform:translate(-50%, 50%); background:var(--ox-gold); box-shadow:0 0 0 4px rgba(214,185,122,.16); pointer-events:none; transition:bottom .5s ease-out; animation:ah-tip-pulse 1.4s ease-out infinite}
+@keyframes ah-tip-pulse{
+  0%{box-shadow:0 0 0 0 rgba(214,185,122,.55)}
+  70%,100%{box-shadow:0 0 0 10px rgba(214,185,122,0)}
+}
+/* live price label pinned to the right edge, following the line */
+.ah-chart-price{position:absolute; right:4px; transform:translateY(50%); padding:2px 5px; font-size:10px; font-weight:600; font-variant-numeric:tabular-nums; color:#0B0B0C; border-radius:4px; pointer-events:none; transition:bottom .5s ease-out, background .3s}
+.ah-chart-price.is-up{background:#4ADE80}
+.ah-chart-price.is-down{background:#F87171}
+/* ---- 1v1 battle: you (champagne) vs rival (cyan) racing on P&L % ---- */
+.bt{--you:#D6B97A; --you-rgb:214,185,122; --rival:#5CC8FF; --rival-rgb:92,200,255}
+.bt-swaps{font-size:11px; color:var(--ox-mute); font-variant-numeric:tabular-nums}
+/* scoreboard: you on the left, rival on the right, VS in the middle */
+.bt-vs{display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:10px; margin-top:14px}
+.bt-side{display:flex; align-items:center; gap:10px; min-width:0; padding:8px 10px; border-radius:12px; border:1px solid var(--ox-line); background:var(--ox-2); transition:border-color .4s, box-shadow .4s, background .4s}
+.bt-side.is-rival{justify-content:flex-end; text-align:right}
+.bt-side.is-you.is-lead{border-color:rgba(var(--you-rgb),.5); background:linear-gradient(90deg, rgba(var(--you-rgb),.14), transparent 80%), var(--ox-2); box-shadow:0 0 22px -8px rgba(var(--you-rgb),.6)}
+.bt-side.is-rival.is-lead{border-color:rgba(var(--rival-rgb),.5); background:linear-gradient(270deg, rgba(var(--rival-rgb),.14), transparent 80%), var(--ox-2); box-shadow:0 0 22px -8px rgba(var(--rival-rgb),.6)}
+.bt-av{flex:none; width:30px; height:30px; display:grid; place-items:center; border-radius:50%; font-size:13px; font-weight:700; color:#0B0B0C}
+.bt-side.is-you .bt-av{background:linear-gradient(160deg, #F4E2B8, var(--you))}
+.bt-side.is-rival .bt-av{color:#fff; background:var(--av, var(--rival))}
+.bt-who{display:flex; flex-direction:column; min-width:0; line-height:1.2}
+.bt-who small{font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ox-mute)}
+.bt-who b{font-size:13px; font-weight:600; color:var(--ox-txt); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.bt-side strong{margin-left:auto; font-family:var(--display); font-size:18px; font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap}
+.bt-side.is-rival strong{margin:0 auto 0 0}
+.bt-side strong.is-up{color:#4ADE80}
+.bt-side strong.is-down{color:#F87171}
+/* the leader gets a crown-style tag above their card */
+.bt-side{position:relative}
+.bt-side.is-lead::after{content:"Leading"; position:absolute; top:-8px; padding:1px 7px; font-size:9px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#0B0B0C; border-radius:999px}
+.bt-side.is-you.is-lead::after{left:10px; background:var(--you)}
+.bt-side.is-rival.is-lead::after{right:10px; background:var(--rival)}
+.bt-vs-mid{display:grid; place-items:center; width:34px; height:34px; font-size:11px; font-weight:800; letter-spacing:.06em; color:var(--ox-txt); border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, #2A2A2E, #121214); border:1px solid var(--ox-line-hi); box-shadow:0 0 0 4px rgba(255,255,255,.02), 0 0 18px -4px rgba(239,68,68,.45); animation:bt-vs-pulse 2s ease-in-out infinite}
+@keyframes bt-vs-pulse{
+  0%,100%{box-shadow:0 0 0 4px rgba(255,255,255,.02), 0 0 18px -4px rgba(239,68,68,.45)}
+  50%{box-shadow:0 0 0 6px rgba(255,255,255,.03), 0 0 26px -2px rgba(239,68,68,.65)}
+}
+/* tug-of-war: your share (gold) pushes against the rival's (cyan); a bright knot marks the front line */
+.bt-tug{position:relative; height:5px; margin-top:10px; border-radius:5px; background:var(--rival); box-shadow:0 0 10px rgba(var(--rival-rgb),.35)}
+.bt-tug i{position:relative; display:block; height:100%; border-radius:5px 0 0 5px; background:var(--you); box-shadow:0 0 10px rgba(var(--you-rgb),.45); transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.bt-tug i::after{content:""; position:absolute; right:-5px; top:50%; width:10px; height:10px; transform:translateY(-50%); border-radius:50%; background:#fff; box-shadow:0 0 0 3px rgba(255,255,255,.15), 0 0 12px rgba(255,255,255,.8)}
 
-/* next battles */
-.an li:hover{border-color:rgba(255,255,255,.14); background:rgba(255,255,255,.03)}
-.an-when b{color:#fff}
-.an-go{background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.14)}
-.an-go:hover{background:rgba(255,255,255,.1)}
+/* chart */
+.bt .ah-chart-plot{min-height:140px; margin-top:12px}
+.app .ah-chart-svg .bt-zero{fill:none; stroke:rgba(255,255,255,.22); stroke-width:1; stroke-dasharray:2 4; vector-effect:non-scaling-stroke}
+.app .ah-chart-svg .bt-spread{stroke:none; transition:fill .4s}
+.app .ah-chart-svg .bt-spread.is-you{fill:rgba(var(--you-rgb),.1)}
+.app .ah-chart-svg .bt-spread.is-rival{fill:rgba(var(--rival-rgb),.1)}
+.app .ah-chart-svg .bt-line{fill:none; stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round; vector-effect:non-scaling-stroke}
+.app .ah-chart-svg .bt-line.is-you{stroke:var(--you); filter:drop-shadow(0 0 3px rgba(var(--you-rgb),.75))}
+.app .ah-chart-svg .bt-line.is-rival{stroke:var(--rival); filter:drop-shadow(0 0 3px rgba(var(--rival-rgb),.75))}
+.bt-tip{position:absolute; z-index:1; width:8px; height:8px; border-radius:50%; transform:translate(-50%, 50%); pointer-events:none; transition:bottom .5s ease-out}
+.bt-tip.is-you{background:var(--you); animation:bt-ping-you 1.4s ease-out infinite}
+.bt-tip.is-rival{background:var(--rival); animation:bt-ping-rival 1.4s ease-out .7s infinite}
+@keyframes bt-ping-you{0%{box-shadow:0 0 0 0 rgba(var(--you-rgb),.6)} 70%,100%{box-shadow:0 0 0 10px rgba(var(--you-rgb),0)}}
+@keyframes bt-ping-rival{0%{box-shadow:0 0 0 0 rgba(var(--rival-rgb),.6)} 70%,100%{box-shadow:0 0 0 10px rgba(var(--rival-rgb),0)}}
+.bt-pill{position:absolute; right:2px; transform:translateY(50%); padding:2px 6px; font-size:10px; font-weight:700; font-variant-numeric:tabular-nums; color:#0B0B0C; border-radius:4px; pointer-events:none; transition:bottom .5s ease-out}
+.bt-pill.is-you{background:var(--you)}
+.bt-pill.is-rival{background:var(--rival)}
+/* lead change: a banner that pops in the middle of the plot and fades away */
+.bt-flash{position:absolute; z-index:2; left:50%; top:16%; padding:5px 12px; font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; color:#0B0B0C; border-radius:999px; pointer-events:none; opacity:0; animation:bt-flash 2.2s ease-out}
+.bt-flash.is-you{background:var(--you); box-shadow:0 0 30px rgba(var(--you-rgb),.6)}
+.bt-flash.is-rival{background:var(--rival); box-shadow:0 0 30px rgba(var(--rival-rgb),.6)}
+@keyframes bt-flash{
+  0%{opacity:0; transform:translate(-50%, 6px) scale(.85)}
+  12%{opacity:1; transform:translate(-50%, 0) scale(1.06)}
+  22%{transform:translate(-50%, 0) scale(1)}
+  75%{opacity:1}
+  100%{opacity:0; transform:translate(-50%, -6px)}
+}
+/* trade feed: the latest big move slides in under the chart */
+.bt-feed{display:flex; align-items:center; gap:7px; margin:10px 0 0; font-size:11.5px; color:var(--ox-mute); animation:bt-feed-in .45s ease-out}
+.bt-feed i{width:7px; height:7px; border-radius:50%}
+.bt-feed i.is-you{background:var(--you)}
+.bt-feed i.is-rival{background:var(--rival)}
+.bt-feed b{font-weight:600; color:var(--ox-txt)}
+.bt-feed .is-up{color:#4ADE80; font-variant-numeric:tabular-nums}
+.bt-feed .is-down{color:#F87171; font-variant-numeric:tabular-nums}
+@keyframes bt-feed-in{from{opacity:0; transform:translateY(6px)}}
+@media (max-width:640px){
+  .bt-who small{display:none}
+  .bt-side{padding:7px 8px; gap:7px}
+  .bt-side strong{font-size:15px}
+  .bt-av{width:26px; height:26px; font-size:12px}
+}
 
-/* quests: the two logo colours only */
-.aq-ring,.q-week .aq-ring{--c:#3DBCFF}
-.q-month .aq-ring{--c:#FF33FF}
+@media (prefers-reduced-motion:reduce){
+  .ah-silk-fan,.ah-chart-tip,.ah-chart-live i,.ah-chart-num,.bt-vs-mid,.bt-tip,.bt-flash,.bt-feed{animation:none}
+  .ah-chart-tip,.ah-chart-price,.bt-tip,.bt-pill,.bt-tug i,.bt-side{transition:none}
+}
 
-/* wallet & affiliate */
-.aw-big{color:#fff; text-shadow:none}
-.aw-big span{color:var(--muted)}
-.af-lead b{color:#fff}
-.af-code{color:#fff; background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.16)}
-.af-code:hover{background:rgba(255,255,255,.06)}
+/* ---- account status strip ---- */
+.as{padding:12px 14px}
+.as-ico{color:#C9CBD1; background:var(--ox-2); border:1px solid var(--ox-line-hi)}
+.as p b{color:var(--ox-txt); font-weight:600}
+.as p span{color:var(--ox-mute)}
+.as-steps li{border-radius:999px; font-weight:500}
+.as-steps .ok{color:#4ADE80; background:rgba(34,197,94,.07); border-color:rgba(34,197,94,.22)}
+.as-steps .wait{color:#C9CBD1; background:var(--ox-2); border-color:var(--ox-line-hi)}
+.as-btn{color:#0B0B0C; background:#F2F2F3; border:0; border-radius:999px; box-shadow:none}
+.as-btn:hover{background:#fff}
 
-/* badges */
-.ab-list li.is-next{border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.03)}
-.ab-list li.is-next .bd{background:var(--brand); animation:none}
-.ab-list li.is-next small{color:#8AD6FF}
+/* ---- trader card: same card language as the stats panel (corner light, deep shadow) ---- */
+.ac-me{background:radial-gradient(420px 220px at 0% 0%, rgba(214,185,122,.07), transparent 60%), var(--ox-panel);
+  box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 20px 40px -24px rgba(0,0,0,.8); border-radius:18px}
+.am-av{color:#fff; background:linear-gradient(160deg, #2A2A2E, #141416); box-shadow:inset 0 0 0 1px var(--ox-line-hi), inset 0 1px 0 rgba(255,255,255,.08)}
+.am-av::before{content:none}
+.am-tier{color:var(--ox-gold); background:#17140D; border:1px solid rgba(214,185,122,.35); box-shadow:0 4px 10px -4px rgba(214,185,122,.35); letter-spacing:.1em}
+.am-who b{font-weight:600; letter-spacing:-.01em}
+.am-who small{color:var(--ox-mute)}
+.am-xp{background:var(--ox-2); border-color:var(--ox-line); border-radius:14px}
+.am-xp-row span:last-child{font-family:var(--display); font-variant-numeric:tabular-nums; color:var(--ox-mute)}
+.am-xp-bar{height:4px; background:rgba(255,255,255,.07); box-shadow:none; overflow:visible}
+.am-xp-bar i{background:linear-gradient(90deg, #9C7A3E, var(--ox-gold)); box-shadow:0 0 10px rgba(214,185,122,.55)}
+.am-xp p{color:var(--ox-mute)}
+.am-xp p b{color:var(--ox-gold)}
+.am-stats div,.af-stats div,.aw-split div{background:var(--ox-2); border-color:var(--ox-line); box-shadow:none}
+.am-stats div{align-items:flex-start; gap:6px; padding:12px 14px; text-align:left; border-radius:12px; transition:border-color .2s}
+.am-stats div:hover{border-color:var(--ox-line-hi)}
+.am-stats dd{font-size:22px; font-weight:600}
+.am-stats dt{display:inline-flex; align-items:center; gap:6px}
+.am-stats dt::before{content:""; width:5px; height:5px; flex:none; border-radius:50%; background:#71717A}
+.am-stats dt,.af-stats dt,.aw-split span{color:var(--ox-mute)}
+.ab2{color:var(--ox-txt); background:transparent; border:1px solid var(--ox-line-hi); border-radius:999px}
+.ab2:hover{border-color:rgba(255,255,255,.2); background:var(--ox-2)}
 
-/* leaderboard */
-.ar li.r1,.ar li.r2,.ar li.r3{background:rgba(255,255,255,.025); border-color:var(--line)}
-.ar-pts b{color:#fff}
+/* ---- stats: one panel, cells split by hairlines; each cell = dot label, bold value,
+   delta line, coin icon + note bottom-right, and a soft glowing sparkline on the right ---- */
+.ak-grid{grid-template-columns:repeat(2, minmax(0,1fr)); gap:0; align-content:stretch; border-radius:18px;
+  background:radial-gradient(520px 220px at 100% 0%, rgba(255,255,255,.035), transparent 60%), var(--ox-panel);
+  border:1px solid var(--ox-line); box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 20px 40px -24px rgba(0,0,0,.8); overflow:hidden}
+.ak,.k-green,.k-pink,.k-gold{--c:#fff}
+.ak{--trend:rgba(236,236,240,.75); --trend-soft:rgba(236,236,240,.12);
+  position:relative; isolation:isolate; display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-rows:auto auto auto 1fr; column-gap:14px;
+  min-height:168px; padding:18px 20px; background:transparent; border:0; border-radius:0; box-shadow:none; transform:none; transition:background .2s}
+.ak.is-up{--trend:#4ADE80; --trend-soft:rgba(74,222,128,.16)}
+.ak.is-down{--trend:#F87171; --trend-soft:rgba(248,113,113,.16)}
+.ak:hover{background:rgba(255,255,255,.018); transform:none}
+.ak:nth-child(2n){border-left:1px solid var(--ox-line)}
+.ak:nth-child(n+3){border-top:1px solid var(--ox-line)}
+.ak-ico{display:none}
+.ak-lbl{grid-column:1 / -1; display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:500; letter-spacing:0; text-transform:none; color:#A1A1AA}
+.ak-lbl::before{content:""; width:6px; height:6px; flex:none; border-radius:50%; background:#71717A}
+.ak-val{grid-column:1; position:relative; z-index:1; margin-top:12px; font-size:30px; font-weight:600; line-height:1; letter-spacing:-.025em}
+.ak-delta{grid-column:1; position:relative; z-index:1; margin-top:7px; font-size:12.5px; color:var(--ox-mute); font-variant-numeric:tabular-nums}
+.ak.is-up .ak-delta,.ak.is-down .ak-delta{color:var(--trend)}
+.ak-note{grid-column:1 / -1; align-self:end; justify-self:end; position:relative; z-index:1; display:flex; align-items:center; gap:10px; max-width:220px; margin-top:16px; font-size:12px; line-height:1.35; color:var(--ox-mute)}
+.ak-coin{flex:none; width:30px; height:30px; display:grid; place-items:center; border-radius:50%; font-style:normal; color:#1A1405;
+  background:radial-gradient(circle at 32% 28%, #F4E2B8, #D6B97A 55%, #9C7A3E);
+  box-shadow:0 0 0 3px rgba(214,185,122,.12), -9px 0 0 -1px rgba(214,185,122,.35), 0 6px 14px -4px rgba(214,185,122,.45)}
+.ak-coin svg{width:15px; height:15px; stroke-width:2.2}
+/* sparkline: sits behind the right half, glow under the line fades to nothing */
+.ak-spark{position:absolute; z-index:0; right:18px; top:46px; width:46%; height:56px; overflow:visible; pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg, transparent, #000 22%, #000 85%, transparent); mask-image:linear-gradient(90deg, transparent, #000 22%, #000 85%, transparent)}
+.app .ak-spark .ak-spark-area{fill:var(--trend-soft); stroke:none; stroke-width:0}
+.app .ak-spark .ak-spark-line{fill:none; stroke:var(--trend); stroke-width:1.3; stroke-linejoin:round; stroke-linecap:round; vector-effect:non-scaling-stroke; filter:drop-shadow(0 0 4px var(--trend))}
+
+/* ---- next battles: table-like rows ---- */
+.an{gap:0}
+.an li{padding:14px 4px; border:0; border-radius:0; background:transparent; box-shadow:none; border-top:1px solid var(--ox-line)}
+.an li:first-child{border-top:0}
+.an li:hover{background:rgba(255,255,255,.015); border-color:var(--ox-line)}
+.an .t-daily .an-ico,.an .t-mini .an-ico,.an .t-circuit .an-ico{width:38px; height:38px; color:#C9CBD1; background:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:11px}
+.an-txt b{font-weight:500}
+.an-txt small,.an-when small{color:var(--ox-mute)}
+.an-when b{font-size:15px}
+.an-go{color:var(--ox-txt); background:transparent; border:1px solid var(--ox-line-hi); border-radius:999px}
+.an-go:hover{background:var(--ox-2); border-color:rgba(255,255,255,.2)}
+
+/* ---- quests: "Goal Overview"-style glass cards: header band on top, a strong coloured glow
+   rising from the bottom (teal / violet / pearl, one per card), numbers sitting on the glow ---- */
+.aq-list{grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px}
+.aq{--qc:45,212,191; position:relative; isolation:isolate; overflow:hidden; display:flex; flex-direction:column; gap:0; padding:0; border-radius:18px;
+  border:1px solid rgba(255,255,255,.1);
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01) 40%), #141416;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 18px 36px -22px rgba(0,0,0,.9); transition:border-color .3s, transform .3s}
+.q-week{--qc:168,85,247}
+.q-month{--qc:228,228,231}
+.aq:hover{border-color:rgba(var(--qc),.35); transform:translateY(-2px)}
+/* the glow: a wide blurred blob anchored low in the card */
+.aq::after{content:""; position:absolute; z-index:-1; left:8%; right:auto; bottom:-48%; width:70%; height:85%; border-radius:50%; filter:blur(38px); pointer-events:none;
+  background:radial-gradient(closest-side, rgba(var(--qc),.55), rgba(var(--qc),.18) 60%, transparent); opacity:.85; transition:opacity .3s, transform .4s}
+.q-week::after{left:18%}
+.q-month::after{left:28%; opacity:.55}
+.aq:hover::after{opacity:1; transform:scale(1.08)}
+/* thin lit edge along the top, tinted to the card */
+.aq::before{content:""; position:absolute; z-index:1; inset:0 0 auto; height:1px; background:linear-gradient(90deg, transparent, rgba(var(--qc),.5), transparent); pointer-events:none}
+.aq-top{display:flex; align-items:center; gap:12px; min-width:0; margin:8px 8px 0; padding:10px 12px; border-radius:13px;
+  background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.06)}
+.aq-ico{flex:none; width:36px; height:36px; display:grid; place-items:center; border-radius:11px; color:#F4F4F5;
+  background:linear-gradient(160deg, rgba(255,255,255,.12), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.12); box-shadow:inset 0 1px 0 rgba(255,255,255,.12), 0 4px 10px -4px rgba(0,0,0,.6)}
+.aq-ico svg{width:17px; height:17px}
+.aq-name{flex:1; min-width:0; font-family:var(--display); font-size:15px; font-weight:600; color:var(--ox-txt); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.aq-state{flex:none; padding:4px 10px; font-size:11px; font-weight:500; color:#E4E4E7; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:8px; white-space:nowrap}
+.aq-task{margin:14px 20px 0; font-size:12.5px; line-height:1.45; color:var(--ox-mute)}
+.aq-nums{display:flex; justify-content:space-between; align-items:flex-end; gap:10px; margin:22px 20px 0}
+.aq-nums div{display:flex; flex-direction:column; gap:6px}
+.aq-nums div + div{text-align:right}
+.aq-nums dt{font-size:11.5px; color:#A1A1AA}
+.aq-nums dd{margin:0; font-family:var(--display); font-size:24px; font-weight:600; font-variant-numeric:tabular-nums; line-height:1; color:var(--ox-txt)}
+.aq-bar{display:block; height:3px; margin:14px 20px 18px; border-radius:3px; background:rgba(255,255,255,.08); overflow:hidden}
+.aq-bar i{display:block; height:100%; min-width:3px; border-radius:inherit; background:rgb(var(--qc)); box-shadow:0 0 8px rgba(var(--qc),.8)}
+@media (max-width:640px){
+  .aq-list{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .aq,.aq::after{transition:none}
+  .aq:hover{transform:none}
+}
+
+/* ---- wallet: the balance sits on a graphite bank card (gold chip, ring watermark, sheen on hover) ---- */
+.aw-card{position:relative; isolation:isolate; overflow:hidden; padding:16px 18px 14px; border-radius:16px;
+  background:radial-gradient(120% 90% at 100% 0%, rgba(214,185,122,.2), transparent 55%), linear-gradient(150deg, #242427, #121214 60%, #0B0B0C);
+  border:1px solid rgba(214,185,122,.22); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 34px -20px rgba(0,0,0,.9)}
+.aw-card::after{content:""; position:absolute; z-index:-1; right:-50px; bottom:-70px; width:180px; height:180px; border-radius:50%;
+  border:1px solid rgba(214,185,122,.16); box-shadow:0 0 0 22px rgba(214,185,122,.035), 0 0 0 44px rgba(214,185,122,.02)}
+.aw-card::before{content:""; position:absolute; z-index:-1; inset:0; background:linear-gradient(115deg, transparent 35%, rgba(255,255,255,.09) 50%, transparent 65%); transform:translateX(-100%); transition:transform .9s ease}
+.aw-card:hover::before{transform:translateX(100%)}
+.aw-card-top{display:flex; align-items:center; justify-content:space-between}
+.aw-chip{position:relative; width:34px; height:25px; border-radius:6px; background:linear-gradient(135deg, #F4E2B8, #C9A961 50%, #8E6E35); box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
+.aw-chip::before{content:""; position:absolute; inset:5px 9px; border:1px solid rgba(0,0,0,.3); border-radius:3px}
+.aw-brand{font-size:10.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:rgba(244,244,245,.55)}
+.ac-wallet .aw-sub{margin:16px 0 0; font-size:11.5px; color:var(--ox-mute)}
+.ac-wallet .aw-big{margin:4px 0 0; font-family:var(--display); font-size:38px; font-weight:500; line-height:1.05; color:var(--ox-txt); text-shadow:none; font-variant-numeric:tabular-nums}
+.ac-wallet .aw-big span{font-size:20px; color:var(--ox-dim)}
+.aw-holder{display:flex; justify-content:space-between; gap:10px; margin:14px 0 0; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:rgba(244,244,245,.6)}
+.aw-holder span:first-child{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.aw-split{margin-top:12px}
+.aw-split b{font-family:var(--display); font-weight:600}
+.aw-empty{color:var(--ox-mute)}
+
+/* ---- invite: the code is printed on a ticket with side notches and a tear-off stub ---- */
+.af-lead{color:var(--ox-mute)}
+.af-lead b{color:var(--ox-txt); font-weight:500}
+.af-ticket{display:flex; align-items:stretch; margin-top:14px; border-radius:14px;
+  background:linear-gradient(135deg, rgba(214,185,122,.13), rgba(214,185,122,.03) 60%), var(--ox-2);
+  border:1px solid rgba(214,185,122,.28);
+  -webkit-mask:radial-gradient(circle 9px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 9px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+  mask:radial-gradient(circle 9px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle 9px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat}
+.af-ticket-main{flex:1; min-width:0; padding:12px 14px 12px 20px}
+.af-ticket-lbl{display:block; font-size:10.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ox-gold)}
+.af-ticket .af-code{min-height:0; margin-top:6px; padding:0; font-size:19px; letter-spacing:.12em; color:var(--ox-txt); background:none; border:0; border-radius:0; box-shadow:none}
+.af-ticket .af-code:hover{color:#fff; background:none}
+.af-ticket .af-code svg{flex:none; color:var(--ox-gold)}
+.af-ticket-stub{flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; padding:0 20px 0 16px; border-left:1px dashed rgba(214,185,122,.35);
+  font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; text-align:center; color:var(--ox-mute)}
+.af-ticket-stub b{font-family:var(--display); font-size:22px; letter-spacing:0; color:var(--ox-gold)}
+.af-stats dd{font-family:var(--display); font-weight:600}
+
+/* ---- badges: hex medals; locked ones are dim with a lock mark, the next one is lit gold ---- */
+.ab-prog{display:block; height:3px; margin:-4px 0 12px; border-radius:3px; background:rgba(255,255,255,.07); overflow:hidden}
+.ab-prog i{display:block; height:100%; min-width:6px; border-radius:inherit; background:var(--ox-gold); box-shadow:0 0 8px rgba(214,185,122,.7)}
+.ab-list li{position:relative; gap:4px; padding:14px 6px 12px; background:var(--ox-2); border:1px solid var(--ox-line); border-radius:14px; transition:border-color .2s, transform .2s}
+.ab-list li:hover{border-color:var(--ox-line-hi); transform:translateY(-2px)}
+.ab-list .bd{width:44px; height:48px; margin-bottom:4px; display:grid; place-items:center; border-radius:0; color:#71717A; filter:none; animation:none;
+  clip-path:polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background:linear-gradient(160deg, #2E2E32, #18181B)}
+.ab-list .bd svg{width:18px; height:18px}
+.ab-list li:not(.is-next) b{color:#A1A1AA}
+.ab-list li:not(.is-next)::after{content:""; position:absolute; top:9px; right:9px; width:11px; height:11px; background:#52525B;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center / contain no-repeat}
+.ab-list li.is-next{background:radial-gradient(90% 70% at 50% 0%, rgba(214,185,122,.18), transparent 70%), var(--ox-2); border:1px solid rgba(214,185,122,.4)}
+.ab-list li.is-next::before{content:"Next"; position:absolute; top:7px; right:7px; padding:1px 6px; font-size:9px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#1A1405; background:var(--ox-gold); border-radius:999px}
+.ab-list li.is-next .bd{color:#1A1405; background:linear-gradient(160deg, #F4E2B8, #D6B97A 55%, #9C7A3E); animation:none}
+.ab-list li.is-next small{color:var(--ox-gold)}
+@media (prefers-reduced-motion:reduce){
+  .aw-card::before,.ab-list li{transition:none}
+  .ab-list li:hover{transform:none}
+}
+
+/* ---- leaderboard: table rows ---- */
+.ar{gap:0}
+.ar li,.ar li.r1,.ar li.r2,.ar li.r3{background:transparent; border:0; border-top:1px solid var(--ox-line); border-radius:0; box-shadow:none}
+.ar li:first-child{border-top:0}
+.ar li:hover{background:rgba(255,255,255,.015)}
+.ar-rk{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line)}
+.ar li.r1 .ar-rk{color:#1A1405; background:var(--ox-gold); border-color:transparent}
+.ar li.r2 .ar-rk{color:#18181B; background:#D4D4D8; border-color:transparent}
+.ar li.r3 .ar-rk{color:#1F1007; background:#B88A62; border-color:transparent}
+.ar-meta{color:var(--ox-mute)}
+.ar-meta b{font-weight:500}
 .ar-spark polyline{filter:none}
-.ar-you{border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.04)}
-.ar-you span{background:var(--brand)}
+.ar-you{background:var(--ox-2); border:1px solid var(--ox-line-hi); border-radius:12px}
+.ar-you span{color:#0B0B0C; background:#F2F2F3}
+
+/* ---- leaderboard table (Market Overview style): header band, hairline rows, change pills, 7-day sparklines ---- */
+.lb-scroll{margin:0 -18px; overflow-x:auto}
+.lb{width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums}
+.lb th{padding:10px 14px; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; text-align:left; white-space:nowrap; color:var(--ox-mute); background:var(--ox-2); border-top:1px solid var(--ox-line); border-bottom:1px solid var(--ox-line)}
+.lb td{padding:12px 14px; border-bottom:1px solid var(--ox-line); white-space:nowrap; vertical-align:middle}
+.lb tbody tr{transition:background .2s}
+.lb tbody tr:hover{background:rgba(255,255,255,.02)}
+.lb th:first-child,.lb td:first-child{padding-left:18px}
+.lb th:last-child,.lb td:last-child{padding-right:18px}
+.lb .lb-num{text-align:right}
+.lb .lb-rk{width:36px; color:var(--ox-mute)}
+.lb tr.r1 .lb-rk{color:var(--ox-gold); font-weight:600}
+.lb tr.r2 .lb-rk{color:#D4D4D8; font-weight:600}
+.lb tr.r3 .lb-rk{color:#B88A62; font-weight:600}
+.lb-who{display:flex; align-items:center; gap:10px; min-width:0}
+.lb-who .ar-av{width:32px; height:32px; font-size:13px}
+.lb-who span:not(.ar-av){display:flex; flex-direction:column; min-width:0}
+.lb-who b{font-weight:600; color:var(--ox-txt)}
+.lb-who small{font-size:11.5px; color:var(--ox-mute)}
+.lb-pts{font-weight:600; color:var(--ox-txt)}
+.lb-chg{display:inline-block; min-width:64px; padding:3px 9px; font-size:12px; font-weight:600; text-align:center; border-radius:999px}
+.lb-chg.is-up{color:#4ADE80; background:rgba(74,222,128,.1); border:1px solid rgba(74,222,128,.22)}
+.lb-chg.is-down{color:#F87171; background:rgba(248,113,113,.1); border:1px solid rgba(248,113,113,.22)}
+.lb-spark{display:block; width:120px; height:32px; overflow:visible}
+.app .lb-spark polyline{fill:none; stroke-width:1.4; stroke-linejoin:round; stroke-linecap:round; vector-effect:non-scaling-stroke}
+.app .lb-spark.is-up polyline{stroke:#4ADE80; filter:drop-shadow(0 0 3px rgba(74,222,128,.5))}
+.app .lb-spark.is-down polyline{stroke:#F87171; filter:drop-shadow(0 0 3px rgba(248,113,113,.5))}
+.lb .lb-act{width:44px; text-align:right}
+.lb-go{display:inline-grid; place-items:center; width:30px; height:30px; color:var(--ox-mute); border:1px solid var(--ox-line); border-radius:50%; transition:color .2s, border-color .2s, background .2s}
+.lb-go:hover{color:var(--ox-txt); border-color:var(--ox-line-hi); background:var(--ox-2)}
+.lb-go svg{width:14px; height:14px}
+.lb-vh{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.ac-board .ar-you{margin-top:14px}
+@media (max-width:640px){
+  .lb .lb-opt{display:none}
+  .lb th,.lb td{padding:10px 8px}
+}
+
+/* ---- motion & responsive ---- */
+@media (prefers-reduced-motion:reduce){
+  .ac,.as{transition:none}
+}
+@media (max-width:1080px){
+  .ah{grid-template-columns:1fr}
+  .ah-chart{min-height:200px}
+}
+@media (max-width:640px){
+  .ah{padding:22px 18px}
+  .ah-strip{width:100%; flex-direction:column}
+  .ah-strip li{min-width:0}
+  .ah-strip li + li{border-left:0; border-top:1px solid var(--ox-line)}
+  .ak-grid{grid-template-columns:1fr 1fr}
+  .ak{min-height:0; padding:16px}
+  .ak-val{font-size:24px}
+  .ak-spark{display:none}
+  .ak-note{justify-self:start; max-width:none}
+  .ac-wallet .aw-big{font-size:34px}
+}
+@media (max-width:360px){
+  .ak-grid{grid-template-columns:1fr}
+  .ak:nth-child(2n){border-left:0}
+  .ak:nth-child(n+2){border-top:1px solid var(--ox-line)}
+}

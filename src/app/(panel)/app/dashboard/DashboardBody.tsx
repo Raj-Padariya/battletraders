@@ -7,6 +7,7 @@ import { Svg } from "@panel/components/Icon";
 import { BTSample } from "@panel/lib/data/sample";
 import { joinedLabel, usePanel } from "@panel/lib/panel";
 import { countdown, nextAt, pad2 } from "@panel/lib/storage";
+import LiveBattleChart from "./LiveBattleChart";
 
 type BattleType = "daily" | "mini" | "circuit";
 
@@ -42,17 +43,57 @@ const STAR = '<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L
 const MEDAL = '<path d="M7 3h10l-3 6h-4z"/><circle cx="12" cy="15" r="6"/>';
 const GIFT = '<rect x="3" y="8" width="18" height="5" rx="1"/><path d="M5 13v8h14v-8M12 8v13M12 8S9 3 7 5s3 3 5 3zm0 0s3-5 5-3-3 3-5 3z"/>';
 
-/* Season leaderboard: top 4 from the shared sample season, with an equity sparkline (deterministic). */
+/* Season leaderboard: top 4 from the shared sample season, each with a deterministic 7-day points line.
+   "Change" is the move across that line, so the pill colour always agrees with the sparkline direction. */
 const BOARD = BTSample.buildTraders().slice(0, 4).map((t) => {
   const rand = BTSample.seededRandom(BTSample.hashString(t.handle));
   let value = 20;
-  const points: string[] = [];
-  for (let k = 0; k < 16; k++) {
-    value = Math.max(4, Math.min(36, value + (rand() - 0.42) * 8));
-    points.push((k * 8).toFixed(0) + "," + (40 - value).toFixed(1));
+  const values: number[] = [];
+  for (let k = 0; k < 28; k++) {
+    value = Math.max(4, Math.min(36, value + (rand() - 0.5) * 7));
+    values.push(value);
   }
-  return { trader: t, points };
+  const spark = values.map((v, k) => ((k * 120) / 27).toFixed(1) + "," + (40 - v).toFixed(1)).join(" ");
+  const change = ((values[values.length - 1] - values[0]) / values[0]) * 10;
+  return { trader: t, spark, change };
 });
+
+const QUESTS: { id: "day" | "week" | "month"; name: string; task: string; icon: string; done: number; total: number }[] = [
+  { id: "day", name: "Daily", task: "Trade in 1 Daily Battle", icon: FLAME, done: 0, total: 7 },
+  { id: "week", name: "Weekly", task: "Finish top 50% twice", icon: TARGET, done: 0, total: 8 },
+  { id: "month", name: "Monthly", task: "Reach Silver tier", icon: STAR, done: 0, total: 8 },
+];
+
+/* Stat cells: deterministic sparkline per stat (120x40 viewBox; line in y 6-30, area fades to the bottom). */
+const sparkFor = (seed: string, drift: number) => {
+  const rand = BTSample.seededRandom(BTSample.hashString(seed));
+  let value = 20;
+  const values: number[] = [];
+  for (let k = 0; k < 40; k++) {
+    value += (rand() - 0.5) * 5 + drift;
+    values.push(value);
+  }
+  const low = Math.min(...values);
+  const span = Math.max(...values) - low || 1;
+  const points = values.map((v, k) => ((k * 120) / 39).toFixed(1) + "," + (30 - ((v - low) / span) * 24).toFixed(1));
+  return { line: points.join(" "), area: "M0,40 L" + points.join(" L") + " L120,40 Z" };
+};
+
+type StatTrend = "up" | "down" | "flat";
+
+const STATS: { label: string; value: string; decimals?: string; delta: string; trend: StatTrend; note: string; icon: string; spark: { line: string; area: string } }[] = [
+  { label: "Active battles", value: "0", delta: "Join one to start", trend: "flat", note: "Live and upcoming entries", icon: SWORDS, spark: sparkFor("stat-active", 0) },
+  { label: "Total winnings", value: "$0", decimals: ".00", delta: "No payouts yet", trend: "flat", note: "Paid out to your wallet", icon: WALLET, spark: sparkFor("stat-winnings", 0.35) },
+  { label: "Win rate", value: "0", decimals: ".0%", delta: "No ranked events yet", trend: "flat", note: "Across ranked events", icon: TARGET, spark: sparkFor("stat-winrate", -0.3) },
+  { label: "Season rank", value: "—", delta: "Unranked so far", trend: "flat", note: "Top 16 reach the Circuit", icon: TROPHY, spark: sparkFor("stat-rank", 0.1) },
+];
+
+// Hero backdrop: a fan of soft silk ribbons sweeping from the top-right (decorative, 1200x400 viewBox).
+const SILK = Array.from({ length: 11 }, (_, k) => ({
+  d: `M${1260 - k * 34},-60 C${1010 - k * 30},${70 + k * 6} ${860 - k * 26},${250 + k * 4} ${640 - k * 22},470`,
+  width: [1.2, 3, 1.6, 7, 2, 1.2, 10, 2.4, 1.4, 5, 1.8][k],
+  soft: k % 3 === 0,
+}));
 
 const referralFor = (username: string): string =>
   "BT-" + (username.replace(/[^A-Za-z0-9]/g, "").slice(0, 6).toUpperCase() || "TRADER") + String((BTSample.hashString(username) % 900) + 100);
@@ -90,6 +131,8 @@ export default function DashboardBody() {
   }, [codeFlash]);
 
   const referralCode = ready ? referralFor(profile.username) : null;
+  // Soonest upcoming battle: "Today" beats "Tomorrow", then earliest HH:00.
+  const nextBattle = [...battles].sort((a, b) => (a.day === b.day ? a.time.localeCompare(b.time) : a.day === "Today" ? -1 : 1))[0];
 
   const copyCode = () => {
     if (!referralCode) return;
@@ -103,6 +146,22 @@ export default function DashboardBody() {
   return (
     <>
       <section className="ah" id="tour-welcome" aria-labelledby="ah-title">
+        <svg className="ah-silk" viewBox="0 0 1200 400" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="ah-silk-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#fff" stopOpacity="0" />
+              <stop offset=".35" stopColor="#fff" stopOpacity=".55" />
+              <stop offset=".7" stopColor="#fff" stopOpacity=".18" />
+              <stop offset="1" stopColor="#fff" stopOpacity="0" />
+            </linearGradient>
+            <filter id="ah-silk-blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5" /></filter>
+          </defs>
+          <g className="ah-silk-fan">
+            {SILK.map((ribbon, k) => (
+              <path key={k} className={ribbon.soft ? "is-soft" : undefined} d={ribbon.d} style={{ strokeWidth: ribbon.width }} />
+            ))}
+          </g>
+        </svg>
         <div className="ah-txt">
           <p className="ah-tag"><i aria-hidden="true"></i>Season 1 &middot; Week 1</p>
           <h1 id="ah-title">Welcome to the arena, <span data-username="">{profile.username}</span></h1>
@@ -111,14 +170,23 @@ export default function DashboardBody() {
             <Link className="btn b-ember" href="/app/browse-tournaments/">Enter today&apos;s battle</Link>
             <Link className="btn b-line" href="/app/arena/">Practice in the arena</Link>
           </div>
+          <ul className="ah-strip" aria-label="Season at a glance">
+            <li>
+              <small>Level 1</small>
+              <b>0<em>/ 120 XP</em></b>
+              <span className="ah-strip-bar" aria-hidden="true"><i style={{ width: "4%" }}></i></span>
+            </li>
+            <li>
+              <small>Season rank</small>
+              <b>&mdash;<em>unranked</em></b>
+            </li>
+            <li>
+              <small>Next battle</small>
+              <b>{nextBattle ? nextBattle.time : "--:--"}<em>{nextBattle ? nextBattle.day : ""}</em></b>
+            </li>
+          </ul>
         </div>
-        <div className="ah-emblem" aria-hidden="true">
-          <div className="ah-emblem-3d">
-            <span className="ah-hex h1"></span><span className="ah-hex h2"></span>
-            <span className="ah-core"><Svg body={SWORDS} /></span>
-          </div>
-          <span className="ah-orbit o1"></span><span className="ah-orbit o2"></span>
-        </div>
+        <LiveBattleChart you={profile.username} />
       </section>
 
       <div className="as" id="as-status" role="status">
@@ -156,30 +224,21 @@ export default function DashboardBody() {
         </section>
 
         <div className="ak-grid" id="tour-stats">
-          <div className="ak k-cyan">
-            <span className="ak-ico"><Svg body={TARGET} /></span>
-            <span className="ak-lbl">Active battles</span>
-            <b className="ak-val">0</b>
-            <span className="ak-sub">Join one to start</span>
-          </div>
-          <div className="ak k-green">
-            <span className="ak-ico"><Svg body={WALLET} /></span>
-            <span className="ak-lbl">Total winnings</span>
-            <b className="ak-val">$0</b>
-            <span className="ak-sub">Paid out to wallet</span>
-          </div>
-          <div className="ak k-pink">
-            <span className="ak-ico"><Svg body={PULSE} /></span>
-            <span className="ak-lbl">Win rate</span>
-            <b className="ak-val">0.0%</b>
-            <span className="ak-sub">Across ranked events</span>
-          </div>
-          <div className="ak k-gold">
-            <span className="ak-ico"><Svg body={TROPHY} /></span>
-            <span className="ak-lbl">Season rank</span>
-            <b className="ak-val">&mdash;</b>
-            <span className="ak-sub">Unranked so far</span>
-          </div>
+          {STATS.map((stat) => (
+            <div className={"ak is-" + stat.trend} key={stat.label}>
+              <span className="ak-lbl">{stat.label}</span>
+              <b className="ak-val">{stat.value}{stat.decimals && <span>{stat.decimals}</span>}</b>
+              <span className="ak-delta">{stat.delta}</span>
+              <span className="ak-note">
+                <i className="ak-coin" aria-hidden="true"><Svg body={stat.icon} /></i>
+                <span>{stat.note}</span>
+              </span>
+              <svg className="ak-spark" viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path className="ak-spark-area" d={stat.spark.area} />
+                <polyline className="ak-spark-line" points={stat.spark.line} />
+              </svg>
+            </div>
+          ))}
         </div>
 
         <section className="ac ac-next" aria-labelledby="an-h">
@@ -199,29 +258,33 @@ export default function DashboardBody() {
         <section className="ac ac-quests" id="tour-quests" aria-labelledby="aq-h">
           <div className="ac-h"><h2 id="aq-h"><Svg body={STAR} />Personal arena quests</h2><span className="ac-chip">Resets in <b id="aq-reset">{questReset}</b></span></div>
           <ul className="aq-list">
-            <li className="aq q-day">
-              <span className="aq-ring" style={{ "--p": 0 } as React.CSSProperties}><Svg body={FLAME} /></span>
-              <span className="aq-txt"><b>Daily</b><small>Trade in 1 Daily Battle</small></span>
-              <span className="aq-n"><b>0/7</b><small>done</small></span>
-            </li>
-            <li className="aq q-week">
-              <span className="aq-ring" style={{ "--p": 0 } as React.CSSProperties}><Svg body={TARGET} /></span>
-              <span className="aq-txt"><b>Weekly</b><small>Finish top 50% twice</small></span>
-              <span className="aq-n"><b>0/8</b><small>done</small></span>
-            </li>
-            <li className="aq q-month">
-              <span className="aq-ring" style={{ "--p": 0 } as React.CSSProperties}><Svg body={STAR} /></span>
-              <span className="aq-txt"><b>Monthly</b><small>Reach Silver tier</small></span>
-              <span className="aq-n"><b>0/8</b><small>done</small></span>
-            </li>
+            {QUESTS.map((quest) => (
+              <li className={"aq q-" + quest.id} key={quest.id}>
+                <div className="aq-top">
+                  <span className="aq-ico"><Svg body={quest.icon} /></span>
+                  <b className="aq-name">{quest.name}</b>
+                  <span className="aq-state">{quest.done === 0 ? "Not started" : quest.done >= quest.total ? "Complete" : "In progress"}</span>
+                </div>
+                <p className="aq-task">{quest.task}</p>
+                <dl className="aq-nums">
+                  <div><dt>Done</dt><dd>{quest.done}</dd></div>
+                  <div><dt>Total</dt><dd>{quest.total}</dd></div>
+                </dl>
+                <span className="aq-bar" aria-hidden="true"><i style={{ width: (quest.done / quest.total) * 100 + "%" }}></i></span>
+              </li>
+            ))}
           </ul>
           <Link className="ab2" href="/app/arena/">Go to personal arena<Svg body={CHEV} /></Link>
         </section>
 
         <section className="ac ac-wallet" id="wallet" aria-labelledby="aw-h">
           <div className="ac-h"><h2 id="aw-h"><Svg body={WALLET} />Wallet</h2><a href="#wallet">History<Svg body={CHEV} /></a></div>
-          <p className="aw-big">$0<span>.00</span></p>
-          <p className="aw-sub">Available balance</p>
+          <div className="aw-card">
+            <div className="aw-card-top"><span className="aw-chip" aria-hidden="true"></span><span className="aw-brand">BattleTrader</span></div>
+            <p className="aw-sub">Available balance</p>
+            <p className="aw-big">$0<span>.00</span></p>
+            <p className="aw-holder"><span data-username="">{profile.username}</span><span>USD</span></p>
+          </div>
           <div className="aw-split">
             <div><span>Credits</span><b>$0</b></div>
             <div><span>Free tickets</span><b>0</b></div>
@@ -232,10 +295,16 @@ export default function DashboardBody() {
         <section className="ac ac-aff" id="invite" aria-labelledby="af-h">
           <div className="ac-h"><h2 id="af-h"><Svg body={GIFT} />Invite &amp; earn</h2></div>
           <p className="af-lead">Invite a friend &mdash; you both get a <b>free Mini Tournament ticket</b> when they finish their first battle.</p>
-          <button className="af-code" id="af-code" type="button" aria-label={referralCode ? "Copy referral code " + referralCode : undefined} onClick={copyCode}>
-            <span id="af-code-text">{codeFlash ?? referralCode ?? "\u2014"}</span>
-            <Svg body='<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>' />
-          </button>
+          <div className="af-ticket">
+            <div className="af-ticket-main">
+              <span className="af-ticket-lbl">Your invite code</span>
+              <button className="af-code" id="af-code" type="button" aria-label={referralCode ? "Copy referral code " + referralCode : undefined} onClick={copyCode}>
+                <span id="af-code-text">{codeFlash ?? referralCode ?? "\u2014"}</span>
+                <Svg body='<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>' />
+              </button>
+            </div>
+            <span className="af-ticket-stub" aria-hidden="true"><b>1</b>Free ticket</span>
+          </div>
           <dl className="af-stats">
             <div><dt>Referrals</dt><dd>0</dd></div>
             <div><dt>Credits</dt><dd>$0</dd></div>
@@ -245,6 +314,7 @@ export default function DashboardBody() {
 
         <section className="ac ac-badges" id="tour-badges" aria-labelledby="ab-h">
           <div className="ac-h"><h2 id="ab-h"><Svg body={MEDAL} />Badges</h2><span className="ac-chip c-bronze">0 / 6</span></div>
+          <span className="ab-prog" aria-hidden="true"><i style={{ width: "0%" }}></i></span>
           <ul className="ab-list" id="achievements">
             <li className="is-next"><span className="bd b-blood"><Svg body={SWORDS} /></span><b>First Blood</b><small>Finish a battle</small></li>
             <li><span className="bd b-flame"><Svg body={FLAME} /></span><b>On Fire</b><small>3-day streak</small></li>
@@ -257,31 +327,54 @@ export default function DashboardBody() {
 
         <section className="ac ac-board" aria-labelledby="ar-h">
           <div className="ac-h"><h2 id="ar-h"><Svg body={TROPHY} />Leaderboard</h2><Link href="/app/leaderboards/">Full rankings<Svg body={CHEV} /></Link></div>
-          <ul className="ar" id="ar-list">
-            {BOARD.map(({ trader: t, points }, i) => (
-              <li className={i < 3 ? "r" + (i + 1) : undefined} key={t.handle}>
-                <span className="ar-rk">{i + 1}</span>
-                <Link className="ar-who" href={"/app/trader/?u=" + encodeURIComponent(t.handle)} style={{ color: "inherit", textDecoration: "none" }}>
-                  <span className="ar-av" aria-hidden="true" style={{ "--av": t.color } as React.CSSProperties}>{t.handle.charAt(0).toUpperCase()}</span>
-                  <span><b>{t.handle}</b><small>{t.tier + " · " + t.city}</small></span>
-                </Link>
-                <span className="ar-meta">Win rate<b>{t.winRate.toFixed(1) + "%"}</b></span>
-                <span className="ar-pts"><b>{t.points.toLocaleString("en-US")}</b><small>{"▲ " + t.victories + " wins"}</small></span>
-                <svg className="ar-spark" viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true">
-                  {i === 0 && (
-                    <defs>
-                      <linearGradient id="ar-fill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0" stopColor="#22E39A" stopOpacity=".3" />
-                        <stop offset="1" stopColor="#22E39A" stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-                  )}
-                  <path d={"M0,40 L" + points.join(" L") + " L120,40 Z"} />
-                  <polyline points={points.join(" ")} />
-                </svg>
-              </li>
-            ))}
-          </ul>
+          <div className="lb-scroll">
+            <table className="lb">
+              <thead>
+                <tr>
+                  <th scope="col" className="lb-rk">#</th>
+                  <th scope="col">Trader</th>
+                  <th scope="col" className="lb-num">Points</th>
+                  <th scope="col" className="lb-num lb-opt">Win rate</th>
+                  <th scope="col" className="lb-num lb-opt">Wins</th>
+                  <th scope="col" className="lb-num">Change</th>
+                  <th scope="col" className="lb-opt">Last 7 days</th>
+                  <th scope="col" className="lb-act"><span className="lb-vh">Profile</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                {BOARD.map(({ trader: t, spark, change }, i) => {
+                  const trend = change >= 0 ? "up" : "down";
+                  return (
+                    <tr className={i < 3 ? "r" + (i + 1) : undefined} key={t.handle}>
+                      <td className="lb-rk">{i + 1}</td>
+                      <td>
+                        <span className="lb-who">
+                          <span className="ar-av" aria-hidden="true" style={{ "--av": t.color } as React.CSSProperties}>{t.handle.charAt(0).toUpperCase()}</span>
+                          <span><b>{t.handle}</b><small>{t.tier + " · " + t.city}</small></span>
+                        </span>
+                      </td>
+                      <td className="lb-num lb-pts">{t.points.toLocaleString("en-US")}</td>
+                      <td className="lb-num lb-opt">{t.winRate.toFixed(1) + "%"}</td>
+                      <td className="lb-num lb-opt">{t.victories}</td>
+                      <td className="lb-num">
+                        <span className={"lb-chg is-" + trend}>{(change >= 0 ? "+" : "") + change.toFixed(2) + "%"}</span>
+                      </td>
+                      <td className="lb-opt">
+                        <svg className={"lb-spark is-" + trend} viewBox="0 0 120 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                          <polyline points={spark} />
+                        </svg>
+                      </td>
+                      <td className="lb-act">
+                        <Link className="lb-go" href={"/app/trader/?u=" + encodeURIComponent(t.handle)} aria-label={"View " + t.handle + "'s profile"}>
+                          <Svg body={CHEV} />
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
           <p className="ar-you"><span>You</span><b data-username="">{profile.username}</b><em>Unranked &middot; 0 pts</em></p>
         </section>
       </div>
