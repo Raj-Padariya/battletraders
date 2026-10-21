@@ -112,7 +112,6 @@ export default function Browse() {
     <div className="tn-page" id="tn-browse">
       <section className="ah tn-hero" aria-labelledby="tn-title">
         <div className="ah-txt">
-          <p className="ah-tag tn-tag"><span className="tn-tag-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z" /><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3" /></svg></span>Tournaments</p>
           <div className="tn-hero-row">
             <span className="tn-hero-ico" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z" /><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3" /></svg></span>
             <h1 id="tn-title"><span>Tournaments</span></h1>
@@ -147,10 +146,12 @@ export default function Browse() {
                   <Fact label="Starts" value={fmtShort(featured.start) + " " + new Date(featured.start).getFullYear()} small={fmtTime(featured.start)} />
                 </dl>
                 <Byline t={featured} />
-                <RegPill t={featured} now={now} />
-                <div className="tn-actions">
-                  <ViewBtn t={featured} area="feat" />
-                  <ActionBtn t={featured} area="feat" now={now} enrolled={snap.enrolled} />
+                <div className="tn-feat-foot">
+                  <RegPill t={featured} now={now} />
+                  <div className="tn-actions">
+                    <ViewBtn t={featured} area="feat" />
+                    <ActionBtn t={featured} area="feat" now={now} enrolled={snap.enrolled} />
+                  </div>
                 </div>
               </div>
             </article>
@@ -241,28 +242,27 @@ export default function Browse() {
         <div className="tn-grid" id="tn-grid" role="tabpanel" aria-labelledby={activeTab.id} hidden={snap.loaded && !list.length}>
           {list.map((t) => (
             <article key={t.id} className={"ac tn-card tn-t-" + t.type} id={"tn-card-" + t.id} data-glass="" aria-labelledby={"tn-card-h-" + t.id}>
-              <span className="tn-edge" aria-hidden="true" />
               <div className="tn-chips">
                 <TypeChip t={t} />
                 <StatusChip t={t} now={now} />
-                <CdChip t={t} now={tick} />
               </div>
               <div className="tn-card-head">
                 <span className="tn-card-ico" aria-hidden="true"><Ico name="trophy" /></span>
-                <h3 className="tn-card-name" id={"tn-card-h-" + t.id}><Link href={detailUrl(t)}>{t.name}</Link></h3>
+                <div className="tn-card-title">
+                  <h3 className="tn-card-name" id={"tn-card-h-" + t.id}><Link href={detailUrl(t)}>{t.name}</Link></h3>
+                  <CdChip t={t} now={tick} />
+                </div>
               </div>
               <div className="tn-money">
                 <MoneyItem cls="m-prize" icon="trophy" label="Prize pool" value={money(t.prizePool)} />
                 <MoneyItem cls="m-fee" icon="ticket" label="Entry fee" value={entryText(t)} />
               </div>
-              <hr className="tn-div" />
               <ul className="tn-meta">
                 <MetaLi icon="calendar" text={fmtRange(t)} />
-                <MetaLi icon="users" text={"Max " + t.maxParticipants + " participants"} />
+                <MetaLi icon="users" text={"Max " + t.maxParticipants} />
                 <MetaLi icon={t.online ? "globe" : "pin"} text={t.online ? "Online" : t.location} />
                 <MetaLi icon="layers" text={/single/i.test(t.structure) ? "Single round" : "Multi-round"} />
               </ul>
-              <RegPill t={t} now={now} />
               <Byline t={t} />
               <div className="tn-card-foot">
                 <ViewBtn t={t} area="grid" />

@@ -318,6 +318,20 @@ select.pa-in option{background:#12121c}
 .pa-chart-h{font-weight:600}
 .pa-chart-sub{color:var(--ox-mute)}
 
+/* candle chart (ArenaChart): fills the panel, plain graphite, no dotted overlay */
+.pa-chart.is-live{display:block; padding:0}
+.pa-chart.is-live::before{content:none}
+.pa-cx{position:absolute; inset:0}
+.pa-cx svg{display:block}
+.pa-cx-grid{stroke:rgba(255,255,255,.045); stroke-width:1}
+.pa-cx-axis{stroke:var(--ox-line); stroke-width:1}
+.pa-cx-txt{font-size:10.5px; fill:var(--ox-dim); font-variant-numeric:tabular-nums}
+.pa-cx-up{stroke:#4ADE80; fill:#4ADE80}
+.pa-cx-dn{stroke:#F87171; fill:#F87171}
+.pa-cx-last{stroke-width:1; stroke-dasharray:3 4; opacity:.7}
+.pa-cx-tag{font-size:11px; font-weight:600; fill:#0B0B0C; font-variant-numeric:tabular-nums}
+.pa-chart-tag{position:absolute; top:12px; left:14px; z-index:1; margin:0; font-size:11.5px; font-weight:500; color:var(--ox-mute); pointer-events:none}
+
 /* order ticket: buy/sell keep green/red but flat, no glow */
 .pa-side{color:var(--ox-mute); background:var(--ox-2); border-color:var(--ox-line-hi)}
 .pa-side span{font-family:inherit; font-size:13px; font-weight:600; letter-spacing:.06em}

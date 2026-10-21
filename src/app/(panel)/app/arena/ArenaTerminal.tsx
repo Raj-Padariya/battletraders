@@ -1,8 +1,9 @@
 "use client";
 
 /* Personal Arena — port of arena.js. Practice terminal on simulated prices; owns localStorage 'bt-arena'.
-   No chart here on purpose: the trading backend will provide it. */
+   The candle chart runs on the same simulated feed until the trading backend provides real data. */
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import ArenaChart from "./ArenaChart";
 import type { FormEvent, KeyboardEvent as ReactKeyboardEvent } from "react";
 import { Svg } from "@panel/components/Icon";
 import { usePanel } from "@panel/lib/panel";
@@ -733,12 +734,9 @@ export default function ArenaTerminal() {
                 ))}
               </div>
             </div>
-            <div className="pa-chart" data-glass="">
-              <div className="pa-chart-in">
-                <span className="pa-chart-ico" aria-hidden="true"><Svg body='<path d="M7 3v4M7 15v6M17 3v2M17 13v8"/><rect x="5" y="7" width="4" height="8" rx="1"/><rect x="15" y="5" width="4" height="8" rx="1"/>' /></span>
-                <p className="pa-chart-h">Live chart connects when the trading backend goes live</p>
-                <p className="pa-chart-sub"><span id="pa-chart-sym">{sym}</span> &middot; <span id="pa-chart-tf">{timeframe}</span> &middot; prices below are simulated sample data</p>
-              </div>
+            <div className="pa-chart is-live" data-glass="">
+              <ArenaChart key={sym + "|" + timeframe} sym={sym} tf={timeframe} digits={current.digits} vol={current.vol} price={mid[sym]} />
+              <p className="pa-chart-tag">{sym} &middot; {timeframe} &middot; Simulated prices</p>
             </div>
           </div>
 

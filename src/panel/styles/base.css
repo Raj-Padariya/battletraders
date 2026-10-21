@@ -43,8 +43,8 @@ img{max-width:100%}
 *{box-sizing:border-box}
 body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased}
 h1,h2,h3,h4{font-family:var(--display); margin:0; text-wrap:balance}
-/* Every heading is uppercase, overriding any component rule that resets it. */
-:is(h1,h2,h3,h4,h5,h6){text-transform:uppercase !important}
+/* Every heading is title case, overriding any component rule that uppercases it. */
+:is(h1,h2,h3,h4,h5,h6){text-transform:capitalize !important}
 p{margin:0}
 a{color:inherit}
 button,input,select,textarea{font:inherit; color:inherit}
