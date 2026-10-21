@@ -9,7 +9,7 @@ import Icon from "@panel/components/Icon";
 import type { IconName } from "@panel/lib/icons";
 import { GUEST_PROFILE, PanelContext, type PanelApi, type PanelProfile, type Wallet } from "@panel/lib/panel";
 import { asset } from "@panel/lib/paths";
-import { BLOCKED_KEY, PROFILE_KEY, TOUR_DONE_KEY, WALLET_KEY, countdown, money, nextAt, readJSON, writeJSON } from "@panel/lib/storage";
+import { BLOCKED_KEY, PROFILE_KEY, TOUR_DONE_KEY, WALLET_KEY, money, readJSON, writeJSON } from "@panel/lib/storage";
 
 export type PanelPage =
   | "dashboard" | "arena" | "my-tournaments" | "browse-tournaments" | "alliances" | "achievements"
@@ -94,7 +94,7 @@ export default function PanelShell({ current, crumb, skipLabel = "Skip to conten
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isDrawerLayout, setIsDrawerLayout] = useState(false);
   const [groupOpen, setGroupOpen] = useState(TOURNAMENT_KEYS.includes(current));
-  const [launchClock, setLaunchClock] = useState("--:--:--");
+
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [toastHost, setToastHost] = useState(false);
 
@@ -167,14 +167,6 @@ export default function PanelShell({ current, crumb, skipLabel = "Skip to conten
   const onSideClick = (e: React.MouseEvent<HTMLElement>) => {
     if (isDrawerLayout && (e.target as HTMLElement).closest("a")) setDrawer(false);
   };
-
-  /* Daily battle countdown */
-  useEffect(() => {
-    const tick = () => setLaunchClock(countdown(nextAt(14)));
-    tick();
-    const timer = window.setInterval(tick, 1000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   /* Glass spotlight: a soft light follows the cursor across glass cards (desktop pointers only). */
   useEffect(() => {
@@ -250,11 +242,6 @@ export default function PanelShell({ current, crumb, skipLabel = "Skip to conten
           <button className="ap-close" id="ap-close" type="button" aria-label="Close menu" ref={closeRef} onClick={() => setDrawer(false)}><Icon name="close" /></button>
         </div>
 
-        <div className="ap-launch">
-          <span className="ap-launch-gem" aria-hidden="true"><Icon name="swords" /></span>
-          <p>Today&apos;s Daily Battle starts in <b id="ap-launch-clock">{launchClock}</b></p>
-          <Link className="ap-launch-btn" href="/app/browse-tournaments/"><Icon name="bolt" />Enter battle</Link>
-        </div>
 
         <nav className="ap-nav" aria-label="Panel">
           <p className="ap-nav-h">Menu</p>

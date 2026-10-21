@@ -280,7 +280,7 @@ export default function DashboardBody() {
         <section className="ac ac-wallet" id="wallet" aria-labelledby="aw-h">
           <div className="ac-h"><h2 id="aw-h"><Svg body={WALLET} />Wallet</h2><a href="#wallet">History<Svg body={CHEV} /></a></div>
           <div className="aw-card">
-            <div className="aw-card-top"><span className="aw-chip" aria-hidden="true"></span><span className="aw-brand">BattleTrader</span></div>
+            <div className="aw-card-top"><span className="aw-chip" aria-hidden="true"><Svg body={WALLET} /></span><span className="aw-brand">BattleTrader</span></div>
             <p className="aw-sub">Available balance</p>
             <p className="aw-big">$0<span>.00</span></p>
             <p className="aw-holder"><span data-username="">{profile.username}</span><span>USD</span></p>
