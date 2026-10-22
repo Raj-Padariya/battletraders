@@ -6,9 +6,23 @@
 .rd-sr{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap}
 
 /* hero */
-.rd-hero{grid-template-columns:minmax(0,1fr); min-height:210px}
-.rd-hero-ico{width:52px; height:58px; margin-bottom:14px; display:grid; place-items:center; color:#fff; clip-path:polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background:linear-gradient(160deg,#FFC433,#FF33FF 60%,#A64DFF); filter:drop-shadow(0 0 12px rgba(255,51,255,.8))}
-.rd-hero-ico svg{width:24px; height:24px}
+.rd-hero{grid-template-columns:minmax(0,1fr) auto; align-items:center}
+/* decorative voucher: face | perforation | stub, notches cut at the perforation */
+.rd-voucher{position:relative; z-index:1; display:flex; width:300px; height:120px; border-radius:14px; transform:rotate(-3deg); transition:transform .3s ease;
+  background:radial-gradient(120% 120% at 0% 0%, rgba(var(--ox-accent-rgb),.35), transparent 60%), linear-gradient(150deg, #242427, #121214 65%);
+  border:1px solid rgba(var(--ox-accent-rgb),.3); box-shadow:inset 0 1px 0 rgba(255,255,255,.1), 0 22px 36px -18px rgba(0,0,0,.9), 0 10px 34px -16px rgba(var(--ox-accent-rgb),.55);
+  -webkit-mask:radial-gradient(circle 9px at 214px 0, #0000 96%, #000) top / 100% 51% no-repeat, radial-gradient(circle 9px at 214px 100%, #0000 96%, #000) bottom / 100% 51% no-repeat;
+  mask:radial-gradient(circle 9px at 214px 0, #0000 96%, #000) top / 100% 51% no-repeat, radial-gradient(circle 9px at 214px 100%, #0000 96%, #000) bottom / 100% 51% no-repeat}
+.rd-hero:hover .rd-voucher{transform:rotate(0deg) translateY(-2px)}
+.rd-voucher-main{width:214px; display:flex; flex-direction:column; justify-content:center; gap:4px; padding:16px 18px; border-right:1px dashed rgba(255,255,255,.2)}
+.rd-voucher-main small{font-size:10px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:rgba(244,244,245,.55)}
+.rd-voucher-main b{font-family:var(--display); font-size:24px; font-weight:500; line-height:1.1; color:#fff}
+.rd-voucher-code{align-self:flex-start; margin-top:6px; padding:2px 8px; font-size:11px; font-weight:600; letter-spacing:.1em; color:#D9B3FF; border-radius:6px; background:rgba(var(--ox-accent-rgb),.12); border:1px dashed rgba(var(--ox-accent-rgb),.45)}
+.rd-voucher-stub{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:#D9B3FF}
+.rd-voucher-stub svg{width:26px; height:26px}
+.rd-voucher-stub small{font-size:9.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:rgba(244,244,245,.55); writing-mode:vertical-rl; transform:rotate(180deg)}
+@media (max-width:760px){ .rd-hero{grid-template-columns:minmax(0,1fr)} .rd-voucher{display:none} }
+@media (prefers-reduced-motion:reduce){ .rd-voucher{transition:none} }
 
 .rd-card{margin-top:14px}
 .rd-lead{margin:0 0 14px; font-size:13.5px; line-height:1.6; color:rgba(255,255,255,.72)}

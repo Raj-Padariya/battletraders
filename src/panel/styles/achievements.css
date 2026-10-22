@@ -6,7 +6,18 @@
 .av-defs{position:absolute; width:0; height:0; overflow:hidden}
 
 /* ---------- Hero ---------- */
-.av-hero{grid-template-columns:minmax(0,1fr) auto; min-height:0; padding:28px 30px 90px; --glow:#FF33FF}
+.av-hero{grid-template-columns:minmax(0,1fr) auto; align-items:center; --glow:#FF33FF}
+.av-score{position:relative; z-index:1; display:flex; align-items:center; gap:20px; padding:14px 22px 14px 14px; border-radius:18px; background:var(--ox-2); border:1px solid var(--ox-line)}
+.av-ring{--p:0; position:relative; flex:none; width:104px; height:104px; display:grid; place-content:center; justify-items:center; gap:2px; border-radius:50%;
+  background:radial-gradient(closest-side, #141416 80%, transparent 81%), conic-gradient(from -90deg, #3DBCFF, var(--ox-accent) calc(var(--p) * .5%), #FF33FF calc(var(--p) * 1%), rgba(255,255,255,.07) 0)}
+.av-ring b{font-family:var(--display); font-size:24px; font-weight:500; line-height:1; color:var(--ox-txt); font-variant-numeric:tabular-nums}
+.av-ring small{font-size:10.5px; color:var(--ox-mute)}
+.av-score-facts{display:grid; gap:10px; margin:0}
+.av-score-facts div{display:flex; justify-content:space-between; align-items:baseline; gap:24px; min-width:150px}
+.av-score-facts div + div{padding-top:10px; border-top:1px solid var(--ox-line)}
+.av-score-facts dt{font-size:12px; color:var(--ox-mute)}
+.av-score-facts dd{margin:0; font-family:var(--display); font-size:16px; font-weight:500; color:var(--ox-txt); font-variant-numeric:tabular-nums}
+@media (max-width:760px){ .av-hero{grid-template-columns:minmax(0,1fr)} .av-score{justify-self:stretch} .av-score-facts{flex:1} }
 .av-hero-txt{display:flex; align-items:flex-start; gap:18px; min-width:0}
 .av-hero-txt > div{min-width:0}
 .av-hero-ico{flex:none; width:72px; height:80px; display:grid; place-items:center; color:#fff; clip-path:polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background:linear-gradient(160deg,#FFE27A,#FF33FF 55%,#7B2CFF); filter:drop-shadow(0 0 16px rgba(255,51,255,.75))}

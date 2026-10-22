@@ -150,13 +150,17 @@ function AlliancesBody({ onOpenCreate }: { onOpenCreate: (from: HTMLElement) => 
   return (
     <div className="al-page" id="al-list-page">
       <section className="ah al-hero" aria-labelledby="al-title">
-        <div className="ah-txt">
-          <p className="ah-tag al-tag"><Svg body={I.search} />Search alliances</p>
-          <h1 id="al-title">Create or join an alliance to <span>compete as a team</span></h1>
-          <p>Team up with up to 25 fighters, stack season points together and climb the alliance dominance board.</p>
+        <div className="ah-txt al-hero-txt">
+          <span className="al-hero-ico" aria-hidden="true"><Svg body={I.shield} /></span>
+          <h1 id="al-title">Alliances</h1>
+          <p>Create or join an alliance to compete as a team. Team up with up to 25 fighters, stack season points together and climb the dominance board.</p>
         </div>
         <div className="al-hero-side">
-          <span className="al-hero-shield" aria-hidden="true"><Svg body={I.shield} /></span>
+          <ul className="al-hero-stats" aria-label="Alliance facts">
+            <li><span>Alliances</span><b>{state ? String(state.all) : "\u2014"}</b></li>
+            <li><span>Max fighters</span><b>25</b></li>
+            <li><span>Your team</span><b className={mine ? "is-in" : undefined}>{mine ? mine.name : "None yet"}</b></li>
+          </ul>
           <button className="al-create" id="al-create-btn" type="button" hidden={!!mine} onClick={(e) => openCreate(e.currentTarget)}>
             <Svg body={I.plus} /><span>Create alliance</span>
           </button>

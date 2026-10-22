@@ -59,15 +59,31 @@ function countdownText(t: Tournament, now: number): string {
   return "Finished " + span(now - end) + " ago";
 }
 
-function roundText(t: Tournament, group: Group, now: number): string {
-  const total = t.rounds.length;
-  if (group === "completed") return total + " of " + total + " played";
-  if (group === "upcoming") return "Round 1 of " + total;
+/* index of the round in play (live), 0 before start, rounds.length once finished */
+function roundStep(t: Tournament, group: Group, now: number): number {
+  if (group === "completed") return t.rounds.length;
+  if (group === "upcoming") return 0;
   let index = 0;
   t.rounds.forEach((r, i) => {
     if (now >= new Date(r.start).getTime()) index = i;
   });
-  return "Round " + (index + 1) + " of " + total;
+  return index;
+}
+
+function roundText(t: Tournament, group: Group, now: number): string {
+  const total = t.rounds.length;
+  if (group === "completed") return total + " of " + total + " played";
+  return "Round " + (roundStep(t, group, now) + 1) + " of " + total;
+}
+
+function clockParts(ms: number): [string, string][] {
+  const s = Math.max(0, Math.floor(ms / 1000));
+  return [
+    [pad2(Math.floor(s / 86400)), "Days"],
+    [pad2(Math.floor((s % 86400) / 3600)), "Hrs"],
+    [pad2(Math.floor((s % 3600) / 60)), "Min"],
+    [pad2(s % 60), "Sec"],
+  ];
 }
 
 const paidText = (e: Enrollment): string => (!e.amount ? "Free entry" : money(e.amount) + " \u00b7 " + (PAID_LABEL[e.paidWith] || e.paidWith));
@@ -145,10 +161,14 @@ export default function MyTournaments() {
     [profile.timezone],
   );
   const dayFmt = useMemo(() => makeFormat({ day: "2-digit", month: "short" }, profile.timezone), [profile.timezone]);
+  const timeFmt = useMemo(() => makeFormat({ hour: "2-digit", minute: "2-digit" }, profile.timezone), [profile.timezone]);
 
   const groups: Record<Group, Row[]> = { upcoming: [], live: [], completed: [] };
   rows.forEach((row) => groups[groupOf(row.t, now)].push(row));
   const shown = groups[current];
+  const nextLive = groups.live.length > 0;
+  const next = nextLive ? groups.live[0] : groups.upcoming[0];
+  const nextTarget = next ? new Date(nextLive ? next.t.end : next.t.start).getTime() : 0;
 
   const select = (index: number, focus: boolean) => {
     setCurrent(TABS[index]);
@@ -197,6 +217,28 @@ export default function MyTournaments() {
             <b className="mt-stat-val" id="mt-n-earnings">{money(0)}</b>
           </li>
         </ul>
+        {!loaded ? (
+          <div className="aw-card mt-next" aria-hidden="true" />
+        ) : next ? (
+          <Link className={"aw-card mt-next" + (nextLive ? " is-live" : "")} href={detailHref(next.t)}>
+            <span className="aw-card-top"><span className="aw-chip" aria-hidden="true"><Svg body={ICON.swords} /></span><span className="aw-brand">{nextLive ? "Live now" : "Next battle"}</span></span>
+            <span className="mt-next-name">{next.t.name}</span>
+            <span className="mt-sr">{countdownText(next.t, now)}</span>
+            <span className="mt-next-cd" aria-hidden="true">
+              {clockParts(nextTarget - now).map(([value, unit]) => (
+                <span key={unit}><b>{value}</b><small>{unit}</small></span>
+              ))}
+            </span>
+            <span className="aw-holder"><span>{(nextLive ? "Ends " : "Starts ") + dateFmt.format(new Date(nextLive ? next.t.end : next.t.start))}</span><span>{money(next.t.prizePool)}</span></span>
+          </Link>
+        ) : (
+          <Link className="aw-card mt-next is-empty" href="/app/browse-tournaments/">
+            <span className="aw-card-top"><span className="aw-chip" aria-hidden="true"><Svg body={ICON.swords} /></span><span className="aw-brand">Next battle</span></span>
+            <span className="mt-next-name">No battle lined up</span>
+            <span className="mt-next-sub">Join a tournament to start the countdown.</span>
+            <span className="aw-holder"><span>Find a battle</span><Svg body={ICON.chev} /></span>
+          </Link>
+        )}
       </section>
 
       <section className="mt-board" aria-label="Your tournaments">
@@ -238,9 +280,10 @@ export default function MyTournaments() {
               const group = current;
               const status = statusOf(t, now);
               const tile = dayTile(dayFmt, t.start);
+              const step = roundStep(t, group, now);
               return (
                 <li key={t.id} className={"mt-card mt-t-" + t.type} data-id={t.id}>
-                  <span className="mt-day" aria-hidden="true"><b>{tile.day}</b><small>{tile.month}</small></span>
+                  <span className="mt-stub" aria-hidden="true"><small>{tile.month}</small><b>{tile.day}</b><span>{timeFmt.format(new Date(t.start))}</span></span>
                   <div className="mt-main">
                     <div className="mt-top">
                       <span className="mt-chip">{BTTournaments.typeLabel(t.type)}</span>
@@ -252,7 +295,7 @@ export default function MyTournaments() {
                     </div>
                     <h3 className="mt-name">{t.name}</h3>
                     <div className="mt-when">
-                      <span className="mt-date"><Svg body={ICON.calendar} /><span>{dateFmt.format(new Date(t.start))}</span></span>
+                      <span className="mt-sr">{dateFmt.format(new Date(t.start))}</span>
                       <span className={"mt-chip mt-cd" + (group === "live" ? " is-live" : group === "completed" ? " is-done" : "")}>
                         <Svg body={ICON.clock} />
                         <span className="mt-cd-txt" data-cd={t.id}>{countdownText(t, now)}</span>
@@ -265,7 +308,17 @@ export default function MyTournaments() {
                   <dl className="mt-facts">
                     <Fact cls="f-prize" label="Prize pool" value={money(t.prizePool)} />
                     <Fact cls="f-paid" label="You paid" value={paidText(e)} valueCls={e.amount ? "" : "is-free"} />
-                    <Fact cls="f-round" label="Rounds" value={roundText(t, group, now)} />
+                    <div className="f-round">
+                      <dt>Rounds</dt>
+                      <dd>
+                        {roundText(t, group, now)}
+                        <span className="mt-track" aria-hidden="true">
+                          {t.rounds.map((r, i) => (
+                            <i key={r.name + i} className={i < step ? "is-done" : i === step && group === "live" ? "is-on" : i === step ? "is-next" : undefined} />
+                          ))}
+                        </span>
+                      </dd>
+                    </div>
                   </dl>
                   <div className="mt-actions">
                     <Link className="mt-btn mt-btn-line" href={detailHref(t)}><Svg body={ICON.eye} /><span>View details</span></Link>

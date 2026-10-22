@@ -252,12 +252,16 @@ export default function AffiliateBody() {
       <div className="aff-page">
         <div className="aff-view" id="aff-join-view" hidden={!loaded || !!data}>
           <section className="ah aff-hero" aria-labelledby="aff-join-title">
-            <div className="ah-txt">
-              <span className="aff-hero-ico"><Svg body={ICONS.users} /></span>
-              <p className="ah-tag aff-tag"><Svg body={ICONS.gift} />Affiliate program</p>
-              <h1 id="aff-join-title">Join our <span>affiliate program</span></h1>
-              <p>Become a BattleTrader affiliate and earn rewards</p>
+            <div className="ah-txt pb-head">
+              <span className="pb-ico" aria-hidden="true"><Svg body={ICONS.users} /></span>
+              <h1 id="aff-join-title">Affiliate program</h1>
+              <p>Become a BattleTrader affiliate, refer friends and earn rewards as you climb the ranks.</p>
             </div>
+            <ol className="aff-steps" aria-label="How it works">
+              <li><span><Svg body={ICONS.bolt} /></span><b>Get your code</b><small>Generate a unique link</small></li>
+              <li><span><Svg body={ICONS.share} /></span><b>Share it</b><small>Invite fellow traders</small></li>
+              <li><span><Svg body={ICONS.gift} /></span><b>Earn rewards</b><small>Tickets as they join</small></li>
+            </ol>
           </section>
 
           <section className="ac aff-join" aria-labelledby="aff-join-h">

@@ -6,6 +6,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Icon from "@panel/components/Icon";
+import NotificationsMenu from "@panel/components/NotificationsMenu";
 import type { IconName } from "@panel/lib/icons";
 import { GUEST_PROFILE, PanelContext, type PanelApi, type PanelProfile, type Wallet } from "@panel/lib/panel";
 import { asset } from "@panel/lib/paths";
@@ -294,16 +295,20 @@ export default function PanelShell({ current, crumb, skipLabel = "Skip to conten
             <Icon name="menu" />
           </button>
           <nav className="ap-crumb" aria-label="Breadcrumb"><Link href="/app/dashboard/">Dashboard</Link><Icon name="chev" /><span aria-current="page">{crumb}</span></nav>
-          <div className="ap-wallets" aria-label="Your balances">
-            <span className="ap-pill p-bal"><Icon name="wallet" /><span>Balance</span><b data-wallet="balance">{money(wallet.balance)}</b></span>
-            <span className="ap-pill p-cred"><Icon name="bolt" /><span>Credits</span><b data-wallet="credits">{money(wallet.credits)}</b></span>
-            <span className="ap-pill p-tix"><Icon name="ticket" /><span>Tickets</span><b data-wallet="tickets">{String(wallet.tickets)}</b></span>
-          </div>
-          <Link className="ap-cta" id={ctaId} href="/app/browse-tournaments/"><Icon name="swords" /><span>Find a battle</span></Link>
-          <button className="ap-icon-btn" id="ap-bell" type="button" aria-label="Notifications, 2 unread"><Icon name="bell" /><i className="ap-dot"></i></button>
+          <Link className="ap-wallets" href="/app/wallet/" aria-label="Your balances, open wallet">
+            <span className="ap-pill p-bal"><i className="ap-coin" aria-hidden="true"><Icon name="wallet" /></i><span>Balance</span><b data-wallet="balance">{money(wallet.balance)}</b></span>
+            <span className="ap-pill p-cred"><i className="ap-coin" aria-hidden="true"><Icon name="bolt" /></i><span>Credits</span><b data-wallet="credits">{money(wallet.credits)}</b></span>
+            <span className="ap-pill p-tix"><i className="ap-coin" aria-hidden="true"><Icon name="ticket" /></i><span>Tickets</span><b data-wallet="tickets">{String(wallet.tickets)}</b></span>
+          </Link>
+          <Link className="ap-cta" id={ctaId} href="/app/browse-tournaments/"><i className="ap-cta-ico" aria-hidden="true"><Icon name="swords" /></i><span>Find a battle</span></Link>
+          <NotificationsMenu />
           <Link className="ap-me" href="/app/profile/" aria-label="Your profile and settings">
             <span className="ap-me-av" data-initials="" style={avatarStyle}>{profile.initials}</span>
-            <span className="ap-me-txt"><b data-username="">{profile.username}</b><small>Lv 1 &middot; Rookie</small></span>
+            <span className="ap-me-txt">
+              <b data-username="">{profile.username}</b>
+              <small>Lv 1 &middot; Rookie</small>
+              <span className="ap-me-xp" aria-hidden="true"><i /></span>
+            </span>
           </Link>
         </header>
 

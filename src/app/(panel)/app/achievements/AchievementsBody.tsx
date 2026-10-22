@@ -204,28 +204,21 @@ export default function AchievementsBody() {
     <>
       <EmblemDefs />
       <section className="ah av-hero" aria-labelledby="av-title">
-        <div className="ah-txt av-hero-txt">
-          <span className="av-hero-ico" aria-hidden="true"><Svg body='<path d="M8 3 6 9M16 3l2 6M9 3h6"/><circle cx="12" cy="15" r="6"/><path d="m12 12 1 2 2 .3-1.5 1.4.4 2.1-1.9-1-1.9 1 .4-2.1L9 14.3l2-.3z"/>' /></span>
-          <div>
-            <p className="av-chip"><Svg body='<path d="M7 3h10l-3 6h-4z"/><circle cx="12" cy="15" r="6"/>' />Achievements</p>
-            <h1 id="av-title">Your <span>Hall of Honour</span></h1>
-            <p className="av-sub">Track your trading milestones</p>
-            <p className="av-pill" id="av-pill" aria-live="polite"><b id="av-pill-n">{unlockedAll.length}</b>&nbsp;/&nbsp;<span id="av-pill-total">{total}</span>&nbsp;Unlocked</p>
-          </div>
+        <div className="ah-txt pb-head">
+          <span className="pb-ico" aria-hidden="true"><Svg body='<path d="M8 3 6 9M16 3l2 6M9 3h6"/><circle cx="12" cy="15" r="6"/><path d="m12 12 1 2 2 .3-1.5 1.4.4 2.1-1.9-1-1.9 1 .4-2.1L9 14.3l2-.3z"/>' /></span>
+          <h1 id="av-title">Hall of honour</h1>
+          <p>Track your trading milestones. Every battle you fight moves these bars.</p>
         </div>
-        <div className="av-stats" aria-label="Achievement summary">
-          <div className="av-stat av-unlocked" data-glass="">
-            <b id="av-s-unlocked">{unlockedAll.length}</b>
-            <span>Unlocked</span>
-          </div>
-          <div className="av-stat av-total" data-glass="">
-            <b id="av-s-total">{total}</b>
-            <span>Total</span>
-          </div>
-          <div className="av-stat av-pct" data-glass="">
+        <div className="av-score" aria-label="Achievement summary" aria-live="polite">
+          <span className="av-ring" style={{ "--p": pct } as React.CSSProperties} aria-hidden="true">
             <b id="av-s-pct">{pct}%</b>
-            <span>Progress</span>
-          </div>
+            <small>Complete</small>
+          </span>
+          <dl className="av-score-facts">
+            <div><dt>Unlocked</dt><dd id="av-s-unlocked">{unlockedAll.length}</dd></div>
+            <div><dt>Total</dt><dd id="av-s-total">{total}</dd></div>
+            <div><dt>Left to earn</dt><dd>{total - unlockedAll.length}</dd></div>
+          </dl>
         </div>
       </section>
 

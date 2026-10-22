@@ -169,10 +169,18 @@ export default function RedeemBody() {
   return (
     <div className="rd-page">
       <section className="ah rd-hero" aria-labelledby="rd-title">
-        <div className="ah-txt">
-          <span className="rd-hero-ico"><Svg body={ICONS.ticket} /></span>
-          <h1 id="rd-title"><span>Redeem</span></h1>
+        <div className="ah-txt pb-head">
+          <span className="pb-ico" aria-hidden="true"><Svg body={ICONS.ticket} /></span>
+          <h1 id="rd-title">Redeem</h1>
           <p>View your active vouchers, redeem new codes, and review past usage.</p>
+        </div>
+        <div className="rd-voucher" aria-hidden="true">
+          <div className="rd-voucher-main">
+            <small>BattleTrader voucher</small>
+            <b>Free entry</b>
+            <span className="rd-voucher-code">BT&#8209;XXXX&#8209;XXXX</span>
+          </div>
+          <div className="rd-voucher-stub"><Svg body={ICONS.ticket} /><small>Admit one</small></div>
         </div>
       </section>
 
