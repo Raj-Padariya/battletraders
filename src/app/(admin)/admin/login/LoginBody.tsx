@@ -8,9 +8,6 @@ import { AdminUiProvider, FieldError } from "@admin/components/AdminUi";
 import { BTAdmin, BTAdminAuth } from "@admin/lib/store";
 import { asset } from "@admin/lib/ui";
 
-const DEMO_EMAIL = "admin@battletrader.com";
-const DEMO_PASSWORD = "BattleAdmin@2026";
-
 type Errors = { email?: string; pass?: string };
 
 function LoginForm() {
@@ -21,7 +18,6 @@ function LoginForm() {
   const [msg, setMsg] = useState("");
   const [busy, setBusy] = useState(false);
   const [locked, setLocked] = useState(false);
-  const formRef = useRef<HTMLFormElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
   const lockTimer = useRef<number | undefined>(undefined);
@@ -70,7 +66,6 @@ function LoginForm() {
     setErrors({});
     setMsg("");
     const form = e.currentTarget;
-    // Read the inputs directly so the demo button's fill-then-submit sees the new values.
     const emailInput = form.elements.namedItem("email") as HTMLInputElement;
     const passInput = form.elements.namedItem("password") as HTMLInputElement;
     const emailValue = emailInput.value.trim().toLowerCase();
@@ -115,15 +110,6 @@ function LoginForm() {
     });
   };
 
-  // Demo only: fills the default login shown on the page and signs in through the same check as typing it.
-  const onDemo = () => {
-    if (emailRef.current) emailRef.current.value = DEMO_EMAIL;
-    if (passRef.current) passRef.current.value = DEMO_PASSWORD;
-    setEmail(DEMO_EMAIL);
-    setPass(DEMO_PASSWORD);
-    formRef.current?.requestSubmit();
-  };
-
   return (
     <main className="ad-login" id="ad-main">
       <section className="ad-card ad-login-card" aria-labelledby="lg-h">
@@ -136,7 +122,7 @@ function LoginForm() {
         </a>
         <h1 id="lg-h">Sign in to admin</h1>
         <p className="ad-lead">Manage users, leads, battles and payouts.</p>
-        <form className="ad-form" id="lg-form" noValidate onSubmit={onSubmit} ref={formRef}>
+        <form className="ad-form" id="lg-form" noValidate onSubmit={onSubmit}>
           <label className="ad-field"><span>Email</span>
             <input
               type="email" id="lg-email" name="email" autoComplete="username" required ref={emailRef}
@@ -161,16 +147,6 @@ function LoginForm() {
           <p className="ad-form-msg is-err" id="lg-msg" role="alert" hidden={!msg}>{msg}</p>
           <button className="ad-btn ad-btn-primary" type="submit" id="lg-submit" disabled={busy || locked}><Icon name="lock" /><span>Sign in</span></button>
         </form>
-        <section className="ad-demo-login" aria-labelledby="lg-demo-h">
-          <p className="ad-label" id="lg-demo-h">Demo login</p>
-          <dl className="ad-dl">
-            <dt>Email</dt><dd><code>{DEMO_EMAIL}</code></dd>
-            <dt>Password</dt><dd><code>{DEMO_PASSWORD}</code></dd>
-          </dl>
-          <button className="ad-btn" type="button" id="lg-demo" onClick={onDemo}>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z" /></svg><span>Use demo login</span>
-          </button>
-        </section>
         <p className="ad-login-foot">Demo admin &mdash; data is read from this browser only. <a href="/">Back to website</a></p>
       </section>
     </main>

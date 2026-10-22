@@ -388,8 +388,6 @@ a.ad-kpi:hover{border-color:rgba(166,77,255,.5); transform:translateY(-1px)}
 .ad-pass{position:relative}
 .ad-pass input{padding-right:48px}
 .ad-pass .ad-icon-btn{position:absolute; right:4px; top:50%; transform:translateY(-50%)}
-.ad-demo-login{display:grid; gap:10px; margin-top:18px; padding:14px; border-radius:12px; background:rgba(51,204,255,.06); border:1px dashed rgba(51,204,255,.35)}
-.ad-demo-login code{font-family:var(--mono); font-size:13px; color:var(--hi)}
 .ad-login-foot{margin-top:18px; font-size:12px; text-align:center; color:var(--muted)}
 .ad-login-foot a{color:var(--steel)}
 .ad-login-theme{position:fixed; top:14px; right:14px}
