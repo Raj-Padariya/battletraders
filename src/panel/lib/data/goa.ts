@@ -7,7 +7,7 @@ export const GOA_EVENT_ID = "goa-live-final-2026";
 export const GOA_PRIZES: readonly number[] = [5000, 4000, 3000, 2000, 1000];
 
 export const GOA_ENTRY_FEE = 500;
-export const GOA_SEATS = 100;
+export const GOA_SEATS = 300;
 /** Sample seats shown as already sold; passes bought in this browser are added on top. Set to 0 at launch. */
 export const GOA_SEATS_DEMO_TAKEN = 37;
 
