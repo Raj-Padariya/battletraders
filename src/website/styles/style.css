@@ -59,8 +59,8 @@ a{color:inherit}
 .login{display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:0 18px; font-family:var(--display); font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; color:#fff; text-decoration:none;
   border-radius:999px; border:1px solid rgba(153,51,255,.55); background:transparent; transition:border-color .15s, background .15s, transform .15s, filter .15s}
 .login:hover{border-color:var(--steel); background:rgba(51,204,255,.08)}
-.login.is-fill{border-color:transparent; background:linear-gradient(90deg,var(--ember),var(--steel) 55%,var(--gold)); box-shadow:0 10px 24px -12px rgba(255,51,255,.7)}
-.login.is-fill:hover{background:linear-gradient(90deg,var(--ember),var(--steel) 55%,var(--gold)); filter:brightness(1.1); transform:translateY(-1px)}
+.login.is-fill{border-color:rgba(255,255,255,.14); text-shadow:0 1px 2px rgba(0,0,0,.35); background:linear-gradient(90deg,#7A1FE0,var(--ember) 45%,#C21FC2); box-shadow:0 10px 24px -12px rgba(255,51,255,.7)}
+.login.is-fill:hover{border-color:rgba(255,255,255,.14); background:linear-gradient(90deg,#7A1FE0,var(--ember) 45%,#C21FC2); filter:brightness(1.12); transform:translateY(-1px)}
 .login:focus-visible{outline:2px solid var(--steel); outline-offset:3px}
 
 /* hero — the arena */
@@ -529,6 +529,10 @@ footer .fh{margin:0 0 4px; font-family:var(--display); font-size:13.5px; font-we
 .ft-bottom{display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; gap:16px 48px; margin-top:44px; padding-top:24px; border-top:1px solid var(--line)}
 .ft-bottom .disc{margin:0; max-width:110ch}
 .copy{margin:0; font-size:12.5px; color:var(--muted); white-space:nowrap}
+.ft-legal{margin-left:10px}
+.ft-legal a{color:var(--muted); text-decoration:none; transition:color .15s}
+.ft-legal a:hover{color:#fff}
+.ft-legal a:focus-visible{outline:2px solid var(--ember); outline-offset:3px; border-radius:4px}
 @media (max-width:900px){
   .ft{grid-template-columns:repeat(3,1fr); gap:32px 24px}
   .ft-brand{grid-column:1/-1}

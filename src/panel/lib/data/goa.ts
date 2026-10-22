@@ -3,13 +3,8 @@
 
 export const GOA_EVENT_ID = "goa-live-final-2026";
 
-/** Prize per finishing place, 1st first. 1st-5th as agreed, then $900 down to $100 (6th-14th) and $100 for 15th-19th,
-    so the pool is exactly $20,000. Nothing after the last entry. */
-export const GOA_PRIZES: readonly number[] = [
-  5000, 4000, 3000, 2000, 1000,
-  900, 800, 700, 600, 500, 400, 300, 200, 100,
-  100, 100, 100, 100, 100,
-];
+/** Prize per finishing place, 1st first. Top 5 are paid, so the pool is exactly $15,000. Nothing after the last entry. */
+export const GOA_PRIZES: readonly number[] = [5000, 4000, 3000, 2000, 1000];
 
 export const GOA_ENTRY_FEE = 500;
 export const GOA_SEATS = 100;

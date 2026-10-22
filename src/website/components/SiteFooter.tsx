@@ -38,11 +38,13 @@ export default function SiteFooter() {
           <Link href="/faq/">FAQ</Link>
           <Link href="/our-partners/">Our Partners</Link>
           <Link href="/partnership/">Partnership</Link>
+          <Link href="/privacy/">Privacy Policy</Link>
+          <Link href="/terms/">Terms of Service</Link>
         </nav>
       </div>
       <div className="col pad ft-bottom">
         <p className="disc">BattleTrader runs simulated trading tournaments on virtual accounts using live market pricing. No participant capital is traded and no brokerage service is provided. Entry fees are tournament entry fees, not deposits, and are not refundable once an event has started. Results in a simulated tournament are not indicative of results in live trading. Trading leveraged financial instruments carries a high degree of risk. Participation must comply with the laws of your country of residence.</p>
-        <p className="copy">&copy; 2026 BattleTrader. All rights reserved.</p>
+        <p className="copy">&copy; 2026 BattleTrader. All rights reserved. <span className="ft-legal"><Link href="/privacy/">Privacy</Link> <span aria-hidden="true">&middot;</span> <Link href="/terms/">Terms</Link></span></p>
       </div>
     </footer>
   );

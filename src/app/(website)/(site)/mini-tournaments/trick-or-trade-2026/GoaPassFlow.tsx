@@ -177,12 +177,12 @@ export default function GoaPassFlow() {
           <button className="gp-btn" type="button" disabled>Sold out</button>
         ) : step === "guest" ? (
           <>
-            <Link className="gp-btn" href={"/login/?next=" + encodeURIComponent(EVENT_PATH)}>Log in to register</Link>
-            <p className="gp-muted gp-center">New here? <Link href="/signup/">Create an account</Link>, then come back to this page.</p>
+            <Link className="gp-btn" href={"/login/?next=" + encodeURIComponent(EVENT_PATH)}>Pay now &middot; {usd(GOA_ENTRY_FEE)}</Link>
+            <p className="gp-muted gp-center">You will log in first, then pay. New here? <Link href="/signup/">Create an account</Link>.</p>
           </>
         ) : (
           <>
-            <button className="gp-btn" type="button" onClick={() => setStep("details")}>Register now</button>
+            <button className="gp-btn" type="button" onClick={() => setStep("details")}>Pay now &middot; {usd(GOA_ENTRY_FEE)}</button>
             <p className="gp-muted gp-center">Registration closes 22 Nov 2026, 18:00 IST.</p>
           </>
         )}

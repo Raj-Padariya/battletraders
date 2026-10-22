@@ -10,7 +10,7 @@
 
 /* perks strip under the stats */
 .gp-perks{list-style:none; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:14px 0 0; padding:0}
-.gp-perks li{display:flex; flex-direction:column; gap:4px; padding:16px 18px; border-radius:16px; background:linear-gradient(135deg, rgba(255,138,76,.1), rgba(180,92,255,.06) 70%); border:1px solid rgba(255,190,120,.18)}
+.gp-perks li{display:flex; flex-direction:column; gap:4px; padding:16px 18px; border-radius:16px; background:linear-gradient(135deg, rgba(153,51,255,.12), rgba(51,204,255,.05) 70%); border:1px solid rgba(153,51,255,.28)}
 .gp-perks b{font-size:15px; color:var(--gp-gold)}
 .gp-perks span{font-size:13.5px; line-height:1.5; color:var(--gp-mute)}
 
@@ -28,14 +28,17 @@
 .gp-step b{font-size:clamp(22px,2.6vw,30px); font-weight:800; line-height:1.1; color:#fff; font-variant-numeric:tabular-nums}
 .gp-step em{font-style:normal; font-size:12px; color:var(--gp-mute)}
 .gp-plinth{display:block; align-self:stretch; margin:14px -12px 0; border-top:1px solid var(--gp-line)}
-.gp-step-1 .gp-plinth{height:70px; background:linear-gradient(180deg, rgba(255,210,122,.28), rgba(255,210,122,.05))}
-.gp-step-2 .gp-plinth{height:44px; background:linear-gradient(180deg, rgba(210,214,226,.2), rgba(210,214,226,.03))}
-.gp-step-3 .gp-plinth{height:26px; background:linear-gradient(180deg, rgba(255,150,100,.22), rgba(255,150,100,.03))}
-.gp-step-1{border-color:rgba(255,210,122,.45); background:linear-gradient(180deg, rgba(255,210,122,.14), rgba(255,210,122,.02) 70%); box-shadow:0 -20px 50px -30px rgba(255,210,122,.7)}
-.gp-step-1 .gp-medal{width:56px; height:56px; font-size:23px; background:linear-gradient(135deg, #FFE7A8, #F5B544)}
-.gp-step-1 b{color:var(--gp-gold); font-size:clamp(26px,3.2vw,38px)}
-.gp-step-2 .gp-medal{background:linear-gradient(135deg, #F1F3F8, #A9AEBC)}
-.gp-step-3 .gp-medal{background:linear-gradient(135deg, #FFC9A3, #D9824F)}
+.gp-step-1 .gp-plinth{height:70px; background:linear-gradient(180deg, rgba(255,51,255,.3), rgba(153,51,255,.06))}
+.gp-step-2 .gp-plinth{height:44px; background:linear-gradient(180deg, rgba(51,204,255,.24), rgba(51,204,255,.03))}
+.gp-step-3 .gp-plinth{height:26px; background:linear-gradient(180deg, rgba(153,51,255,.26), rgba(153,51,255,.03))}
+.gp-step-1{border-color:rgba(255,51,255,.5); background:linear-gradient(180deg, rgba(255,51,255,.14), rgba(153,51,255,.03) 70%); box-shadow:0 -20px 50px -30px rgba(255,51,255,.75)}
+.gp-step-2{border-color:rgba(51,204,255,.35)}
+.gp-step-3{border-color:rgba(153,51,255,.4)}
+.gp-medal{color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.gp-step-1 .gp-medal{width:56px; height:56px; font-size:23px; background:linear-gradient(135deg, #9933FF, #FF33FF); box-shadow:0 8px 22px -8px rgba(255,51,255,.8), inset 0 -3px 0 rgba(0,0,0,.2)}
+.gp-step-1 b{font-size:clamp(26px,3.2vw,38px); background:linear-gradient(90deg, #33CCFF, #FF33FF); -webkit-background-clip:text; background-clip:text; color:transparent}
+.gp-step-2 .gp-medal{background:linear-gradient(135deg, #33CCFF, #1E7FD6)}
+.gp-step-3 .gp-medal{background:linear-gradient(135deg, #B36BFF, #6E1FD1)}
 
 .gp-ladder{width:100%; min-width:0; table-layout:fixed; margin-top:0; border-collapse:separate; border-spacing:0; font-size:14px; border:1px solid var(--gp-line); border-radius:0 0 16px 16px; overflow:hidden; background:rgba(255,255,255,.015)}
 .gp-ladder thead th{padding:10px 16px; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; text-align:left; color:rgba(255,255,255,.45); background:rgba(255,255,255,.03); border-bottom:1px solid var(--gp-line)}
@@ -53,18 +56,18 @@
 
 /* pool summary: proportion bar, the two parts, and the total */
 .gp-split{display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"bar bar" "parts total"; align-items:end; gap:16px 24px; margin-top:16px; padding:18px 20px;
-  border-radius:16px; background:linear-gradient(120deg, rgba(255,210,122,.1), rgba(180,92,255,.08) 70%); border:1px solid rgba(255,210,122,.28)}
+  border-radius:16px; background:linear-gradient(120deg, rgba(153,51,255,.14), rgba(51,204,255,.06) 70%); border:1px solid rgba(153,51,255,.4)}
 .gp-split-bar{grid-area:bar; display:flex; gap:3px; height:10px}
 .gp-split-bar i{display:block; height:100%; border-radius:10px}
-.gp-split-bar .is-top,.gp-dot.is-top{background:linear-gradient(90deg,#FFE7A8,#F5B544)}
-.gp-split-bar .is-rest,.gp-dot.is-rest{background:linear-gradient(90deg,var(--gp-sun),var(--gp-violet))}
+.gp-split-bar .is-top,.gp-dot.is-top{background:linear-gradient(90deg,#9933FF,#FF33FF)}
+.gp-split-bar .is-rest,.gp-dot.is-rest{background:linear-gradient(90deg,#33CCFF,#1E7FD6)}
 .gp-split-parts{grid-area:parts; display:flex; flex-wrap:wrap; gap:10px 28px; margin:0}
 .gp-split-parts dt{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--gp-mute); white-space:nowrap}
 .gp-split-parts dd{margin:4px 0 0 18px; font-size:17px; font-weight:700; color:#fff; font-variant-numeric:tabular-nums}
 .gp-dot{display:inline-block; width:10px; height:10px; border-radius:3px}
 .gp-split-total{grid-area:total; display:flex; flex-direction:column; align-items:flex-end; gap:2px; text-align:right}
 .gp-split-total span{font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--gp-mute); white-space:nowrap}
-.gp-split-total b{font-size:clamp(26px,3vw,34px); font-weight:800; line-height:1; color:var(--gp-gold); font-variant-numeric:tabular-nums}
+.gp-split-total b{font-size:clamp(26px,3vw,34px); font-weight:800; line-height:1; font-variant-numeric:tabular-nums; background:linear-gradient(90deg, #33CCFF, #FF33FF); -webkit-background-clip:text; background-clip:text; color:transparent}
 .gp-fine{margin:14px 0 0; font-size:12.5px; color:rgba(255,255,255,.45)}
 
 /* how it works: four numbered steps joined by a line */
@@ -89,20 +92,20 @@
 .gp-faq details p{padding:0 16px 15px; font-size:13.5px}
 
 /* hotel card */
-.gp-hotel{display:flex; gap:16px; align-items:flex-start; border-color:rgba(255,190,120,.3) !important; background:linear-gradient(135deg, rgba(255,138,76,.12), rgba(255,138,76,.02) 60%) !important}
-.gp-hotel-ico{flex:none; display:grid; place-items:center; width:46px; height:46px; color:var(--gp-gold); border-radius:14px; background:rgba(255,190,120,.14); border:1px solid rgba(255,190,120,.3)}
+.gp-hotel{display:flex; gap:16px; align-items:flex-start; border-color:rgba(51,204,255,.3) !important; background:linear-gradient(135deg, rgba(51,204,255,.1), rgba(153,51,255,.03) 60%) !important}
+.gp-hotel-ico{flex:none; display:grid; place-items:center; width:46px; height:46px; color:var(--gp-gold); border-radius:14px; background:rgba(51,204,255,.12); border:1px solid rgba(51,204,255,.3)}
 .gp-hotel-ico svg{width:22px; height:22px}
 .gp-hotel h2{margin:0 0 6px}
-.gp-hotel p{margin:0; line-height:1.55; color:#FFE2A0}
+.gp-hotel p{margin:0; line-height:1.55; color:rgba(255,255,255,.82)}
 
 /* side card */
 .gp-card{position:sticky; top:96px; align-self:start; display:flex; flex-direction:column; gap:16px; padding:22px; border-radius:22px;
-  background:radial-gradient(120% 60% at 100% 0%, rgba(255,138,76,.1), transparent 55%), linear-gradient(180deg, #17121F, #0F0C15);
+  background:radial-gradient(120% 60% at 100% 0%, rgba(153,51,255,.16), transparent 55%), linear-gradient(180deg, #17121F, #0F0C15);
   border:1px solid rgba(180,92,255,.3); box-shadow:0 30px 60px -34px rgba(180,92,255,.6)}
 .gp-card h2{margin:0; font-size:18px}
 .gp-card-head{display:flex; justify-content:space-between; align-items:center; gap:10px}
 .gp-label{font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--gp-mute, rgba(255,255,255,.58))}
-.gp-badge{padding:4px 10px; font-size:11px; font-weight:700; letter-spacing:.04em; color:#FFE2A0; border-radius:999px; background:rgba(255,138,76,.14); border:1px solid rgba(255,190,120,.35)}
+.gp-badge{padding:4px 10px; font-size:11px; font-weight:700; letter-spacing:.04em; color:#BBF7D0; border-radius:999px; background:rgba(74,222,128,.12); border:1px solid rgba(74,222,128,.35)}
 .gp-badge-test{color:#9CD9FF; background:rgba(61,188,255,.1); border-color:rgba(61,188,255,.3)}
 .gp-badge-ok{color:#BBF7D0; background:rgba(74,222,128,.12); border-color:rgba(74,222,128,.35)}
 .gp-price{margin:0; font-size:46px; font-weight:800; line-height:1; color:#fff; font-variant-numeric:tabular-nums}
@@ -110,9 +113,9 @@
 .gp-seats{display:flex; flex-direction:column; gap:7px}
 .gp-seats > div{display:flex; justify-content:space-between; font-size:13px; color:rgba(255,255,255,.6)}
 .gp-seats b{color:#fff; font-variant-numeric:tabular-nums}
-.gp-seats small{font-size:12px; color:#FFB98A}
+.gp-seats small{font-size:12px; color:#FF8AFF}
 .gp-fill{display:block; height:7px; border-radius:7px; overflow:hidden; background:rgba(255,255,255,.08)}
-.gp-fill i{display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, #FFD27A, #FF8A4C 50%, #B45CFF)}
+.gp-fill i{display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, #33CCFF, #9933FF 55%, #FF33FF)}
 .gp-incl{list-style:none; display:grid; gap:9px; margin:0; padding:16px 0 0; border-top:1px solid rgba(255,255,255,.08)}
 .gp-incl li{position:relative; padding-left:24px; font-size:14px; color:rgba(255,255,255,.88)}
 .gp-incl li::before{content:""; position:absolute; left:2px; top:5px; width:11px; height:6px; border-left:2px solid #4ADE80; border-bottom:2px solid #4ADE80; transform:rotate(-45deg)}
@@ -123,8 +126,8 @@
 .gp-muted a{color:#D9B3FF}
 .gp-muted b{color:#fff}
 .gp-center{text-align:center}
-.gp-btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; width:100%; min-height:52px; font:inherit; font-size:15px; font-weight:700; color:#0B0B0C; text-decoration:none; border:0; border-radius:999px; cursor:pointer;
-  background:linear-gradient(90deg, #FFD27A, #FF8A4C 45%, #B45CFF); box-shadow:0 14px 30px -14px rgba(255,138,76,.8); transition:transform .18s, filter .18s}
+.gp-btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; width:100%; min-height:52px; font:inherit; font-size:15.5px; font-weight:700; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.35); text-decoration:none; border:1px solid rgba(255,255,255,.14); border-radius:999px; cursor:pointer;
+  background:linear-gradient(90deg, #7A1FE0, #9933FF 45%, #C21FC2); box-shadow:0 14px 30px -14px rgba(255,51,255,.8); transition:transform .18s, filter .18s}
 .gp-btn:hover:not(:disabled){transform:translateY(-1px); filter:brightness(1.06)}
 .gp-btn:disabled{cursor:not-allowed; opacity:.55}
 .gp-link{align-self:center; font:inherit; font-size:13px; color:rgba(255,255,255,.55); background:none; border:0; cursor:pointer}
@@ -142,7 +145,7 @@
 .gp-method svg{width:20px; height:20px; margin-bottom:4px}
 .gp-method b{font-size:14px; color:#fff}
 .gp-method small{font-size:11px; line-height:1.35; color:rgba(255,255,255,.45)}
-.gp-checkout .gp-method.is-on{color:#fff; border-color:rgba(255,190,120,.6); background:linear-gradient(135deg, rgba(255,138,76,.14), rgba(180,92,255,.08)); box-shadow:0 0 0 1px rgba(255,190,120,.25) inset}
+.gp-checkout .gp-method.is-on{color:#fff; border-color:rgba(255,51,255,.6); background:linear-gradient(135deg, rgba(153,51,255,.18), rgba(255,51,255,.08)); box-shadow:0 0 0 1px rgba(255,51,255,.25) inset}
 .gp-method:has(input:focus-visible){outline:2px solid rgba(180,92,255,.7); outline-offset:2px}
 .gp-method-body{display:flex; flex-direction:column; gap:12px; padding:14px; border-radius:14px; background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.07)}
 .gp-two{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px}
