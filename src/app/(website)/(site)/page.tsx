@@ -54,13 +54,12 @@ export default function HomePage() {
           <article className="goa-ticket">
             <div className="goa-ticket-art">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/img/goa-event.svg" alt="Sunset over a Goa beach with palm trees" loading="lazy" />
+              <img src="/assets/img/goa-trading-floor.jpg" alt="Traders at rows of laptops on a lit-up Goa beach at dusk" loading="lazy" />
               <div className="goa-date" aria-label="23 November 2026">
                 <small>Nov</small>
                 <b>23</b>
                 <small>2026</small>
               </div>
-              <span className="goa-stamp" aria-hidden="true">24H<small>Live</small></span>
               <p className="goa-place">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Zm0-9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" /></svg>
                 Goa, India &middot; 10:00 IST

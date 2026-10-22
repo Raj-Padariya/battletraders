@@ -67,8 +67,7 @@ export default function GoaEventPage() {
         <Link className="td-back" href="/tournaments/"><Icon d={ICON.arrow} />Back to tournaments</Link>
 
         <header className="td-hero gp-hero">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="gp-hero-img" src="/assets/img/goa-event.svg" alt="Sunset over a Goa beach with palm trees" />
+          <div className="gp-hero-img" role="img" aria-label="Goa beach with palm trees and kite surfers" />
           <div className="td-hero-copy">
             <div className="td-tags">
               <span className="mt-tag">Live event</span>

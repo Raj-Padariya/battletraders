@@ -191,16 +191,13 @@ h2{font-size:clamp(26px,4.3vw,38px); font-weight:800; letter-spacing:-.028em; li
 .goa-ticket-art{position:relative; min-height:340px; overflow:hidden; border-radius:22px 0 0 22px; border:1px solid rgba(153,51,255,.4); border-right:0}
 .goa-ticket-art img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .8s cubic-bezier(.2,.7,.2,1)}
 .goa-ticket:hover .goa-ticket-art img{transform:scale(1.04)}
-.goa-ticket-art::after{content:""; position:absolute; inset:0; background:linear-gradient(0deg, rgba(8,6,13,.75), transparent 45%)}
+.goa-ticket-art::after{content:""; position:absolute; inset:0; background:linear-gradient(0deg, rgba(8,6,13,.8), transparent 42%), linear-gradient(180deg, rgba(8,6,13,.45), transparent 30%)}
 
 .goa-date{position:absolute; z-index:1; top:18px; left:18px; display:flex; flex-direction:column; align-items:center; width:66px; padding:7px 0 8px; color:#0E0B18; border-radius:14px; background:#F4F1FF; box-shadow:0 16px 30px -12px rgba(0,0,0,.6)}
 .goa-date small{font-size:10px; font-weight:800; letter-spacing:.16em; text-transform:uppercase}
 .goa-date small:first-child{align-self:stretch; margin:-7px 0 3px; padding:4px 0; text-align:center; color:#fff; border-radius:14px 14px 0 0; background:var(--goa-grad)}
 .goa-date b{font-size:30px; font-weight:800; line-height:1}
 
-.goa-stamp{position:absolute; z-index:1; top:18px; right:18px; display:grid; place-items:center; width:70px; height:70px; font-size:20px; font-weight:800; line-height:1; color:#fff; border-radius:50%;
-  border:2px dashed rgba(51,204,255,.8); background:rgba(8,6,13,.4); transform:rotate(-12deg); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px)}
-.goa-stamp small{display:block; margin-top:2px; font-size:9px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--goa-cyan)}
 
 .goa-place{position:absolute; z-index:1; left:18px; bottom:16px; display:inline-flex; align-items:center; gap:8px; margin:0; padding:7px 13px; font-size:13px; font-weight:600; color:#fff; border-radius:999px; background:rgba(8,6,13,.55); border:1px solid rgba(255,255,255,.18); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px)}
 .goa-place svg{width:15px; height:15px; fill:var(--goa-pink)}
@@ -267,7 +264,6 @@ h2{font-size:clamp(26px,4.3vw,38px); font-weight:800; letter-spacing:-.028em; li
   .goa-live{grid-template-columns:minmax(0,1fr); gap:10px}
   .goa-live-clock{flex-direction:row; align-items:center; justify-content:space-between}
   .goa-live-seats{padding:10px 0 0; border-left:0; border-top:1px solid rgba(255,255,255,.08)}
-  .goa-stamp{width:60px; height:60px; font-size:17px}
   .goa-entry{padding:12px 14px}
 }
 @media (prefers-reduced-motion:reduce){

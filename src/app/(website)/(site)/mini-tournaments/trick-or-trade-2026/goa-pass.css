@@ -2,9 +2,10 @@
 .gp-page{--gp-gold:#3DBCFF; --gp-sun:#3DBCFF; --gp-violet:#FF33FF; --gp-card:#121118; --gp-line:rgba(255,255,255,.08); --gp-mute:rgba(255,255,255,.58)}
 
 /* hero */
-.gp-hero{position:relative; overflow:hidden; isolation:isolate; min-height:380px; border-color:rgba(255,190,120,.35) !important}
-.gp-hero-img{position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover}
-.gp-hero::after{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg, rgba(8,6,13,.95) 0%, rgba(8,6,13,.75) 46%, rgba(8,6,13,.15) 100%), linear-gradient(0deg, rgba(8,6,13,.7), transparent 50%)}
+.gp-hero{position:relative; overflow:hidden; isolation:isolate; min-height:380px; border-color:rgba(153,51,255,.45) !important}
+/* beach photo on top; the illustration underneath shows only if the photo file is missing */
+.gp-hero-img{position:absolute; inset:0; z-index:-2; background:url(/assets/img/goa-beach.jpg) 70% center / cover no-repeat, url(/assets/img/goa-event.svg) center / cover no-repeat}
+.gp-hero::after{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg, rgba(8,6,13,.95) 0%, rgba(8,6,13,.82) 40%, rgba(30,10,60,.35) 75%, rgba(30,10,60,.15) 100%), linear-gradient(0deg, rgba(8,6,13,.75), transparent 55%)}
 .gp-sun{background:linear-gradient(90deg, var(--gp-gold), var(--gp-sun) 55%, #FF5FA2); -webkit-background-clip:text; background-clip:text; color:transparent}
 
 /* perks strip under the stats */
