@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Svg } from "@panel/components/Icon";
-import { BTAlliances } from "@panel/lib/data/alliances";
+
 import { buildTraders, hashString, seededRandom, type SampleTrader } from "@panel/lib/data/sample";
 import { usePanel, type PanelProfile } from "@panel/lib/panel";
 import { readJSON, writeJSON } from "@panel/lib/storage";
@@ -56,7 +56,7 @@ interface TraderView {
   online: boolean;
   sub: string;
   recId: string;
-  alliance: { id: string; tag: string; name: string; role: string } | null;
+
 }
 
 function buildView(requested: string, profile: PanelProfile): TraderView {
@@ -109,11 +109,9 @@ function buildView(requested: string, profile: PanelProfile): TraderView {
 
   const online = isSelf || rand() > 0.45;
   const sub = isSelf ? "That's you · " + profile.countryName : known ? known.tier + " · Lv " + known.level + " · " + known.city : "Rookie fighter";
-  const hit = BTAlliances.findMember(handle);
   return {
     handle, isSelf, known, record, styleName, ledger, online, sub,
     recId: (hashString(handle.toLowerCase()).toString(36).toUpperCase() + "0000").slice(0, 4),
-    alliance: hit ? { id: hit.alliance.id, tag: hit.alliance.tag, name: hit.alliance.name, role: hit.member.role } : null,
   };
 }
 
@@ -162,7 +160,7 @@ export default function TraderRecordView() {
   const [following, setFollowing] = useState(false);
   const [grown, setGrown] = useState(false);
 
-  // Needs the signed-in username (profile) and localStorage (alliances, following): build after the panel is ready.
+  // Needs the signed-in username (profile) and localStorage (following): build after the panel is ready.
   useEffect(() => {
     if (!ready) return;
     const next = buildView(requested, profile);
@@ -190,14 +188,14 @@ export default function TraderRecordView() {
 
   const onBack = () => {
     if (window.history.length <= 1) {
-      router.push("/app/alliances/");
+      router.push("/app/leaderboards/");
       return;
     }
     // history.back() does nothing when there is no previous entry; fall back after a moment.
     const here = window.location.href;
     window.history.back();
     window.setTimeout(() => {
-      if (window.location.href === here) router.push("/app/alliances/");
+      if (window.location.href === here) router.push("/app/leaderboards/");
     }, 400);
   };
 
@@ -262,14 +260,6 @@ export default function TraderRecordView() {
           </div>
           <h1 className="tr-handle" id="tr-handle">{handle}</h1>
           <p className="tr-sub" id="tr-sub">{view?.sub}</p>
-          <p className="tr-alliance" id="tr-alliance" hidden={!view?.alliance}>
-            {view?.alliance && (
-              <>
-                {view.alliance.role + " of "}
-                <Link href={"/app/alliance/?id=" + encodeURIComponent(view.alliance.id)}>{"[" + view.alliance.tag + "] " + view.alliance.name}</Link>
-              </>
-            )}
-          </p>
           <button
             className={"tr-follow" + (following ? " is-on" : "")}
             id="tr-follow"

@@ -162,6 +162,8 @@ export default function MyTournaments() {
   );
   const dayFmt = useMemo(() => makeFormat({ day: "2-digit", month: "short" }, profile.timezone), [profile.timezone]);
   const timeFmt = useMemo(() => makeFormat({ hour: "2-digit", minute: "2-digit" }, profile.timezone), [profile.timezone]);
+  const weekdayFmt = useMemo(() => makeFormat({ weekday: "short", day: "numeric", month: "short" }, profile.timezone), [profile.timezone]);
+  const zoneLabel = (timeFmt.resolvedOptions().timeZone.split("/").pop() ?? "").replace(/_/g, " ") + " time";
 
   const groups: Record<Group, Row[]> = { upcoming: [], live: [], completed: [] };
   rows.forEach((row) => groups[groupOf(row.t, now)].push(row));
@@ -229,7 +231,11 @@ export default function MyTournaments() {
                 <span key={unit}><b>{value}</b><small>{unit}</small></span>
               ))}
             </span>
-            <span className="aw-holder"><span>{(nextLive ? "Ends " : "Starts ") + dateFmt.format(new Date(nextLive ? next.t.end : next.t.start))}</span><span>{money(next.t.prizePool)}</span></span>
+            <span className="mt-next-when">
+              <span><small>Starts</small><b>{weekdayFmt.format(new Date(next.t.start))}</b><i>{timeFmt.format(new Date(next.t.start))}</i></span>
+              <span><small>Ends</small><b>{weekdayFmt.format(new Date(next.t.end))}</b><i>{timeFmt.format(new Date(next.t.end))}</i></span>
+            </span>
+            <span className="aw-holder"><span>{zoneLabel}</span><span>{money(next.t.prizePool)}</span></span>
           </Link>
         ) : (
           <Link className="aw-card mt-next is-empty" href="/app/browse-tournaments/">

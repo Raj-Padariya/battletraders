@@ -40,8 +40,7 @@
 /* ---------- Grid ---------- */
 .st-c-pic{grid-column:span 4; --glow:#FF33FF}
 .st-c-acct{grid-column:span 8; --glow:#33CCFF}
-.st-c-social{grid-column:span 5; --glow:#A64DFF}
-.st-c-pw{grid-column:span 7; --glow:#FF4D6D}
+.st-c-pw{grid-column:span 12; --glow:#FF4D6D}
 .st-c-kyc{grid-column:span 8; --glow:#22E39A}
 .st-c-status{grid-column:span 4; --glow:#FFC433}
 .st-c-acct .ac-h,.st-c-kyc .ac-h{flex-wrap:wrap}
@@ -96,18 +95,6 @@ textarea.st-input{resize:vertical; min-height:84px; line-height:1.5}
 .st-otp{display:flex; flex-direction:column; gap:6px; margin-top:8px; padding:12px; border-radius:12px; background:rgba(51,204,255,.05); border:1px dashed rgba(51,204,255,.35)}
 .st-otp-input{max-width:180px; font-family:var(--mono); font-size:18px; letter-spacing:.4em}
 
-/* ---------- Social ---------- */
-.st-social{list-style:none; display:grid; gap:10px; margin:14px 0 0; padding:0}
-.st-net{display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:12px; padding:12px; border-radius:14px; background:linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.015) 60%); border:1px solid rgba(255,255,255,.09)}
-.st-net-ico{width:42px; height:42px; display:grid; place-items:center; border-radius:12px; color:#fff}
-.st-net-ico svg{width:20px; height:20px}
-.n-discord .st-net-ico{background:linear-gradient(135deg,#4752C4,#5865F2)}
-.n-telegram .st-net-ico{background:linear-gradient(135deg,#1C8ADB,#2AABEE)}
-.st-net-txt{display:flex; flex-direction:column; min-width:0}
-.st-net-txt b{font-size:14px}
-.st-net-txt small{font-size:12.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-.st-net.is-on .st-net-txt small{color:#22E39A}
-.st-net.is-on .st-btn{background:rgba(255,255,255,.05); border:1px solid rgba(255,77,109,.45); box-shadow:none; color:#FF8FA3}
 
 /* ---------- Password ---------- */
 .st-pw-form{display:flex; flex-direction:column; gap:14px; margin-top:14px}
@@ -184,9 +171,6 @@ textarea.st-input{resize:vertical; min-height:84px; line-height:1.5}
 .st-frame-opt:has(input:checked){color:#fff; border-color:#FF33FF; background:rgba(255,51,255,.08); box-shadow:0 0 0 1px #FF33FF inset}
 .st-frame-opt:has(input:focus-visible){outline:2px solid var(--steel); outline-offset:2px}
 .st-frame-av{--size:58px}
-.st-at{display:flex; align-items:center; gap:0; border-radius:10px}
-.st-at span{display:grid; place-items:center; min-height:44px; padding:0 12px; font-family:var(--mono); color:var(--muted); background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); border-right:0; border-radius:10px 0 0 10px}
-.st-at .st-input{border-radius:0 10px 10px 0}
 
 /* ---------- Focus ---------- */
 .st-btn:focus-visible,.st-link:focus-visible,.st-eye:focus-visible,.st-x:focus-visible,.st-public:focus-visible,.ap-foot a:focus-visible{outline:2px solid var(--steel); outline-offset:2px}
@@ -196,7 +180,7 @@ textarea.st-input{resize:vertical; min-height:84px; line-height:1.5}
 @media (max-width:1240px){
   .st-c-pic{grid-column:span 5}
   .st-c-acct{grid-column:span 7}
-  .st-c-social,.st-c-pw{grid-column:span 12}
+  .st-c-pw{grid-column:span 12}
   .st-c-kyc{grid-column:span 7}
   .st-c-status{grid-column:span 5}
   .st-fields{grid-template-columns:1fr}
@@ -222,8 +206,6 @@ textarea.st-input{resize:vertical; min-height:84px; line-height:1.5}
   .st-phone-row .st-dial{order:1}
   .st-phone-row .st-badge{order:2; margin-left:auto}
   .st-phone-row #st-phone-send{order:4; flex:1 1 auto}
-  .st-net{grid-template-columns:auto minmax(0,1fr)}
-  .st-net .st-btn{grid-column:1 / -1}
   .st-otp-input{max-width:none}
 }
 
@@ -288,16 +270,6 @@ select.st-input option{background:#121214}
 .st-otp{background:var(--ox-2); border:1px dashed var(--ox-line-hi)}
 .st-otp-input{font-family:var(--display)}
 
-/* social: hairline rows; brand tiles keep their brand colour (it identifies the network) */
-.st-social{gap:0}
-.st-net{padding:12px 2px; border-radius:0; background:transparent; border:0; border-top:1px solid var(--ox-line)}
-.st-net:first-child{border-top:0}
-.st-net-ico{width:38px; height:38px; border-radius:11px}
-.st-net-txt b{font-weight:600}
-.st-net-txt small{color:var(--ox-mute)}
-.st-net.is-on .st-net-txt small{color:#4ADE80}
-.st-net.is-on .st-btn{color:#F87171; background:transparent; border-color:rgba(248,113,113,.35)}
-
 /* password meter: red → neutral → green, no glow */
 .st-eye:hover,.st-eye[aria-pressed="true"]{color:var(--ox-txt)}
 .st-meter-bar i{height:4px; background:rgba(255,255,255,.08)}
@@ -344,5 +316,36 @@ select.st-input option{background:#121214}
 .st-frame-opt{color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line)}
 .st-frame-opt:hover{border-color:var(--ox-line-hi)}
 .st-frame-opt:has(input:checked){color:var(--ox-txt); border-color:rgba(var(--ox-accent-rgb),.6); background:rgba(var(--ox-accent-rgb),.08); box-shadow:inset 0 0 0 1px rgba(var(--ox-accent-rgb),.6)}
-.st-at span{font-family:var(--display); color:var(--ox-mute); background:var(--ox-3); border-color:var(--ox-line-hi)}
 .ap-foot a{color:var(--ox-txt)}
+
+/* hero right column: completion meter on top of the status chips */
+.st-side{display:flex; flex-direction:column; gap:10px; justify-self:end; width:min(100%,300px); min-width:0}
+.st-side .st-status{justify-self:auto}
+.st-side .st-chip{min-width:0}
+.st-progress{display:flex; flex-direction:column; gap:10px; padding:14px 16px; border-radius:14px;
+  background:radial-gradient(120% 120% at 100% 0%, rgba(var(--ox-accent-rgb),.14), transparent 60%), var(--ox-2); border:1px solid rgba(var(--ox-accent-rgb),.22)}
+.st-progress-h{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin:0; font-size:12px; color:var(--ox-mute)}
+.st-progress-h b{font-family:var(--display); font-size:18px; font-weight:500; color:var(--ox-txt); font-variant-numeric:tabular-nums}
+.st-progress-bar{display:block; height:6px; overflow:hidden; border-radius:999px; background:rgba(255,255,255,.07)}
+.st-progress-bar i{display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, rgba(var(--ox-accent-rgb),.65), var(--ox-accent)); transition:width .4s ease}
+.st-next{display:inline-flex; align-items:center; gap:6px; margin:0; font-size:12.5px; font-weight:600; color:#C99BFF; text-decoration:none}
+.st-next:hover{color:#fff}
+.st-next:focus-visible{outline:2px solid var(--ox-accent); outline-offset:2px; border-radius:4px}
+.st-next span{transition:transform .15s}
+.st-next:hover span{transform:translateX(3px)}
+.st-next.is-done{color:#4ADE80}
+.st-next.is-done svg{width:15px; height:15px}
+
+/* cards: KYC + status come straight after account details; password settles at the bottom */
+.st-c-pw{order:1}
+@media (min-width:1241px){
+  .st-pw-form{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr); align-items:start; gap:14px}
+  .st-pw-form .st-meter,.st-pw-form .st-pw-submit{grid-column:1 / -1}
+  .st-pw-submit{justify-self:start}
+}
+@media (max-width:860px){
+  .st-side{justify-self:stretch; width:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  .st-progress-bar i,.st-next span{transition:none}
+}

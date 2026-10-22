@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Svg } from "@panel/components/Icon";
 import { BTSample } from "@panel/lib/data/sample";
 import { joinedLabel, usePanel } from "@panel/lib/panel";
-import { countdown, nextAt, pad2 } from "@panel/lib/storage";
+import { nextAt, pad2 } from "@panel/lib/storage";
 import LiveBattleChart from "./LiveBattleChart";
 
 type BattleType = "daily" | "mini" | "circuit";
@@ -58,11 +58,6 @@ const BOARD = BTSample.buildTraders().slice(0, 4).map((t) => {
   return { trader: t, spark, change };
 });
 
-const QUESTS: { id: "day" | "week" | "month"; name: string; task: string; icon: string; done: number; total: number }[] = [
-  { id: "day", name: "Daily", task: "Trade in 1 Daily Battle", icon: FLAME, done: 0, total: 7 },
-  { id: "week", name: "Weekly", task: "Finish top 50% twice", icon: TARGET, done: 0, total: 8 },
-  { id: "month", name: "Monthly", task: "Reach Silver tier", icon: STAR, done: 0, total: 8 },
-];
 
 /* Stat cells: deterministic sparkline per stat (120x40 viewBox; line in y 6-30, area fades to the bottom). */
 const sparkFor = (seed: string, drift: number) => {
@@ -100,18 +95,10 @@ const referralFor = (username: string): string =>
 
 export default function DashboardBody() {
   const { ready, profile } = usePanel();
-  const [questReset, setQuestReset] = useState("--:--");
   const [battles, setBattles] = useState<BattleRow[]>([]);
   const [codeFlash, setCodeFlash] = useState<string | null>(null);
   const [verifyPending, setVerifyPending] = useState(false);
 
-  /* Quest reset clock (midnight local) */
-  useEffect(() => {
-    const tick = () => setQuestReset(countdown(nextAt(24)).slice(0, 5));
-    tick();
-    const timer = window.setInterval(tick, 1000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   /* Next battles (sample schedule relative to now) */
   useEffect(() => {
@@ -218,7 +205,6 @@ export default function DashboardBody() {
           <dl className="am-stats">
             <div><dt>Login streak</dt><dd>1</dd></div>
             <div><dt>Battles</dt><dd>0</dd></div>
-            <div><dt>Quests done</dt><dd>0</dd></div>
           </dl>
           <Link className="ab2" href="/app/trader/" id="am-profile"><Svg body='<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>' />View my trader profile</Link>
         </section>
@@ -307,28 +293,6 @@ export default function DashboardBody() {
           </div>
         </section>
 
-        <section className="ac ac-quests" id="tour-quests" aria-labelledby="aq-h">
-          <div className="ac-h"><h2 id="aq-h"><Svg body={STAR} />Personal arena quests</h2><span className="ac-chip">Resets in <b id="aq-reset">{questReset}</b></span></div>
-          <ul className="aq-list">
-            {QUESTS.map((quest) => (
-              <li className={"aq q-" + quest.id} key={quest.id}>
-                <div className="aq-top">
-                  <span className="aq-ico"><Svg body={quest.icon} /></span>
-                  <b className="aq-name">{quest.name}</b>
-                  <span className="aq-state">{quest.done === 0 ? "Not started" : quest.done >= quest.total ? "Complete" : "In progress"}</span>
-                </div>
-                <p className="aq-task">{quest.task}</p>
-                <dl className="aq-nums">
-                  <div><dt>Done</dt><dd>{quest.done}</dd></div>
-                  <div><dt>Total</dt><dd>{quest.total}</dd></div>
-                </dl>
-                <span className="aq-bar" aria-hidden="true"><i style={{ width: (quest.done / quest.total) * 100 + "%" }}></i></span>
-              </li>
-            ))}
-          </ul>
-          <Link className="ab2" href="/app/arena/">Go to personal arena<Svg body={CHEV} /></Link>
-        </section>
-
         <section className="ac ac-wallet" id="wallet" aria-labelledby="aw-h">
           <div className="ac-h"><h2 id="aw-h"><Svg body={WALLET} />Wallet</h2><a href="#wallet">History<Svg body={CHEV} /></a></div>
           <div className="aw-card">
@@ -365,13 +329,12 @@ export default function DashboardBody() {
         </section>
 
         <section className="ac ac-badges" id="tour-badges" aria-labelledby="ab-h">
-          <div className="ac-h"><h2 id="ab-h"><Svg body={MEDAL} />Badges</h2><span className="ac-chip c-bronze">0 / 6</span></div>
+          <div className="ac-h"><h2 id="ab-h"><Svg body={MEDAL} />Badges</h2><span className="ac-chip c-bronze">0 / 5</span></div>
           <span className="ab-prog" aria-hidden="true"><i style={{ width: "0%" }}></i></span>
           <ul className="ab-list" id="achievements">
             <li className="is-next"><span className="bd b-blood"><Svg body={SWORDS} /></span><b>First Blood</b><small>Finish a battle</small></li>
             <li><span className="bd b-flame"><Svg body={FLAME} /></span><b>On Fire</b><small>3-day streak</small></li>
             <li><span className="bd b-target"><Svg body={TARGET} /></span><b>Sniper</b><small>Top 10 finish</small></li>
-            <li><span className="bd b-shield"><Svg body={SHIELD} /></span><b>Ally</b><small>Join an alliance</small></li>
             <li><span className="bd b-crown"><Svg body={TROPHY} /></span><b>Champion</b><small>Win a tournament</small></li>
             <li><span className="bd b-star"><Svg body={STAR} /></span><b>Rising Star</b><small>Reach Silver</small></li>
           </ul>

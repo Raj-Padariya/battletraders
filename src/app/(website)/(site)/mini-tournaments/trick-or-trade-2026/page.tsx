@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ICON, Icon } from "@site/components/TournamentUi";
+import GoaTime from "@site/components/GoaTime";
 import {
-  GOA_ENTRY_FEE, GOA_PRIZE_POOL, GOA_REGISTRATION_OPENS, GOA_SEATS, GOA_STARTS_AT, GOA_WINNERS, goaPrizeRows, usd,
+  GOA_ENTRY_FEE, GOA_PRIZE_POOL, GOA_REGISTRATION_OPENS, GOA_SEATS, GOA_WINNERS, goaPrizeRows, usd,
 } from "@panel/lib/data/goa";
 import Countdown from "./Countdown";
 import GoaPassFlow from "./GoaPassFlow";
@@ -27,36 +29,36 @@ const stats = [
   { icon: ICON.crown, label: "Paid places", value: "Top " + GOA_WINNERS, tone: "" },
 ];
 
-const timeline = [
+const timeline: { label: string; value: ReactNode; state: string }[] = [
   { label: "Registration opens", value: "22 Oct 2026", state: "done" },
   { label: "Registration closes", value: "22 Nov 2026 · 18:00 IST", state: "next" },
-  { label: "Live final in Goa", value: "23 Nov 10:00 – 24 Nov 10:00 IST", state: "" },
-  { label: "Winners announced", value: "24 Nov 2026, on the floor", state: "" },
+  { label: "Live final in Goa", value: <GoaTime format="range" />, state: "" },
+  { label: "Winners announced", value: <><GoaTime format="endDate" />, on the floor</>, state: "" },
 ];
 
-const steps = [
+const steps: { title: string; text: ReactNode }[] = [
   { title: "Register & pay", text: `Pay ${usd(GOA_ENTRY_FEE)} on this page to lock your seat. One registration per email; your pass is emailed to you.` },
-  { title: "Check in at Goa", text: "Show your pass at the venue on 23 Nov. Your hotel room is booked and paid by BattleTrader." },
+  { title: "Check in at Goa", text: <>Show your pass at the venue on <GoaTime format="startDay" />. Your hotel room is booked and paid by BattleTrader.</> },
   { title: "Trade for 24 hours", text: "Everyone starts with the same $10,000 demo balance at 1:100 — forex, stocks, crypto, indices, commodities and energies." },
-  { title: `Top ${GOA_WINNERS} get paid`, text: `The board locks at 10:00 IST on 24 Nov. The highest balances share the ${usd(GOA_PRIZE_POOL)} prize pool.` },
+  { title: `Top ${GOA_WINNERS} get paid`, text: <>The board locks at <GoaTime format="endTime" /> IST on <GoaTime format="endDay" />. The highest balances share the {usd(GOA_PRIZE_POOL)} prize pool.</> },
 ];
 
 // Goa-specific questions. Refund and payout policy text must be confirmed by the team before launch.
-const faqs: [string, string][] = [
+const faqs: [string, ReactNode][] = [
   ["What is included in the entry fee?", `Your ${usd(GOA_ENTRY_FEE)} entry gets you a seat at the 24-hour live final and a hotel room in Goa for the event, booked and paid by BattleTrader. Travel to and from Goa is not included.`],
   ["Is my own money at risk while trading?", "No. Everyone trades a simulated account that starts at $10,000 with 1:100 leverage, priced off the live market. The entry fee is the only money you pay."],
   ["How many people can register?", `${GOA_SEATS} seats in total, first come first served. Registration closes when all seats are taken or on 22 Nov 2026 at 18:00 IST, whichever comes first.`],
   ["Can I register more than once?", "No. Each email can register once, and each registration is one seat for one named trader. The pass is personal and cannot be transferred."],
-  ["How are the prizes paid?", `${usd(GOA_PRIZE_POOL)} is split across the top ${GOA_WINNERS} by final balance when the board locks at 10:00 IST on 24 Nov. 1st takes ${usd(rows[0].amount)}. Prizes are paid after the trade logs of the winners are checked and their identity is verified.`],
+  ["How are the prizes paid?", <>{usd(GOA_PRIZE_POOL)} is split across the top {GOA_WINNERS} by final balance when the board locks at <GoaTime format="endTime" /> IST on <GoaTime format="endDay" />. 1st takes {usd(rows[0].amount)}. Prizes are paid after the trade logs of the winners are checked and their identity is verified.</>],
   ["What markets can I trade?", "Forex majors and minors, US and EU stocks, crypto, indices (US30, NAS100, GER40), gold and silver, and WTI and Brent."],
   ["Can I use an Expert Advisor or copy trading?", "No. Automated trading, copy trading and signal services are not allowed and void your result."],
   ["What do I need to bring?", "Your pass (sent to your email before the event), a photo ID with the same name, and your own laptop. Power and internet are provided on the floor."],
   ["Can I get a refund?", "Contact us before registration closes on 22 Nov 2026. Once the live final has started the entry fee is not refundable."],
 ];
 
-const perks = [
+const perks: { title: string; text: ReactNode }[] = [
   { title: "Hotel on us", text: "Room in Goa booked and paid by BattleTrader for every pass holder." },
-  { title: "24 hours live", text: "One non-stop session on the floor, from 10:00 IST to 10:00 IST." },
+  { title: "24 hours live", text: <>One non-stop session on the floor, from <GoaTime format="startTime" /> IST to <GoaTime format="endTime" /> IST.</> },
   { title: "Top " + GOA_WINNERS + " paid", text: usd(GOA_PRIZE_POOL) + " split across the leaderboard, " + usd(rows[0].amount) + " to the winner." },
 ];
 
@@ -76,12 +78,12 @@ export default function GoaEventPage() {
             <h1>Goa Live <span className="gp-sun">Final 2026</span></h1>
             <p>Twenty-four hours of trading on the beach floor. Win your seat for {usd(GOA_ENTRY_FEE)} and BattleTrader books and pays your hotel in Goa.</p>
             <ul className="td-hero-meta">
-              <li><Icon d={ICON.calendar} />23 Nov 2026</li>
-              <li><Icon d={ICON.clock} />10:00 IST · 24 hours</li>
+              <li><Icon d={ICON.calendar} /><GoaTime format="startDate" /></li>
+              <li><Icon d={ICON.clock} /><GoaTime format="startTime" /> IST · 24 hours</li>
               <li><Icon d={ICON.globe} />Goa, India</li>
             </ul>
           </div>
-          <Countdown startsAt={GOA_STARTS_AT} opensAt={GOA_REGISTRATION_OPENS} />
+          <Countdown opensAt={GOA_REGISTRATION_OPENS} />
         </header>
 
         <ul className="td-stats">

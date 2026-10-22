@@ -10,17 +10,9 @@
 .wl-tag{display:inline-flex; align-items:center; gap:7px; margin:0; padding:4px 10px; font-family:var(--accent); font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#5CDBFF; background:rgba(51,204,255,.1); border:1px solid rgba(51,204,255,.4); border-radius:5px}
 .wl-tag svg{width:13px; height:13px}
 
-.wl-bal{position:relative; display:flex; flex-direction:column; align-items:flex-end; gap:10px; min-width:0; padding:20px 22px; text-align:right; border-radius:16px; background:radial-gradient(220px circle at var(--mx,50%) var(--my,-40%), rgba(255,255,255,.08), transparent 70%), linear-gradient(155deg, rgba(255,255,255,.08), rgba(255,255,255,.02) 50%), rgba(10,10,20,.55); border:1px solid rgba(51,204,255,.3); box-shadow:inset 0 1px 0 rgba(255,255,255,.12), 0 20px 40px -24px rgba(0,0,0,.9); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px)}
-.wl-bal-lbl{margin:0; font-family:var(--accent); font-size:12.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
-.wl-bal-num{margin:0; max-width:100%; font-family:var(--mono); font-size:clamp(30px,4vw,46px); font-weight:700; line-height:1.05; color:#5CDBFF; font-variant-numeric:tabular-nums; text-shadow:0 0 24px rgba(51,204,255,.55); overflow-wrap:anywhere}
-.wl-bal-meta{display:flex; flex-wrap:wrap; justify-content:flex-end; align-items:center; gap:8px}
-.wl-credits{display:inline-flex; align-items:center; gap:6px; padding:5px 10px; border-radius:20px; font-family:var(--accent); font-size:12.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); background:rgba(34,227,154,.08); border:1px solid rgba(34,227,154,.3)}
-.wl-credits svg{width:13px; height:13px; color:#22E39A}
-.wl-credits b{font-family:var(--mono); font-size:13px; letter-spacing:0; color:#22E39A}
 .wl-kyc,.wl-chip-kyc{display:inline-flex; align-items:center; gap:6px; padding:5px 10px; border-radius:20px; font-family:var(--accent); font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; color:#FF8FA3; background:rgba(255,77,109,.12); border:1px solid rgba(255,77,109,.5); text-decoration:none}
 .wl-kyc svg{width:13px; height:13px}
 .wl-kyc:hover{background:rgba(255,77,109,.22); color:#fff}
-.wl-hero-btn{margin-top:4px}
 
 /* ---------- Cards ---------- */
 .wl-grid{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px; margin-top:14px}
@@ -66,11 +58,6 @@
 .wl-row{position:relative; display:grid; grid-template-columns:auto minmax(0,1fr) auto auto; align-items:center; gap:14px; padding:12px 14px; border-radius:14px; background:linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.015) 60%); border:1px solid rgba(255,255,255,.09); box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
 .wl-row-ico{width:40px; height:40px; display:grid; place-items:center; border-radius:11px; color:var(--c,#5CDBFF); background:color-mix(in srgb, var(--c,#5CDBFF) 14%, transparent); border:1px solid color-mix(in srgb, var(--c,#5CDBFF) 40%, transparent)}
 .wl-row-ico svg{width:18px; height:18px}
-.t-topup{--c:#22E39A}
-.t-entry{--c:#A64DFF}
-.t-cashout{--c:#FF8FA3}
-.t-refund{--c:#33CCFF}
-.t-reward{--c:#FFC433}
 .wl-row-txt{display:flex; flex-direction:column; min-width:0}
 .wl-row-txt b{font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .wl-row-txt small{font-size:12px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
@@ -164,14 +151,11 @@
 }
 @media (max-width:860px){
   .wl-hero{grid-template-columns:1fr}
-  .wl-bal{align-items:flex-start; text-align:left}
-  .wl-bal-meta{justify-content:flex-start}
   .wl-grid{grid-template-columns:1fr}
 }
 @media (max-width:640px){
   .wl-row{grid-template-columns:auto minmax(0,1fr) auto; row-gap:8px; padding:10px 12px}
   .wl-row .wl-status{grid-column:2 / -1; justify-self:start}
-  .wl-hero-btn{width:100%}
   .wl-pay{grid-template-columns:1fr 1fr}
   .wl-modal-in{padding:18px 16px}
   .wl-modal-f .btn{flex:1 1 auto}
@@ -207,18 +191,6 @@
 .wl-tag svg{display:none}
 .wl-tag::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--ox-accent)}
 
-.wl-bal{overflow:hidden; isolation:isolate; align-items:flex-start; text-align:left; border-radius:16px;
-  background:radial-gradient(120% 90% at 100% 0%, rgba(var(--ox-accent-rgb),.18), transparent 55%), linear-gradient(150deg, #242427, #121214 60%, #0B0B0C);
-  border:1px solid rgba(var(--ox-accent-rgb),.22); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 34px -20px rgba(0,0,0,.9);
-  -webkit-backdrop-filter:none; backdrop-filter:none}
-.wl-bal::after{content:""; position:absolute; z-index:-1; right:-50px; bottom:-70px; width:180px; height:180px; border-radius:50%;
-  border:1px solid rgba(var(--ox-accent-rgb),.16); box-shadow:0 0 0 22px rgba(var(--ox-accent-rgb),.035), 0 0 0 44px rgba(var(--ox-accent-rgb),.02)}
-.wl-bal-lbl{font-family:inherit; font-size:11.5px; font-weight:500; letter-spacing:.1em; color:var(--ox-mute)}
-.wl-bal-num{font-family:var(--display); font-size:clamp(30px,3.6vw,42px); font-weight:500; letter-spacing:-.02em; color:var(--ox-txt); text-shadow:none}
-.wl-bal-meta{justify-content:flex-start}
-.wl-credits{font-family:inherit; font-size:12px; font-weight:500; letter-spacing:0; text-transform:none; color:var(--ox-mute); background:var(--ox-2); border:1px solid var(--ox-line)}
-.wl-credits svg{color:var(--ox-accent)}
-.wl-credits b{font-family:var(--display); font-weight:600; color:var(--ox-txt)}
 /* KYC stays red: it is a blocking status, not decoration */
 .wl-kyc,.wl-chip-kyc{font-family:inherit; font-size:11px; font-weight:600; letter-spacing:.08em; color:#F87171; background:rgba(248,113,113,.08); border:1px solid rgba(248,113,113,.3)}
 .wl-kyc:hover{color:#fff; background:rgba(248,113,113,.16)}
@@ -303,4 +275,67 @@
 .wl-done-txt b{font-family:var(--display); color:#4ADE80}
 @media (max-width:640px){
   .wl-row{padding:10px 2px}
+}
+
+/* =====================================================================
+   Wallet v2: hero copy + actions on the left, the balance printed on the
+   dashboard bank card (.aw-card) on the right, a summary strip split by
+   hairlines, quick top-up amounts and in/out tinted activity rows.
+   ===================================================================== */
+.wl-hero{grid-template-columns:minmax(0,1fr) minmax(300px,410px); align-items:center; min-height:0}
+.wl-hero-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:20px}
+.wl-hero-actions .btn{display:inline-flex; align-items:center; gap:8px}
+.wl-hero-actions .btn svg{width:16px; height:16px}
+
+.wl-bank{display:flex; flex-direction:column; min-height:220px; padding:20px 22px 16px}
+.wl-bank-id{display:inline-flex; align-items:center; gap:10px}
+.wl-verified{display:inline-flex; align-items:center; gap:6px; padding:4px 10px; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#4ADE80; background:rgba(74,222,128,.08); border:1px solid rgba(74,222,128,.25); border-radius:999px}
+.wl-verified svg,.wl-bank .wl-kyc svg{width:13px; height:13px}
+.wl-bank-lbl{margin:24px 0 0; font-size:11.5px; color:var(--ox-mute)}
+.wl-bank-num{margin:4px 0 0; font-family:var(--display); font-size:clamp(34px,3.8vw,46px); font-weight:500; line-height:1.05; letter-spacing:-.02em; color:var(--ox-txt); font-variant-numeric:tabular-nums; overflow-wrap:anywhere}
+.wl-bank-num span{font-size:.5em; color:var(--ox-dim)}
+.wl-bank-sub{display:flex; flex-wrap:wrap; gap:6px 18px; margin:12px 0 0; font-size:12px; color:var(--ox-mute)}
+.wl-bank-sub b{margin-left:6px; font-family:var(--display); font-weight:600; color:var(--ox-txt); font-variant-numeric:tabular-nums}
+.wl-bank .aw-holder{margin-top:auto; padding-top:18px}
+
+/* summary strip: one panel, cells split by 1px hairlines (the gap shows the line colour) */
+.wl-stats{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:1px; margin:14px 0 0; padding:0; list-style:none; overflow:hidden; border-radius:16px; background:var(--ox-line); border:1px solid var(--ox-line)}
+.wl-stat{display:flex; flex-direction:column; gap:6px; min-width:0; padding:16px 18px; background:var(--ox-panel)}
+.wl-stat small{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ox-mute)}
+.wl-stat small i{flex:none; width:7px; height:7px; border-radius:50%; background:var(--dot)}
+.wl-stat b{font-family:var(--display); font-size:22px; font-weight:500; line-height:1.1; color:var(--ox-txt); font-variant-numeric:tabular-nums; overflow-wrap:anywhere}
+.wl-stat em{font-style:normal; font-size:11.5px; color:var(--ox-dim)}
+.wl-stat.s-in{--dot:#4ADE80}
+.wl-stat.s-win{--dot:var(--ox-accent)}
+.wl-stat.s-out{--dot:#F87171}
+.wl-stat.s-wait{--dot:var(--ox-dim)}
+
+/* cards */
+.wl-card-top .wl-quick{margin-top:14px}
+.wl-quick button:focus-visible,.wl-max:focus-visible{outline:2px solid var(--ox-accent); outline-offset:2px}
+.wl-max{flex:none; min-height:30px; padding:4px 12px; font:inherit; font-size:12px; font-weight:600; color:var(--ox-txt); background:var(--ox-3); border:1px solid var(--ox-line-hi); border-radius:999px; cursor:pointer; transition:border-color .15s, background .15s}
+.wl-max:hover:not(:disabled){border-color:rgba(var(--ox-accent-rgb),.5); background:rgba(var(--ox-accent-rgb),.12)}
+.wl-max:disabled{opacity:.4; cursor:not-allowed}
+
+/* activity rows: the icon tile picks up the money direction */
+.wl-row.is-in .wl-row-ico{color:#4ADE80; background:rgba(74,222,128,.07); border-color:rgba(74,222,128,.2)}
+.wl-row.is-out .wl-row-ico{color:#F87171; background:rgba(248,113,113,.06); border-color:rgba(248,113,113,.18)}
+
+@media (max-width:1240px){
+  .wl-hero{grid-template-columns:minmax(0,1fr) minmax(280px,360px)}
+}
+@media (max-width:1024px){
+  .wl-stats{grid-template-columns:repeat(2, minmax(0,1fr))}
+}
+@media (max-width:860px){
+  .wl-hero{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+  .wl-hero-actions .btn{flex:1 1 0; justify-content:center}
+  .wl-stat{padding:14px}
+  .wl-stat b{font-size:19px}
+  .wl-bank{padding:18px 18px 14px}
+}
+@media (prefers-reduced-motion:reduce){
+  .wl-max{transition:none}
 }

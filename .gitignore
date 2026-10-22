@@ -7,8 +7,10 @@
 next-env.d.ts
 *.tsbuildinfo
 
+# local upload bundles
+*.zip
+
 # env files
-.env*
 
 # logs
 npm-debug.log*
@@ -16,5 +18,8 @@ npm-debug.log*
 # OS / editor
 .DS_Store
 Thumbs.db
-.vscode/
 .idea/
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+config.bat

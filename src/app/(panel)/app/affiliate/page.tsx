@@ -3,13 +3,13 @@ import PanelShell from "@panel/components/PanelShell";
 import AffiliateBody from "./AffiliateBody";
 
 export const metadata = {
-  title: "Affiliate",
-  description: "Generate your BattleTrader affiliate code, share your link and climb the affiliate ranks.",
+  title: "Refer & Earn",
+  description: "Generate your BattleTrader referral code, share your link and earn rewards as you climb the referral ranks.",
 };
 
 export default function AffiliatePage() {
   return (
-    <PanelShell current="affiliate" crumb="Affiliate">
+    <PanelShell current="affiliate" crumb="Refer & Earn">
       <AffiliateBody />
     </PanelShell>
   );

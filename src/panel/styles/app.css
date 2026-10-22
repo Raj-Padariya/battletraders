@@ -174,7 +174,7 @@ body.app::after{
 .ac-me{grid-column:span 4}
 .ak-grid{grid-column:span 8}
 .ac-next{grid-column:span 5}
-.ac-quests{grid-column:span 12}
+
 .ac-wallet{grid-column:span 4}
 .ac-aff{grid-column:span 4}
 .ac-badges{grid-column:span 4}
@@ -251,7 +251,7 @@ body.app::after{
 .an-go svg{width:13px; height:13px}
 
 /* quests */
-.aq-list{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+
 
 /* wallet */
 .ac-wallet{background:radial-gradient(120% 80% at 100% 0%, rgba(51,204,255,.16), transparent 60%), linear-gradient(160deg, rgba(255,255,255,.055), rgba(255,255,255,.012) 60%), rgba(13,13,22,.78)}
@@ -329,7 +329,7 @@ body.app::after{
 @media (max-width:1240px){
   .ac-me{grid-column:span 5}
   .ak-grid{grid-column:span 7}
-  .ac-next,.ac-quests,.ac-board{grid-column:span 12}
+  .ac-next,.ac-board{grid-column:span 12}
   .ac-wallet,.ac-aff{grid-column:span 6}
   .ac-badges{grid-column:span 12}
   .ab-list{grid-template-columns:repeat(6, minmax(0,1fr))}
@@ -400,7 +400,7 @@ body.app::after{
 .ac:hover,.ak:hover,.as:hover{box-shadow:0 30px 60px -28px rgba(0,0,0,.95), 0 0 40px -18px color-mix(in srgb, var(--glow,#A64DFF) 75%, transparent), inset 0 1px 0 rgba(255,255,255,.16)}
 .ac:hover::before,.ak:hover::before{animation:ap-rim 2.4s linear infinite}
 @keyframes ap-rim{to{--ap-rim:495deg}}
-.ac-next,.ac-quests{--glow:#A64DFF}
+.ac-next{--glow:#A64DFF}
 .ac-wallet{--glow:#33CCFF}
 .ac-aff{--glow:#22E39A}
 .ac-badges{--glow:#FF33FF}
@@ -941,48 +941,6 @@ body.app::after{display:none}
 .an-when b{font-size:15px}
 .an-go{color:var(--ox-txt); background:transparent; border:1px solid var(--ox-line-hi); border-radius:999px}
 .an-go:hover{background:var(--ox-2); border-color:rgba(255,255,255,.2)}
-
-/* ---- quests: "Goal Overview"-style glass cards: header band on top, a strong coloured glow
-   rising from the bottom (teal / violet / pearl, one per card), numbers sitting on the glow ---- */
-.aq-list{grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px}
-.aq{--qc:45,212,191; position:relative; isolation:isolate; overflow:hidden; display:flex; flex-direction:column; gap:0; padding:0; border-radius:18px;
-  border:1px solid rgba(255,255,255,.1);
-  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01) 40%), #141416;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 18px 36px -22px rgba(0,0,0,.9); transition:border-color .3s, transform .3s}
-.q-week{--qc:168,85,247}
-.q-month{--qc:228,228,231}
-.aq:hover{border-color:rgba(var(--qc),.35); transform:translateY(-2px)}
-/* the glow: a wide blurred blob anchored low in the card */
-.aq::after{content:""; position:absolute; z-index:-1; left:8%; right:auto; bottom:-48%; width:70%; height:85%; border-radius:50%; filter:blur(38px); pointer-events:none;
-  background:radial-gradient(closest-side, rgba(var(--qc),.55), rgba(var(--qc),.18) 60%, transparent); opacity:.85; transition:opacity .3s, transform .4s}
-.q-week::after{left:18%}
-.q-month::after{left:28%; opacity:.55}
-.aq:hover::after{opacity:1; transform:scale(1.08)}
-/* thin lit edge along the top, tinted to the card */
-.aq::before{content:""; position:absolute; z-index:1; inset:0 0 auto; height:1px; background:linear-gradient(90deg, transparent, rgba(var(--qc),.5), transparent); pointer-events:none}
-.aq-top{display:flex; align-items:center; gap:12px; min-width:0; margin:8px 8px 0; padding:10px 12px; border-radius:13px;
-  background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.06)}
-.aq-ico{flex:none; width:36px; height:36px; display:grid; place-items:center; border-radius:11px; color:#F4F4F5;
-  background:linear-gradient(160deg, rgba(255,255,255,.12), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.12); box-shadow:inset 0 1px 0 rgba(255,255,255,.12), 0 4px 10px -4px rgba(0,0,0,.6)}
-.aq-ico svg{width:17px; height:17px}
-.aq-name{flex:1; min-width:0; font-family:var(--display); font-size:15px; font-weight:600; color:var(--ox-txt); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-.aq-state{flex:none; padding:4px 10px; font-size:11px; font-weight:500; color:#E4E4E7; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:8px; white-space:nowrap}
-.aq-task{margin:14px 20px 0; font-size:12.5px; line-height:1.45; color:var(--ox-mute)}
-.aq-nums{display:flex; justify-content:space-between; align-items:flex-end; gap:10px; margin:22px 20px 0}
-.aq-nums div{display:flex; flex-direction:column; gap:6px}
-.aq-nums div + div{text-align:right}
-.aq-nums dt{font-size:11.5px; color:#A1A1AA}
-.aq-nums dd{margin:0; font-family:var(--display); font-size:24px; font-weight:600; font-variant-numeric:tabular-nums; line-height:1; color:var(--ox-txt)}
-.aq-bar{display:block; height:3px; margin:14px 20px 18px; border-radius:3px; background:rgba(255,255,255,.08); overflow:hidden}
-.aq-bar i{display:block; height:100%; min-width:3px; border-radius:inherit; background:rgb(var(--qc)); box-shadow:0 0 8px rgba(var(--qc),.8)}
-@media (max-width:640px){
-  .aq-list{grid-template-columns:1fr}
-}
-@media (prefers-reduced-motion:reduce){
-  .aq,.aq::after{transition:none}
-  .aq:hover{transform:none}
-}
-
 /* ---- wallet: the balance sits on a graphite bank card (gold chip, ring watermark, sheen on hover) ---- */
 .aw-card{position:relative; isolation:isolate; overflow:hidden; padding:16px 18px 14px; border-radius:16px;
   background:radial-gradient(120% 90% at 100% 0%, rgba(var(--ox-accent-rgb),.2), transparent 55%), linear-gradient(150deg, #242427, #121214 60%, #0B0B0C);

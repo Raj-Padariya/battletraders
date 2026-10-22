@@ -15,8 +15,6 @@ const KYC_KEY = "bt-kyc";
 
 const UPLOAD = '<path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>';
 const FILE = '<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/>';
-const DISCORD = '<path d="M8.5 6.5c2.3-.7 4.7-.7 7 0M8 17.5c2.6 1 5.4 1 8 0"/><path d="M8.5 6.5 6.5 6C5 8.5 4 11.5 4 15.5c1.4 1.4 3 2.2 4.8 2.6l1-1.9M15.5 6.5l2-.5c1.5 2.5 2.5 5.5 2.5 9.5-1.4 1.4-3 2.2-4.8 2.6l-1-1.9"/><circle cx="9.5" cy="12.5" r="1.2"/><circle cx="14.5" cy="12.5" r="1.2"/>';
-const TELEGRAM = '<path d="M21 4 3 11.2l6 2.1L11.3 20l3.2-4 4.8 3.6z"/><path d="m9 13.3 8.5-6.6"/>';
 
 /* ---------- stored profile ---------- */
 interface StoredProfile {
@@ -94,13 +92,6 @@ const DIALS: [iso: string, dial: string][] = [
 ];
 const dialFor = (iso: string | undefined): string => DIALS.find((d) => d[0] === iso)?.[1] || "";
 const digits = (s: string): string => String(s || "").replace(/\D/g, "");
-
-/* ---------- socials ---------- */
-type NetKey = "discord" | "telegram";
-const NETS: Record<NetKey, { name: string; pattern: RegExp; rule: string; icon: string }> = {
-  discord: { name: "Discord", pattern: /^[a-z0-9_.]{2,32}$/, rule: "2 to 32 characters: lowercase letters, numbers, _ or .", icon: DISCORD },
-  telegram: { name: "Telegram", pattern: /^[A-Za-z0-9_]{5,32}$/, rule: "5 to 32 characters: letters, numbers or _", icon: TELEGRAM },
-};
 
 /* ---------- avatar frames ---------- */
 const FRAMES: [key: string, label: string][] = [
@@ -311,10 +302,9 @@ interface BodyProps {
   rev: number;
   onSaved: () => void;
   onOpenFrames: (opener: HTMLElement) => void;
-  onOpenNet: (net: NetKey, opener: HTMLElement) => void;
 }
 
-function ProfileBody({ rev, onSaved, onOpenFrames, onOpenNet }: BodyProps) {
+function ProfileBody({ rev, onSaved, onOpenFrames }: BodyProps) {
   const { ready, profile: panelProfile, reloadProfile, reduceMotion, toast } = usePanel();
   const [stored, setStored] = useState<StoredProfile | null>(null);
   const [errors, setErrors] = useState<Errors>({});
@@ -618,6 +608,18 @@ function ProfileBody({ rev, onSaved, onOpenFrames, onOpenNet }: BodyProps) {
 
   const kycInvalid = (id: string) => (errors[id + "-err"] ? "true" : undefined);
 
+  // Email is verified at sign-up, so it always counts as done.
+  const setupSteps = [
+    { done: true, label: "Verify email", target: "st-email" },
+    { done: phoneVerified, label: "Verify your phone", target: "st-phone" },
+    { done: !!avatar, label: "Add a profile picture", target: "st-picture" },
+    { done: !!p.timezone, label: "Confirm your timezone", target: "st-tz" },
+    { done: status === "verified", label: "Complete KYC", target: "kyc" },
+  ];
+  const doneSteps = setupSteps.filter((step) => step.done).length;
+  const completion = Math.round((doneSteps / setupSteps.length) * 100);
+  const nextStep = setupSteps.find((step) => !step.done);
+
   return (
     <>
       <section className="ah st-hero" aria-labelledby="st-title">
@@ -630,11 +632,24 @@ function ProfileBody({ rev, onSaved, onOpenFrames, onOpenNet }: BodyProps) {
             <Link className="st-public" href="/app/trader/"><Icon name="eye" />View public record</Link>
           </div>
         </div>
-        <ul className="st-status" aria-label="Verification status">
-          <li className="st-chip is-ok" id="st-chip-email"><Icon name="checkCircle" /><span>Email</span><b>Verified</b></li>
-          <li className={"st-chip " + (phoneVerified ? "is-ok" : "is-warn")} id="st-chip-phone"><Icon name="phone" /><span>Phone</span><b>{phoneVerified ? "Verified" : "Unverified"}</b></li>
-          <li className={"st-chip " + info.cls} id="st-chip-kyc"><Icon name="shield" /><span>KYC</span><b>{info.chip}</b></li>
-        </ul>
+        <div className="st-side">
+          <div className="st-progress">
+            <p className="st-progress-h"><span>Profile strength</span><b>{doneSteps}/{setupSteps.length}</b></p>
+            <span className="st-progress-bar" role="progressbar" aria-label="Profile completion" aria-valuemin={0} aria-valuemax={100} aria-valuenow={completion}>
+              <i style={{ width: completion + "%" }} />
+            </span>
+            {nextStep ? (
+              <a className="st-next" href={"#" + nextStep.target}>Next: {nextStep.label}<span aria-hidden="true">&rarr;</span></a>
+            ) : (
+              <p className="st-next is-done"><Icon name="checkCircle" />Your profile is complete</p>
+            )}
+          </div>
+          <ul className="st-status" aria-label="Verification status">
+            <li className="st-chip is-ok" id="st-chip-email"><Icon name="checkCircle" /><span>Email</span><b>Verified</b></li>
+            <li className={"st-chip " + (phoneVerified ? "is-ok" : "is-warn")} id="st-chip-phone"><Icon name="phone" /><span>Phone</span><b>{phoneVerified ? "Verified" : "Unverified"}</b></li>
+            <li className={"st-chip " + info.cls} id="st-chip-kyc"><Icon name="shield" /><span>KYC</span><b>{info.chip}</b></li>
+          </ul>
+        </div>
       </section>
 
       <div className="ag st-grid">
@@ -800,39 +815,6 @@ function ProfileBody({ rev, onSaved, onOpenFrames, onOpenNet }: BodyProps) {
               </div>
             </div>
           </div>
-        </article>
-
-        <article className="ac st-c-social" id="st-social">
-          <div className="ac-h"><h2><Icon name="globe" />Public social verification</h2></div>
-          <p className="st-muted">Verify your public community profiles to display on your dossier. These do not allow sign-in.</p>
-          <ul className="st-social">
-            {(Object.keys(NETS) as NetKey[]).map((key) => {
-              const net = NETS[key];
-              const handle = typeof p[key] === "string" ? (p[key] as string) : "";
-              return (
-                <li key={key} className={"st-net n-" + key + (handle ? " is-on" : "")} data-st-net={key}>
-                  <span className="st-net-ico"><Svg body={net.icon} /></span>
-                  <span className="st-net-txt"><b>{net.name}</b><small data-st-net-status="">{handle ? "Connected as @" + handle : "Not connected"}</small></span>
-                  <button
-                    className="st-btn st-btn-grad"
-                    type="button"
-                    data-st-net-btn=""
-                    aria-label={(handle ? "Disconnect " : "Connect ") + net.name}
-                    onClick={(e) => {
-                      if (readProfile()[key]) {
-                        save({ [key]: undefined });
-                        toast(net.name + " disconnected", "It no longer shows on your public record.");
-                        return;
-                      }
-                      onOpenNet(key, e.currentTarget);
-                    }}
-                  >
-                    {handle ? "Disconnect" : "Connect"}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
         </article>
 
         <article className="ac st-c-pw" id="st-password">
@@ -1046,85 +1028,10 @@ function FramesDialog({ open, onClosed, onSaved }: { open: boolean; onClosed: ()
   );
 }
 
-function NetDialog({ net, onClosed, onSaved }: { net: NetKey | null; onClosed: () => void; onSaved: () => void }) {
-  const { reloadProfile, toast } = usePanel();
-  const [handle, setHandle] = useState("");
-  const [error, setErrorText] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
-  // Keep the last network while the close animation runs so the title doesn't blank out.
-  const [shownNet, setShownNet] = useState<NetKey>("discord");
-
-  const ref = useModal(net !== null, () => {
-    setHandle("");
-    setErrorText("");
-    inputRef.current?.focus();
-  });
-
-  useEffect(() => {
-    if (net) setShownNet(net);
-  }, [net]);
-
-  const info = NETS[net || shownNet];
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!net) return;
-    const value = handle.trim().replace(/^@/, "");
-    if (!info.pattern.test(value)) {
-      setErrorText(value ? "Use " + info.rule + "." : "Enter your " + info.name + " username.");
-      inputRef.current?.focus();
-      return;
-    }
-    saveProfile({ [net]: value });
-    reloadProfile();
-    onSaved();
-    ref.current?.close();
-    toast(info.name + " connected", "@" + value + " now shows on your public record.");
-  };
-
-  return (
-    <dialog className="st-modal st-modal-sm" id="st-net-dlg" aria-labelledby="st-net-title" ref={ref} onClose={onClosed} onClick={(e) => { if (e.target === e.currentTarget) ref.current?.close(); }}>
-      <form className="st-modal-in" id="st-net-form" noValidate onSubmit={onSubmit}>
-        <div className="st-modal-h">
-          <h2 id="st-net-title">{"Connect " + info.name}</h2>
-          <button className="st-x" type="button" data-st-close="" aria-label="Close" onClick={() => ref.current?.close()}><Icon name="close" /></button>
-        </div>
-        <div className="st-field">
-          <label htmlFor="st-net-handle" id="st-net-label">{info.name + " username"}</label>
-          <div className="st-at">
-            <span aria-hidden="true">@</span>
-            <input
-              ref={inputRef}
-              className="st-input"
-              id="st-net-handle"
-              autoComplete="off"
-              spellCheck={false}
-              aria-describedby="st-net-help st-net-err"
-              aria-invalid={error ? "true" : undefined}
-              value={handle}
-              onChange={(e) => {
-                setHandle(e.target.value);
-                setErrorText("");
-              }}
-            />
-          </div>
-          <p className="st-help" id="st-net-help">Sandbox: we only save the handle, nothing is linked.</p>
-          <p className="st-err" id="st-net-err" hidden={!error}>{error}</p>
-        </div>
-        <div className="st-modal-f">
-          <button className="st-btn" type="button" data-st-close="" onClick={() => ref.current?.close()}>Cancel</button>
-          <button className="st-btn st-btn-grad" type="submit">Connect</button>
-        </div>
-      </form>
-    </dialog>
-  );
-}
-
 /** Client wrapper: the two dialogs live in PanelShell's `after` slot, so dialog state sits above body + dialogs. */
 export default function ProfileView() {
   const [rev, setRev] = useState(0);
   const [framesOpen, setFramesOpen] = useState(false);
-  const [net, setNet] = useState<NetKey | null>(null);
   const opener = useRef<HTMLElement | null>(null);
 
   const bump = useCallback(() => setRev((r) => r + 1), []);
@@ -1137,12 +1044,7 @@ export default function ProfileView() {
     <PanelShell
       current="profile"
       crumb="Profile & KYC"
-      after={
-        <>
-          <FramesDialog open={framesOpen} onSaved={bump} onClosed={() => { setFramesOpen(false); restoreFocus(); }} />
-          <NetDialog net={net} onSaved={bump} onClosed={() => { setNet(null); restoreFocus(); }} />
-        </>
-      }
+      after={<FramesDialog open={framesOpen} onSaved={bump} onClosed={() => { setFramesOpen(false); restoreFocus(); }} />}
     >
       <ProfileBody
         rev={rev}
@@ -1150,10 +1052,6 @@ export default function ProfileView() {
         onOpenFrames={(from) => {
           opener.current = from;
           setFramesOpen(true);
-        }}
-        onOpenNet={(key, from) => {
-          opener.current = from;
-          setNet(key);
         }}
       />
     </PanelShell>
