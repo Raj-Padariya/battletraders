@@ -3,7 +3,7 @@
 /* Live strip on the home Goa ticket: ticking countdown to the start and the seats-filled bar.
    Both read the browser (clock + stored passes), so they render placeholders on the server and fill in on mount. */
 import { useEffect, useState } from "react";
-import { GOA_SEATS, GOA_SEATS_DEMO_TAKEN, GOA_STARTS_AT } from "@panel/lib/data/goa";
+import { GOA_DEFAULT_SCHEDULE, GOA_SEATS, GOA_SEATS_DEMO_TAKEN, goaSchedule } from "@panel/lib/data/goa";
 import { goaSeatsTaken } from "@panel/lib/pass";
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -11,15 +11,17 @@ const pad = (n: number) => String(n).padStart(2, "0");
 export default function GoaLive() {
   const [now, setNow] = useState(0);
   const [taken, setTaken] = useState(GOA_SEATS_DEMO_TAKEN);
+  const [startsAt, setStartsAt] = useState(GOA_DEFAULT_SCHEDULE.startsAt);
 
   useEffect(() => {
     setNow(Date.now());
     setTaken(goaSeatsTaken());
+    setStartsAt(goaSchedule().startsAt);
     const timer = window.setInterval(() => setNow(Date.now()), 1000);
     return () => window.clearInterval(timer);
   }, []);
 
-  const left = Math.max(0, new Date(GOA_STARTS_AT).getTime() - now);
+  const left = Math.max(0, new Date(startsAt).getTime() - now);
   const units: [string, number][] = [
     ["Days", Math.floor(left / 86400000)],
     ["Hrs", Math.floor((left % 86400000) / 3600000)],

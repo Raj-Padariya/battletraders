@@ -13,7 +13,7 @@ import { asset } from "@panel/lib/paths";
 import { BLOCKED_KEY, PROFILE_KEY, TOUR_DONE_KEY, WALLET_KEY, money, readJSON, writeJSON } from "@panel/lib/storage";
 
 export type PanelPage =
-  | "dashboard" | "arena" | "my-tournaments" | "browse-tournaments" | "alliances" | "achievements"
+  | "dashboard" | "arena" | "my-tournaments" | "browse-tournaments" | "achievements"
   | "wallet" | "leaderboards" | "affiliate" | "profile" | "redeem" | "";
 
 interface PanelShellProps {
@@ -263,11 +263,11 @@ export default function PanelShell({ current, crumb, skipLabel = "Skip to conten
               <SubItem current={current} page="browse-tournaments" href="/app/browse-tournaments/" label="Browse tournaments" />
             </div>
           </div>
-          <NavItem current={current} page="alliances" href="/app/alliances/" icon="shield" label="Alliance" />
+
           <NavItem current={current} page="achievements" href="/app/achievements/" icon="medal" label="Achievements" />
           <NavItem current={current} page="wallet" href="/app/wallet/" icon="wallet" label="Wallet" />
           <NavItem current={current} page="leaderboards" href="/app/leaderboards/" icon="chart" label="Leaderboards" />
-          <NavItem current={current} page="affiliate" href="/app/affiliate/" icon="gift" label="Affiliate" />
+          <NavItem current={current} page="affiliate" href="/app/affiliate/" icon="gift" label="Refer & Earn" />
           <NavItem current={current} page="profile" href="/app/profile/" icon="user" label="Profile" />
           <NavItem current={current} page="redeem" href="/app/redeem/" icon="ticket" label="Redeem" />
           <p className="ap-nav-h">Support</p>

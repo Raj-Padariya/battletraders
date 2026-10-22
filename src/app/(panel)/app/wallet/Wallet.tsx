@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Svg } from "@panel/components/Icon";
 import { usePanel } from "@panel/lib/panel";
-import { MIN, TX_CHANGED, addTransaction, cents, isVerified, openTopup, parseAmount, transactions, usd, type WalletTx } from "./walletShared";
+import { MAX, MIN, TX_CHANGED, addTransaction, cents, isVerified, openTopup, parseAmount, transactions, usd, type WalletTx } from "./walletShared";
 
 const TYPES: Record<string, { label: string; sign: number; icon: string }> = {
   topup: { label: "Wallet top-up", sign: 1, icon: '<path d="M12 4v12M6 10l6 6 6-6M4 20h16"/>' },
@@ -15,10 +15,35 @@ const TYPES: Record<string, { label: string; sign: number; icon: string }> = {
   reward: { label: "Prize reward", sign: 1, icon: '<path d="m3 7 4.5 4L12 4l4.5 7L21 7l-2 12H5z"/>' },
 };
 const STATUSES = ["completed", "pending", "failed"];
+const QUICK_AMOUNTS = [50, 100, 250, 500];
+
+const ICON = {
+  wallet: '<rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M16 15h2"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  up: '<path d="M12 20V8M6 14l6-6 6 6M4 4h16"/>',
+  lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+  shield: '<path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
+  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  swords: '<path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M14.5 6.5 18 3h3v3l-3.5 3.5M5 14l4 4M7 17l-3 3M3 19l2 2"/>',
+};
+
 const TABS = [
-  { key: "all", id: "wl-tab-all", panel: "wl-panel-all", label: "Transaction history" },
-  { key: "cash", id: "wl-tab-cash", panel: "wl-panel-cash", label: "Cash-outs" },
+  { key: "all", label: "All" },
+  { key: "in", label: "Money in" },
+  { key: "out", label: "Money out" },
+  { key: "cash", label: "Cash-outs" },
 ] as const;
+type TabKey = (typeof TABS)[number]["key"];
+
+const EMPTY: Record<TabKey, { title: string; text: string; action: "topup" | "battle" }> = {
+  all: { title: "No transactions yet", text: "Top up your wallet to pay entry fees and join your first battle.", action: "topup" },
+  in: { title: "No money in yet", text: "Top-ups, entry refunds and prize rewards show up here.", action: "topup" },
+  out: { title: "No money out yet", text: "Tournament entry fees and cash-outs show up here.", action: "battle" },
+  cash: { title: "No cash-outs yet", text: "Win prize money in the arena, then cash it out here.", action: "battle" },
+};
+
+const signOf = (tx: WalletTx): number => (TYPES[tx.type] || TYPES.topup).sign;
 
 function formatDate(iso: string): string {
   const d = new Date(iso);
@@ -27,29 +52,30 @@ function formatDate(iso: string): string {
 }
 
 function TxRow({ tx }: { tx: WalletTx }) {
-  const known = !!TYPES[tx.type];
   const meta = TYPES[tx.type] || TYPES.topup;
   const status = STATUSES.indexOf(tx.status) >= 0 ? tx.status : "pending";
   const when = formatDate(tx.at);
+  const flow = meta.sign > 0 ? "is-in" : "is-out";
   return (
-    <li className={"wl-row t-" + (known ? tx.type : "topup")}>
+    <li className={"wl-row " + flow}>
       <span className="wl-row-ico" aria-hidden="true"><Svg body={meta.icon} /></span>
       <span className="wl-row-txt"><b>{meta.label}</b><small>{tx.note ? when + " \u00b7 " + tx.note : when}</small></span>
-      <span className={"wl-amt " + (meta.sign > 0 ? "is-in" : "is-out")}>{(meta.sign > 0 ? "+" : "\u2212") + usd(Math.abs(Number(tx.amount) || 0))}</span>
+      <span className={"wl-amt " + flow}>{(meta.sign > 0 ? "+" : "\u2212") + usd(Math.abs(Number(tx.amount) || 0))}</span>
       <span className={"wl-status s-" + status}>{status}</span>
     </li>
   );
 }
 
 export default function Wallet() {
-  const { wallet, setWallet, toast } = usePanel();
+  const { profile, wallet, setWallet, toast } = usePanel();
   const [loaded, setLoaded] = useState(false);
   const [txs, setTxs] = useState<WalletTx[]>([]);
   const [verified, setVerified] = useState(false);
-  const [tab, setTab] = useState<"all" | "cash">("all");
+  const [tab, setTab] = useState<TabKey>("all");
   const [cashInput, setCashInput] = useState("");
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const heroBtnRef = useRef<HTMLButtonElement>(null);
+  const cashInputRef = useRef<HTMLInputElement>(null);
 
   const reload = useCallback(() => {
     setTxs(transactions());
@@ -113,49 +139,96 @@ export default function Wallet() {
     selectTab(next, true);
   };
 
-  const lists = { all: txs, cash: txs.filter((tx) => tx.type === "cashout") };
+  const lists: Record<TabKey, WalletTx[]> = {
+    all: txs,
+    in: txs.filter((tx) => signOf(tx) > 0),
+    out: txs.filter((tx) => signOf(tx) < 0),
+    cash: txs.filter((tx) => tx.type === "cashout"),
+  };
   const onTopup = (event: React.MouseEvent<HTMLElement>) => openTopup("", event.currentTarget);
+  const goToCashOut = () => {
+    document.getElementById("wl-cash")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    cashInputRef.current?.focus({ preventScroll: true });
+  };
+
+  const totalOf = (pick: (tx: WalletTx) => boolean): string =>
+    usd(cents(txs.filter(pick).reduce((sum, tx) => sum + Math.abs(Number(tx.amount) || 0), 0)));
+  const stats = [
+    { tone: "s-in", label: "Topped up", value: totalOf((tx) => tx.type === "topup" && tx.status === "completed"), note: "USDT deposits" },
+    { tone: "s-win", label: "Prize winnings", value: totalOf((tx) => tx.type === "reward" && tx.status === "completed"), note: "Paid into your wallet" },
+    { tone: "s-out", label: "Spent on entries", value: totalOf((tx) => tx.type === "entry" && tx.status !== "failed"), note: "Tournament fees" },
+    { tone: "s-wait", label: "Pending cash-out", value: totalOf((tx) => tx.type === "cashout" && tx.status === "pending"), note: "Under review" },
+  ];
+
+  const [balWhole, balCents] = usd(wallet.balance).split(".");
 
   return (
     <>
       <section className="ah wl-hero" aria-labelledby="wl-title">
         <div className="ah-txt">
           <div className="wl-hero-head">
-            <span className="wl-hero-ico" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2" /><path d="M3 10h18M16 15h2" /></svg></span>
-            <p className="wl-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6z" /></svg>My wallet</p>
+            <span className="wl-hero-ico" aria-hidden="true"><Svg body={ICON.wallet} /></span>
+            <p className="wl-tag">My wallet</p>
           </div>
-          <h1 id="wl-title">Available <span>balance</span></h1>
-          <p>Manage your tournament prize money</p>
+          <h1 id="wl-title">Your <span>wallet</span></h1>
+          <p>Top up for battle entries, collect your prize money and cash it out.</p>
+          <div className="wl-hero-actions">
+            <button className="btn b-ember" id="wl-topup-hero" type="button" data-topup="" ref={heroBtnRef} onClick={onTopup}><Svg body={ICON.plus} />Top up</button>
+            <button className="btn b-line" type="button" onClick={goToCashOut}><Svg body={ICON.up} />Cash out</button>
+          </div>
         </div>
-        <div className="wl-bal" data-glass="">
-          <p className="wl-bal-lbl">Available balance</p>
-          <p className="wl-bal-num" id="wl-balance">{usd(wallet.balance)}</p>
-          <div className="wl-bal-meta">
-            <span className="wl-credits"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z" /></svg>Credits <b id="wl-credits">{String(wallet.credits || 0)}</b></span>
-            <Link className="wl-kyc" id="wl-kyc-badge" href="/app/profile/#kyc" hidden={verified}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>KYC required</Link>
+
+        <div className="aw-card wl-bank">
+          <div className="aw-card-top">
+            <span className="wl-bank-id"><span className="aw-chip" aria-hidden="true"><Svg body={ICON.wallet} /></span><span className="aw-brand">BattleTrader</span></span>
+            {verified ? (
+              <span className="wl-verified"><Svg body={ICON.shield} />Verified</span>
+            ) : (
+              <Link className="wl-kyc" id="wl-kyc-badge" href="/app/profile/#kyc"><Svg body={ICON.lock} />KYC required</Link>
+            )}
           </div>
-          <button className="btn b-ember wl-hero-btn" id="wl-topup-hero" type="button" data-topup="" ref={heroBtnRef} onClick={onTopup}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>Top up</button>
+          <p className="wl-bank-lbl">Available balance</p>
+          <p className="wl-bank-num" id="wl-balance">{balWhole}<span>.{balCents}</span></p>
+          <p className="wl-bank-sub">
+            <span>Credits<b id="wl-credits">{String(wallet.credits || 0)}</b></span>
+            <span>Free tickets<b>{String(wallet.tickets || 0)}</b></span>
+          </p>
+          <p className="aw-holder"><span>{profile.username}</span><span>USD</span></p>
         </div>
       </section>
 
+      <ul className="wl-stats" aria-label="Wallet summary">
+        {stats.map((s) => (
+          <li key={s.label} className={"wl-stat " + s.tone}>
+            <small><i aria-hidden="true" />{s.label}</small>
+            <b>{loaded ? s.value : "\u2014"}</b>
+            <em>{s.note}</em>
+          </li>
+        ))}
+      </ul>
+
       <div className="wl-grid">
         <section className="ac wl-card wl-card-top" aria-labelledby="wl-top-h">
-          <div className="ac-h"><h2 id="wl-top-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>Top up wallet</h2><span className="ac-chip wl-chip-crypto">Crypto</span></div>
-          <p className="wl-copy">Top up with crypto - complete your payment on the secure payment page.</p>
+          <div className="ac-h"><h2 id="wl-top-h"><Svg body={ICON.plus} />Top up wallet</h2><span className="ac-chip wl-chip-crypto">USDT &middot; TRC20</span></div>
+          <p className="wl-copy">Pick an amount to start, or choose your own on the payment page.</p>
+          <div className="wl-quick" role="group" aria-label="Quick top-up amounts">
+            {QUICK_AMOUNTS.map((amount) => (
+              <button key={amount} type="button" onClick={(event) => openTopup(amount, event.currentTarget)}>${amount}</button>
+            ))}
+          </div>
           <ul className="wl-perks">
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>USDT on the TRC20 network</li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>From $20 up to $10,000 per top-up</li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>Balance ready for your next battle entry</li>
+            <li><Svg body={ICON.check} />From {usd(MIN)} up to {usd(MAX)} per top-up</li>
+            <li><Svg body={ICON.check} />Balance ready for your next battle entry</li>
           </ul>
           <div className="wl-card-foot">
             <button className="btn b-ember btn-block" id="wl-topup-card" type="button" data-topup="" onClick={onTopup}>Top up</button>
           </div>
         </section>
 
-        <section className="ac wl-card wl-card-cash" aria-labelledby="wl-cash-h">
-          <div className="ac-h"><h2 id="wl-cash-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V8M6 14l6-6 6 6M4 4h16" /></svg>Cash out</h2><span className="wl-chip-kyc" id="wl-cash-kyc" hidden={verified}>KYC required</span></div>
+        <section className="ac wl-card wl-card-cash" id="wl-cash" aria-labelledby="wl-cash-h">
+          <div className="ac-h"><h2 id="wl-cash-h"><Svg body={ICON.up} />Cash out</h2>{!verified && <span className="wl-chip-kyc" id="wl-cash-kyc">KYC required</span>}</div>
           <form className="wl-form" id="wl-cash-form" noValidate onSubmit={submitCash}>
-            <p className="wl-copy">Request a cash-out</p>
+            <p className="wl-copy">Send your prize money to your crypto wallet.</p>
             <label className="wl-label" htmlFor="wl-cash-amount">Amount (USD)</label>
             <div className="wl-field">
               <span aria-hidden="true">$</span>
@@ -166,25 +239,27 @@ export default function Wallet() {
                 inputMode="decimal"
                 autoComplete="off"
                 placeholder="100"
+                ref={cashInputRef}
                 aria-describedby="wl-cash-hint wl-cash-reason"
                 aria-invalid={typedBad ? "true" : "false"}
                 value={cashInput}
                 onChange={(event) => setCashInput(event.target.value)}
               />
+              <button className="wl-max" type="button" disabled={!verified || wallet.balance <= 0} onClick={() => setCashInput(String(cents(wallet.balance)))}>Max</button>
             </div>
-            <p className="wl-hint" id="wl-cash-hint">Minimum cash-out: $20</p>
+            <p className="wl-hint" id="wl-cash-hint">Minimum {usd(MIN)} &middot; Available {usd(wallet.balance)}</p>
             <p className="wl-reason" id="wl-cash-reason" aria-live="polite">{reason}</p>
             <div className="wl-card-foot wl-cash-foot">
               <button className="btn b-line btn-block" id="wl-cash-btn" type="submit" disabled={!loaded || reason !== ""}>Cash out</button>
-              <Link className="wl-kyc-link" id="wl-cash-kyc-link" href="/app/profile/#kyc" hidden={verified}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>Verify your identity</Link>
+              {!verified && <Link className="wl-kyc-link" id="wl-cash-kyc-link" href="/app/profile/#kyc"><Svg body={ICON.lock} />Verify your identity</Link>}
             </div>
           </form>
         </section>
       </div>
 
       <section className="ac wl-hist" aria-labelledby="wl-hist-h">
-        <div className="ac-h"><h2 id="wl-hist-h"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>Wallet activity</h2></div>
-        <div className="wl-tabs" role="tablist" aria-label="Wallet activity">
+        <div className="ac-h"><h2 id="wl-hist-h"><Svg body={ICON.clock} />Wallet activity</h2></div>
+        <div className="wl-tabs" role="tablist" aria-label="Filter wallet activity">
           {TABS.map((t, i) => {
             const on = t.key === tab;
             return (
@@ -194,42 +269,41 @@ export default function Wallet() {
                   tabRefs.current[i] = node;
                 }}
                 className="wl-tab"
-                id={t.id}
+                id={"wl-tab-" + t.key}
                 role="tab"
                 type="button"
                 aria-selected={on ? "true" : "false"}
-                aria-controls={t.panel}
+                aria-controls={"wl-panel-" + t.key}
                 tabIndex={on ? 0 : -1}
                 onClick={() => selectTab(i, false)}
                 onKeyDown={(event) => onTabKey(event, i)}
               >
-                {t.label} <span className="wl-count" data-count={t.key}>{String(lists[t.key].length)}</span>
+                {t.label} <span className="wl-count">{String(lists[t.key].length)}</span>
               </button>
             );
           })}
         </div>
-        <div className="wl-panel" id="wl-panel-all" role="tabpanel" aria-labelledby="wl-tab-all" tabIndex={0} hidden={tab !== "all"}>
-          <ul className="wl-list" data-list="all" hidden={loaded && lists.all.length === 0}>
-            {lists.all.map((tx, i) => <TxRow key={tx.id + ":" + i} tx={tx} />)}
-          </ul>
-          <div className="wl-empty" data-empty="all" hidden={!loaded || lists.all.length > 0}>
-            <span className="wl-empty-ico" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg></span>
-            <b>No transactions found</b>
-            <p>Top up your wallet to pay entry fees and join your first battle.</p>
-            <button className="ab2" type="button" data-topup="" onClick={onTopup}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>Top up wallet</button>
-          </div>
-        </div>
-        <div className="wl-panel" id="wl-panel-cash" role="tabpanel" aria-labelledby="wl-tab-cash" tabIndex={0} hidden={tab !== "cash"}>
-          <ul className="wl-list" data-list="cash" hidden={loaded && lists.cash.length === 0}>
-            {lists.cash.map((tx, i) => <TxRow key={tx.id + ":" + i} tx={tx} />)}
-          </ul>
-          <div className="wl-empty" data-empty="cash" hidden={!loaded || lists.cash.length > 0}>
-            <span className="wl-empty-ico" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg></span>
-            <b>No transactions found</b>
-            <p>Win prize money in the arena, then cash it out here.</p>
-            <Link className="ab2" href="/app/browse-tournaments/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 17.5 3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M14.5 6.5 18 3h3v3l-3.5 3.5M5 14l4 4M7 17l-3 3M3 19l2 2" /></svg>Find a battle</Link>
-          </div>
-        </div>
+        {TABS.map((t) => {
+          const list = lists[t.key];
+          const empty = EMPTY[t.key];
+          return (
+            <div key={t.key} className="wl-panel" id={"wl-panel-" + t.key} role="tabpanel" aria-labelledby={"wl-tab-" + t.key} tabIndex={0} hidden={tab !== t.key}>
+              <ul className="wl-list" hidden={loaded && list.length === 0}>
+                {list.map((tx, i) => <TxRow key={tx.id + ":" + i} tx={tx} />)}
+              </ul>
+              <div className="wl-empty" hidden={!loaded || list.length > 0}>
+                <span className="wl-empty-ico" aria-hidden="true"><Svg body={ICON.clock} /></span>
+                <b>{empty.title}</b>
+                <p>{empty.text}</p>
+                {empty.action === "topup" ? (
+                  <button className="ab2" type="button" data-topup="" onClick={onTopup}><Svg body={ICON.plus} />Top up wallet</button>
+                ) : (
+                  <Link className="ab2" href="/app/browse-tournaments/"><Svg body={ICON.swords} />Find a battle</Link>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </section>
 
       <p className="wl-foot">Sandbox wallet with sample data &middot; no real funds move until payments go live.</p>

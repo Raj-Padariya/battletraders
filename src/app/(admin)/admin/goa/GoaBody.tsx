@@ -7,7 +7,10 @@ import Icon from "@admin/components/Icon";
 import { TableCard, Toolbar, useAdminUi } from "@admin/components/AdminUi";
 import { BTAdmin, type CsvColumn } from "@admin/lib/store";
 import { ago, date, matches } from "@admin/lib/ui";
-import { GOA_ENTRY_FEE, GOA_SEATS, GOA_SEATS_DEMO_TAKEN, usd } from "@panel/lib/data/goa";
+import {
+  GOA_DEFAULT_SCHEDULE, GOA_DURATION_HOURS, GOA_ENTRY_FEE, GOA_SEATS, GOA_SEATS_DEMO_TAKEN,
+  goaSchedule, istDate, istTime, istToIso, isoToIstParts, saveGoaStart, usd,
+} from "@panel/lib/data/goa";
 import { readRegistrations, type GoaRegistration } from "@panel/lib/pass";
 
 const METHOD_LABEL: Record<string, string> = { card: "Card", upi: "UPI", crypto: "Crypto" };
@@ -22,10 +25,15 @@ export default function GoaBody() {
   const [rows, setRows] = useState<GoaRegistration[]>([]);
   const [query, setQuery] = useState("");
   const [method, setMethod] = useState("");
+  const [startsAt, setStartsAt] = useState(GOA_DEFAULT_SCHEDULE.startsAt);
+  const [form, setForm] = useState(isoToIstParts(GOA_DEFAULT_SCHEDULE.startsAt));
 
   useEffect(() => {
     const load = () => setRows(readRegistrations());
     load();
+    const saved = goaSchedule().startsAt;
+    setStartsAt(saved);
+    setForm(isoToIstParts(saved));
     // A pass bought in another tab of this browser shows up without a reload.
     const onStorage = (e: StorageEvent) => { if (e.key === "bt-goa-registrations") load(); };
     window.addEventListener("storage", onStorage);
@@ -39,6 +47,29 @@ export default function GoaBody() {
 
   const revenue = rows.reduce((sum, r) => sum + r.amount, 0);
   const taken = Math.min(GOA_SEATS, GOA_SEATS_DEMO_TAKEN + rows.length);
+
+  const formValid = /^\d{4}-\d{2}-\d{2}$/.test(form.date) && /^\d{2}:\d{2}$/.test(form.time);
+  const previewStart = formValid ? istToIso(form.date, form.time) : startsAt;
+  const previewEnd = new Date(Date.parse(previewStart) + GOA_DURATION_HOURS * 3600000).toISOString();
+  const isDefault = startsAt === GOA_DEFAULT_SCHEDULE.startsAt;
+
+  const saveTime = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!formValid) {
+      toast("Pick a date and a start time.");
+      return;
+    }
+    saveGoaStart(previewStart);
+    setStartsAt(previewStart);
+    toast("Event time saved: " + istDate(previewStart) + ", " + istTime(previewStart) + " IST.");
+  };
+
+  const resetTime = () => {
+    saveGoaStart(null);
+    setStartsAt(GOA_DEFAULT_SCHEDULE.startsAt);
+    setForm(isoToIstParts(GOA_DEFAULT_SCHEDULE.startsAt));
+    toast("Event time reset to " + istDate(GOA_DEFAULT_SCHEDULE.startsAt) + ", " + istTime(GOA_DEFAULT_SCHEDULE.startsAt) + " IST.");
+  };
 
   const exportCsv = () => {
     BTAdmin.exportCSV("goa-live-final-passes.csv", CSV_COLUMNS, filtered);
@@ -63,6 +94,32 @@ export default function GoaBody() {
           </div>
         ))}
       </div>
+
+      <form className="ad-kpi" onSubmit={saveTime} aria-labelledby="goa-time-h" style={{ padding: "16px 18px", marginBottom: "16px" }}>
+        <h2 id="goa-time-h" style={{ margin: 0, fontSize: "15px" }}>Event time (India, IST)</h2>
+        <p className="ad-label" style={{ margin: "4px 0 14px" }}>
+          The live final runs for {GOA_DURATION_HOURS} hours from the start time. The website, event page and trader panel all use this time.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "12px", alignItems: "end" }}>
+          <label className="ad-field"><span>Start date</span>
+            <input type="date" id="goa-start-date" required value={form.date} onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))} />
+          </label>
+          <label className="ad-field"><span>Start time (IST)</span>
+            <input type="time" id="goa-start-time" required step={60} value={form.time} onChange={(e) => setForm((f) => ({ ...f, time: e.target.value }))} />
+          </label>
+          <div>
+            <p className="ad-label" style={{ margin: 0 }}>Ends (auto)</p>
+            <b style={{ display: "block", marginTop: "6px" }}>{istDate(previewEnd)}, {istTime(previewEnd)} IST</b>
+          </div>
+        </div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "14px", alignItems: "center" }}>
+          <button className="ad-btn" type="submit"><span>Save time</span></button>
+          <button className="ad-btn" type="button" onClick={resetTime} disabled={isDefault}><span>Reset to default</span></button>
+          <small style={{ opacity: 0.65 }}>
+            Live now: {istDate(startsAt)}, {istTime(startsAt)} IST{isDefault ? " (default)" : ""}. Test mode: saved in this browser until the backend is connected.
+          </small>
+        </div>
+      </form>
 
       <Toolbar
         id="goa"

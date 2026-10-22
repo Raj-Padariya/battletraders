@@ -350,6 +350,11 @@
 .mt-next-cd > span{display:flex; flex-direction:column; align-items:center; gap:4px; padding:10px 4px 8px; border-radius:10px; background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.07); box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
 .mt-next-cd b{font-family:var(--display); font-size:22px; font-weight:500; line-height:1; color:#fff; font-variant-numeric:tabular-nums}
 .mt-next-cd small{font-size:9.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ox-mute)}
+.mt-next-when{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:6px; margin:-4px 0 14px}
+.mt-next-when > span{display:flex; flex-direction:column; gap:3px; min-width:0; padding:9px 11px; border-radius:10px; background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.07)}
+.mt-next-when small{font-size:9.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ox-mute)}
+.mt-next-when b{font-size:13px; font-weight:600; color:var(--ox-txt); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.mt-next-when i{font-family:var(--display); font-style:normal; font-size:17px; font-weight:500; line-height:1.1; color:#fff; font-variant-numeric:tabular-nums}
 .mt-next .aw-holder{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:auto}
 .mt-next .aw-holder svg{width:16px; height:16px}
 .mt-next.is-live .aw-brand{color:#FCA5A5}

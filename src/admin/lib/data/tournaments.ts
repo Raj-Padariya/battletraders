@@ -96,8 +96,8 @@ let baseCache: Tournament[] | null = null;
 
 function buildBase(): Tournament[] {
   const now = Date.now();
-  // Round to the minute so countdowns and "starts" labels stay stable across reloads within a minute.
-  const at = (offsetMs: number) => new Date(Math.floor((now + offsetMs) / 60000) * 60000).toISOString();
+  // Round to the whole hour so sample battles start and end on the hour (17:00, not 17:06) and stay stable across reloads.
+  const at = (offsetMs: number) => new Date(Math.floor((now + offsetMs) / 3600000) * 3600000).toISOString();
   return [
     {
       id: "world-championship-2026", name: "BattleTrader World Championship 2026", type: "main", featured: true,

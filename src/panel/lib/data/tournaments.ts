@@ -4,7 +4,7 @@
 // (never during render) — otherwise server HTML and the browser disagree and hydration fails.
 
 import {
-  GOA_ENDS_AT, GOA_ENTRY_FEE, GOA_EVENT_ID, GOA_PRIZE_POOL, GOA_PRIZES, GOA_REGISTRATION_CLOSES, GOA_SEATS, GOA_STARTS_AT, GOA_WINNERS,
+  GOA_ENTRY_FEE, GOA_EVENT_ID, GOA_PRIZE_POOL, GOA_PRIZES, GOA_REGISTRATION_CLOSES, GOA_SEATS, GOA_WINNERS, goaSchedule,
 } from "./goa";
 
 const HOUR = 3600000;
@@ -101,18 +101,19 @@ let baseCache: Tournament[] | null = null;
 
 function buildBase(): Tournament[] {
   const now = Date.now();
-  // Round to the minute so countdowns and "starts" labels stay stable across reloads within a minute.
-  const at = (offsetMs: number) => new Date(Math.floor((now + offsetMs) / 60000) * 60000).toISOString();
+  // Round to the whole hour so sample battles start and end on the hour (17:00, not 17:06) and stay stable across reloads.
+  const at = (offsetMs: number) => new Date(Math.floor((now + offsetMs) / 3600000) * 3600000).toISOString();
+  const goa = goaSchedule();
   return [
     {
       id: GOA_EVENT_ID, name: "BattleTrader Goa Live Final 2026", type: "main", featured: true,
       tagline: "24 hours on the beach floor in Goa. Hotel stay on us for every qualifier.",
       prizePool: GOA_PRIZE_POOL, entryFee: GOA_ENTRY_FEE,
-      start: GOA_STARTS_AT, end: GOA_ENDS_AT, registrationCloses: GOA_REGISTRATION_CLOSES,
+      start: goa.startsAt, end: goa.endsAt, registrationCloses: GOA_REGISTRATION_CLOSES,
       maxParticipants: GOA_SEATS, participants: 37, location: "Goa, India", countryCode: "IN", online: false,
       structure: "Single Round", platform: "BattleTrader Play",
       instruments: "All instruments — Forex, Stocks, Crypto, Indices, Commodities and Energies.",
-      rounds: [{ name: "24-hour final", start: GOA_STARTS_AT, end: GOA_ENDS_AT, winners: GOA_WINNERS, final: true }],
+      rounds: [{ name: "24-hour final", start: goa.startsAt, end: goa.endsAt, winners: GOA_WINNERS, final: true }],
       prizes: GOA_PRIZES.slice(),
       bonus: [{ name: "Hotel stay in Goa", note: "Room booked and paid by BattleTrader for every pass holder", amount: 0 }],
       organizer: "BattleTrader", sponsors: ["TradesAI", "The Firm Capital", "AimsCap"], accent: "gold",
