@@ -15,7 +15,7 @@ import { BTAdmin, BTAdminAuth, type AdminSession } from "@admin/lib/store";
 import { asset } from "@admin/lib/ui";
 
 export type AdminPage =
-  | "overview" | "users" | "leads" | "battles" | "transactions" | "vouchers" | "kyc"
+  | "overview" | "users" | "leads" | "goa" | "battles" | "transactions" | "vouchers" | "kyc"
   | "alliances" | "affiliates" | "achievements" | "settings";
 
 type NavEntry = [key: AdminPage, href: string, icon: IconName, label: string];
@@ -24,6 +24,7 @@ const PAGES: NavEntry[] = [
   ["overview", "/admin/dashboard/", "home", "Dashboard"],
   ["users", "/admin/users/", "users", "Users"],
   ["leads", "/admin/leads/", "inbox", "Leads"],
+  ["goa", "/admin/goa/", "calendar", "Goa event passes"],
   ["battles", "/admin/battles/", "swords", "Battles"],
   ["transactions", "/admin/transactions/", "wallet", "Wallet & transactions"],
   ["vouchers", "/admin/vouchers/", "ticket", "Vouchers"],

@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { BTTournaments, statusOf, type Round, type Tournament } from "@panel/lib/data/tournaments";
+import { BTTournaments, GOA_EVENT_ID, statusOf, type Round, type Tournament } from "@panel/lib/data/tournaments";
 import { usePanel } from "@panel/lib/panel";
 import { money } from "@panel/lib/storage";
 import { STATUS_LABEL, addTx, entryState, entryText, flagOf, fmtDateTime, fmtShort, fmtTime, ordinal, round2, type PathName } from "../browse-tournaments/_shared/format";
@@ -93,7 +93,15 @@ export default function Detail() {
     const flag = flagOf(t.countryCode);
 
     let cta: React.ReactNode;
-    if (state === "open") {
+    const isGoa = t.id === GOA_EVENT_ID;
+    if (isGoa && (state === "open" || state === "enrolled")) {
+      cta = (
+        <>
+          <Link className="tn-btn tn-btn-grad tn-big" href="/mini-tournaments/trick-or-trade-2026/"><Ico name="ticket" />{state === "enrolled" ? "View registration" : "Register now"}</Link>
+          <RegPill t={t} now={now} />
+        </>
+      );
+    } else if (state === "open") {
       cta = (
         <>
           <button className="tn-btn tn-btn-grad tn-big" type="button" data-enroll={t.id} data-area="detail"><Ico name="bolt" />Enroll now</button>

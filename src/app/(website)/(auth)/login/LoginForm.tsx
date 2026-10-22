@@ -4,6 +4,25 @@ import Link from "next/link";
 import { useState } from "react";
 import SocialButtons, { EMAIL_PATTERN } from "../_components/SocialButtons";
 
+const PROFILE_KEY = "bt-profile";
+
+/* Only same-site paths are allowed as the post-login target, so ?next= cannot send users to another site. */
+function safeNext(raw: string | null): string {
+  if (!raw || !raw.startsWith("/") || raw.startsWith("//") || raw.startsWith("/\\")) return "/app/dashboard/";
+  return raw;
+}
+
+/* No accounts backend yet: a login just records the email on the stored profile, which marks the visitor as signed in. */
+function rememberLogin(email: string): void {
+  try {
+    const saved = JSON.parse(localStorage.getItem(PROFILE_KEY) || "null") as Record<string, unknown> | null;
+    const username = typeof saved?.username === "string" && saved.username ? saved.username : email.split("@")[0];
+    localStorage.setItem(PROFILE_KEY, JSON.stringify({ ...(saved || {}), username, email }));
+  } catch {
+    // storage blocked: the visitor stays a guest
+  }
+}
+
 // Login form — port of the old main.js bindAuthForm("lf", …) and the social-button notice.
 export default function LoginForm() {
   const [canSubmit, setCanSubmit] = useState(false);
@@ -29,11 +48,14 @@ export default function LoginForm() {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!isValid(e.currentTarget)) return;
+    const form = e.currentTarget;
+    if (!isValid(form)) return;
     setMessage("Logging you in…");
     setCanSubmit(false);
+    const email = String(new FormData(form).get("email") ?? "").trim();
+    rememberLogin(email);
     // The panel has its own root layout, so crossing into it is a full page load anyway; keep it explicit.
-    window.location.assign("/app/dashboard/");
+    window.location.assign(safeNext(new URLSearchParams(window.location.search).get("next")));
   };
 
   return (

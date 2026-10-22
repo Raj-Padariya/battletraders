@@ -30,30 +30,22 @@ function MiniIcon() {
   return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="m13 2-9 12h7l-1 8 10-13h-7l1-7Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/></svg>;
 }
 
-function PinIcon() {
-  return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" stroke="currentColor" strokeWidth="1.8"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.8"/></svg>;
-}
 
-function TournamentTypeCard({ circuit = false }: { circuit?: boolean }) {
-  const title = circuit ? "Circuit Championships" : "Mini Tournament";
+function TournamentCard() {
   return (
-    <article className={`home-battle-card${circuit ? " is-circuit" : " is-mini"}`}>
-      <div className="home-battle-icon">{circuit ? <PinIcon /> : <MiniIcon />}</div>
-      <h3>{title}</h3>
-      <p>{circuit
-        ? "Offline regional tournaments where traders compete to become Regional Champions and win their ticket to the WTT Main in Dubai."
-        : "A twice-weekly online tournament built for excitement and rewards, where traders compete for prize pools and extra chances to qualify for the WTT Main. Every trade counts!"}</p>
+    <article className="home-battle-card is-mini">
+      <div className="home-battle-icon"><TrophyIcon /></div>
+      <h3>Tournament</h3>
+      <p>Trade a funded balance against the field over one to five trading days. Climb the live leaderboard, finish in the money and earn season points from every event.</p>
       <div className="home-battle-stats">
-        <div><MoneyIcon /><strong>{circuit ? "$50" : "$10"}</strong><span>Entry Fee</span></div>
-        <div><TrophyIcon /><strong>{circuit ? "$15,000" : "$1,500"}</strong><span>Prize Pool</span></div>
+        <div><MoneyIcon /><strong>From $10</strong><span>Entry Fee</span></div>
+        <div><TrophyIcon /><strong>Up to $15,000</strong><span>Prize Pool</span></div>
       </div>
       <div className="home-battle-meta">
-        <span><ClockIcon />{circuit ? "5 Trading Days" : "1 Trading Day"}</span>
-        <span><PeopleIcon />{circuit ? "512" : "256"}</span>
+        <span><ClockIcon />1&ndash;5 Trading Days</span>
+        <span><PeopleIcon />Up to 512</span>
       </div>
-      <Link className="home-battle-cta" href={circuit ? "/tournaments/" : "/mini-tournaments/"}>
-        {circuit ? "Explore Circuit" : "Explore Mini Tournaments"}
-      </Link>
+      <Link className="home-battle-cta" href="/tournaments/">Explore Tournaments</Link>
     </article>
   );
 }
@@ -64,11 +56,10 @@ export default function HomeTournamentSections() {
       <section className="home-battle-section" aria-labelledby="home-battle-title">
         <div className="home-section-heading">
           <h2 id="home-battle-title">Choose Your <span>Battle</span></h2>
-          <p>From free Daily Battles and twice-weekly Minis to the prestigious World Championship. Find the competition that matches your skill level.</p>
+          <p>One tournament format, one set of rules. Trade the field, climb the live leaderboard and finish in the money.</p>
         </div>
-        <div className="home-battle-grid">
-          <TournamentTypeCard />
-          <TournamentTypeCard circuit />
+        <div className="home-battle-grid is-single">
+          <TournamentCard />
         </div>
       </section>
 

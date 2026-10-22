@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import HomeTournamentSections from "@site/components/HomeTournamentSections";
+import { GOA_ENTRY_FEE, GOA_PRIZE_POOL, GOA_PRIZES, GOA_WINNERS, ordinal, usd } from "@panel/lib/data/goa";
 
 import JoinForm from "./_home/JoinForm";
+import GoaLive from "./_home/GoaLive";
 
 export const metadata: Metadata = {
   title: "BattleTrader — Simulated Trading Tournaments",
@@ -42,79 +44,90 @@ export default function HomePage() {
         </div>
       </header>
 
-      <section id="formats">
+      <section id="goa" className="goa-sec" aria-labelledby="goa-home-title">
         <div className="col pad">
-          <div className="head">
-            <p className="kick">Choose your arena</p>
-            <h2>
-              Start free. <span className="gt">Fight to the final.</span>
-            </h2>
-            <p>
-              Every format runs on the same engine and the same rules. What changes is the entry, the clock and what is on the line. Points
-              from every event feed one season ranking.
-            </p>
+          <div className="goa-sec-head">
+            <p className="kick">Live event</p>
+            <h2 id="goa-home-title">Trade the beach. <span className="goa-sun">Win in Goa.</span></h2>
+            <p>One room, one clock, twenty-four hours. Hotel on us for every pass holder.</p>
           </div>
-          <div className="fmts">
-            <div className="fmt">
-              <span className="lv">Tier 01</span>
-              <h3>Daily Battle</h3>
-              <div className="fee">Free entry</div>
-              <p>A one-hour sprint on a single session. Fastest way to climb the ladder and the only format that runs every weekday.</p>
-              <dl>
-                <dt>Duration</dt>
-                <dd>1 hour</dd>
-                <dt>Balance</dt>
-                <dd>$10,000</dd>
-                <dt>Prize</dt>
-                <dd>Ranking points</dd>
-              </dl>
-            </div>
-            <div className="fmt">
-              <span className="lv">Tier 02</span>
-              <h3>Mini Tournament</h3>
-              <div className="fee">$10 entry</div>
-              <p>A full trading day against a capped field. Cash to the top three, points to everyone who finishes ranked.</p>
-              <dl>
-                <dt>Duration</dt>
-                <dd>1 day</dd>
-                <dt>Field</dt>
-                <dd>256 max</dd>
-                <dt>Prize pool</dt>
-                <dd>$1,500</dd>
-              </dl>
-            </div>
-            <div className="fmt">
-              <span className="lv">Tier 03</span>
-              <h3>Circuit Championship</h3>
-              <div className="fee">$50 entry</div>
-              <p>A monthly event over a full trading week. Finish in the top 50 and you qualify for the World Championship field.</p>
-              <dl>
-                <dt>Duration</dt>
-                <dd>5 days</dd>
-                <dt>Field</dt>
-                <dd>512 max</dd>
-                <dt>Prize pool</dt>
-                <dd>$15,000</dd>
-              </dl>
-            </div>
-            <div className="fmt flag">
-              <span className="lv">The final</span>
-              <h3>World Championship</h3>
-              <div className="fee">Invitation only</div>
-              <p>
-                One hundred traders, one room, twenty-four hours. Qualify through the circuit or the season ladder. Played in person, on the
-                floor.
+
+          <article className="goa-ticket">
+            <div className="goa-ticket-art">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/img/goa-event.svg" alt="Sunset over a Goa beach with palm trees" loading="lazy" />
+              <div className="goa-date" aria-label="23 November 2026">
+                <small>Nov</small>
+                <b>23</b>
+                <small>2026</small>
+              </div>
+              <span className="goa-stamp" aria-hidden="true">24H<small>Live</small></span>
+              <p className="goa-place">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Zm0-9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" /></svg>
+                Goa, India &middot; 10:00 IST
               </p>
-              <dl>
-                <dt>Duration</dt>
-                <dd>24 hours</dd>
-                <dt>Field</dt>
-                <dd>100</dd>
-                <dt>Prize pool</dt>
-                <dd>$250,000</dd>
+            </div>
+
+            <span className="goa-perf" aria-hidden="true" />
+
+            <div className="goa-ticket-stub">
+              <p className="goa-stub-kick">BattleTrader &middot; Live Final 2026</p>
+              <p className="goa-pool"><b>{usd(GOA_PRIZE_POOL)}</b><span>prize pool &middot; top {GOA_WINNERS} paid</span></p>
+
+              <ol className="goa-top3" aria-label="Top three prizes">
+                {GOA_PRIZES.slice(0, 3).map((amount, i) => (
+                  <li key={amount} className={"is-" + (i + 1)}>
+                    <span>{ordinal(i + 1)}</span>
+                    <i aria-hidden="true" style={{ width: (amount / GOA_PRIZES[0]) * 100 + "%" }} />
+                    <b>{usd(amount)}</b>
+                  </li>
+                ))}
+              </ol>
+
+              <GoaLive />
+
+              <dl className="goa-stub-facts">
+                <div><dt>Entry</dt><dd>{usd(GOA_ENTRY_FEE)}</dd></div>
+                <div><dt>Duration</dt><dd>24 hours</dd></div>
+                <div><dt>Hotel</dt><dd className="goa-ok">Included</dd></div>
               </dl>
+
+              <Link className="goa-cta" href="/mini-tournaments/trick-or-trade-2026/">
+                Register now
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+              </Link>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="formats">
+        <div className="col pad arena">
+          <div className="arena-copy">
+            <div className="head">
+              <p className="kick">The tournament</p>
+              <h2>
+                Trade the field. <span className="gt">Fight to the final.</span>
+              </h2>
+              <p>
+                Every tournament runs on the same engine and the same rules. Trade a funded balance against the field, climb the live
+                leaderboard and finish in the money. Points from every event feed one season ranking.
+              </p>
+            </div>
+            <dl className="arena-facts">
+              <div><dt>Entry</dt><dd>From $10</dd></div>
+              <div><dt>Prize pool</dt><dd>Up to $15,000</dd></div>
+              <div><dt>Duration</dt><dd>1&ndash;5 trading days</dd></div>
+              <div><dt>Field</dt><dd>Up to 512 traders</dd></div>
+            </dl>
+            <div className="arena-cta">
+              <a className="btn b-ember" href="#join">Join the next tournament</a>
             </div>
           </div>
+          <figure className="arena-art">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/img/td-hero.svg" alt="" width={1600} height={700} loading="lazy" />
+          </figure>
         </div>
       </section>
 

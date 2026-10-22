@@ -2,7 +2,7 @@
 // Pure (no hooks): callers pass `now` and the enrollments snapshot so render never reads the clock or storage.
 import Link from "next/link";
 import { Svg } from "@panel/components/Icon";
-import { BTTournaments, statusOf, type Enrollment, type Tournament } from "@panel/lib/data/tournaments";
+import { BTTournaments, GOA_EVENT_ID, statusOf, type Enrollment, type Tournament } from "@panel/lib/data/tournaments";
 import { money } from "@panel/lib/storage";
 import { PATHS, STATUS_LABEL, TYPE_SHORT, cdText, detailUrl, entryState, fmtDate, fmtDateTime, type PathName } from "./format";
 
@@ -109,7 +109,16 @@ export function ActionBtn({ t, area, now, enrolled }: { t: Tournament; area: str
       </Link>
     );
   }
+  const isGoa = t.id === GOA_EVENT_ID;
   if (state === "enrolled") {
+    if (isGoa) {
+      return (
+        <Link className="tn-btn tn-btn-done" href="/mini-tournaments/trick-or-trade-2026/" data-enrolled={t.id}>
+          <Ico name="ticket" />
+          Registered
+        </Link>
+      );
+    }
     return (
       <span className="tn-btn tn-btn-done" data-enrolled={t.id}>
         <Ico name="check" />
@@ -118,6 +127,14 @@ export function ActionBtn({ t, area, now, enrolled }: { t: Tournament; area: str
     );
   }
   if (state === "open") {
+    if (isGoa) {
+      return (
+        <Link className="tn-btn tn-btn-grad" href="/mini-tournaments/trick-or-trade-2026/">
+          <Ico name="ticket" />
+          Register
+        </Link>
+      );
+    }
     return (
       <button className="tn-btn tn-btn-grad" type="button" data-enroll={t.id} data-area={area}>
         <Ico name="bolt" />

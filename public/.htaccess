@@ -1,0 +1,19 @@
+# BattleTrader static export (next build -> out/) on Apache / LiteSpeed (Enhance).
+# Next copies this file from public/ into out/ on every build.
+
+ErrorDocument 404 /404.html
+
+# Pages are folders with index.html (trailingSlash: true).
+DirectoryIndex index.html
+Options -Indexes
+
+<IfModule mod_headers.c>
+  # Hashed build assets never change, so they can be cached for a year.
+  <FilesMatch "\.(js|css|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # HTML must always be re-checked so a new deploy shows up immediately.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

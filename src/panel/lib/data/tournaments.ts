@@ -3,6 +3,10 @@
 // Dates are relative to "now" and everything reads localStorage, so call these ONLY in effects / handlers
 // (never during render) — otherwise server HTML and the browser disagree and hydration fails.
 
+import {
+  GOA_ENDS_AT, GOA_ENTRY_FEE, GOA_EVENT_ID, GOA_PRIZE_POOL, GOA_PRIZES, GOA_REGISTRATION_CLOSES, GOA_SEATS, GOA_STARTS_AT, GOA_WINNERS,
+} from "./goa";
+
 const HOUR = 3600000;
 const DAY = 24 * HOUR;
 
@@ -54,7 +58,7 @@ export interface Tournament {
   status?: "completed";
 }
 
-export type PaidWith = "wallet" | "credits" | "voucher" | "coupon" | "free";
+export type PaidWith = "wallet" | "credits" | "voucher" | "coupon" | "free" | "card";
 
 export interface Enrollment {
   at: string;
@@ -91,6 +95,7 @@ export type RedeemResult = { ok: true; voucher: Voucher } | { ok: false; reason:
 const PRIZES_MAIN = [5000, 2500, 1500, 1000, 750, 500, 500, 500, 500, 500];
 const PRIZES_CIRCUIT = [1500, 1000, 500, 250, 250, 250, 250, 250, 250, 250];
 const PRIZES_MINI = [1200, 800, 500, 200, 100, 50, 50, 50, 25, 25];
+export { GOA_EVENT_ID };
 
 let baseCache: Tournament[] | null = null;
 
@@ -100,7 +105,20 @@ function buildBase(): Tournament[] {
   const at = (offsetMs: number) => new Date(Math.floor((now + offsetMs) / 60000) * 60000).toISOString();
   return [
     {
-      id: "world-championship-2026", name: "BattleTrader World Championship 2026", type: "main", featured: true,
+      id: GOA_EVENT_ID, name: "BattleTrader Goa Live Final 2026", type: "main", featured: true,
+      tagline: "24 hours on the beach floor in Goa. Hotel stay on us for every qualifier.",
+      prizePool: GOA_PRIZE_POOL, entryFee: GOA_ENTRY_FEE,
+      start: GOA_STARTS_AT, end: GOA_ENDS_AT, registrationCloses: GOA_REGISTRATION_CLOSES,
+      maxParticipants: GOA_SEATS, participants: 37, location: "Goa, India", countryCode: "IN", online: false,
+      structure: "Single Round", platform: "BattleTrader Play",
+      instruments: "All instruments — Forex, Stocks, Crypto, Indices, Commodities and Energies.",
+      rounds: [{ name: "24-hour final", start: GOA_STARTS_AT, end: GOA_ENDS_AT, winners: GOA_WINNERS, final: true }],
+      prizes: GOA_PRIZES.slice(),
+      bonus: [{ name: "Hotel stay in Goa", note: "Room booked and paid by BattleTrader for every pass holder", amount: 0 }],
+      organizer: "BattleTrader", sponsors: ["TradesAI", "The Firm Capital", "AimsCap"], accent: "gold",
+    },
+    {
+      id: "world-championship-2026", name: "BattleTrader World Championship 2026", type: "main", featured: false,
       tagline: "The season final — only qualified traders fight for the crown.",
       prizePool: 25000, entryFee: 0, entryLabel: "Qualified only",
       start: at(9 * DAY + 4 * HOUR), end: at(9 * DAY + 10 * HOUR), registrationCloses: at(8 * DAY),
