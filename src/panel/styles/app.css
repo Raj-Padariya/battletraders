@@ -543,12 +543,40 @@ body.app::after{display:none}
 .ap-launch p b{font-family:var(--display); font-weight:400; color:var(--ox-txt); background:none; -webkit-text-fill-color:currentColor; text-shadow:none; letter-spacing:.02em}
 .ap-launch-btn{color:var(--ox-txt); background:var(--ox-3); border:1px solid var(--ox-line-hi); border-radius:999px}
 .ap-launch-btn:hover{background:#232325}
-.ap-nav-a{font-size:12.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#8A8A92}
-.ap-nav-a:hover{color:#fff; background:rgba(255,255,255,.025)}
-.ap-nav-a.is-on{color:#fff; background:var(--ox-3); box-shadow:inset 0 0 0 1px var(--ox-line-hi), 0 1px 0 rgba(255,255,255,.05) inset}
-.ap-nav-a.is-on::before{display:none}
-.ap-nav-a.is-on svg{color:#fff}
-.ap-nav-a em{color:#C9CBD1; background:var(--ox-3); border-color:var(--ox-line-hi); border-radius:999px}
+/* ---- sidebar menu: icon tiles, violet active rail, threaded sub-menu ---- */
+.ap-nav{gap:3px}
+.ap-nav-h{display:flex; align-items:center; gap:10px; margin:18px 10px 8px; font-family:inherit; font-size:10.5px; font-weight:600; letter-spacing:.16em; color:#5E5E66}
+.ap-nav-h::after{content:""; flex:1; height:1px; background:linear-gradient(90deg, var(--ox-line-hi), transparent)}
+.ap-nav-a{gap:12px; min-height:44px; padding:6px 10px 6px 6px; border-radius:12px; font-size:13.5px; font-weight:500; letter-spacing:0; text-transform:none; color:#9A9AA2; transition:color .18s, background .18s}
+.ap-nav-a > svg{box-sizing:content-box; flex:none; width:16px; height:16px; padding:8px; border-radius:10px; color:#8A8A92; background:var(--ox-2); border:1px solid var(--ox-line); transition:color .18s, background .18s, border-color .18s, transform .18s}
+.ap-nav-a > span{transition:transform .18s}
+.ap-nav-a:hover{color:var(--ox-txt); background:rgba(255,255,255,.03)}
+.ap-nav-a:hover > svg{color:#D9B3FF; border-color:rgba(var(--ox-accent-rgb),.3); transform:rotate(-6deg)}
+.ap-nav-a:hover > span{transform:translateX(2px)}
+.ap-nav-a.is-on{color:#fff; font-weight:600; background:linear-gradient(90deg, rgba(var(--ox-accent-rgb),.16), rgba(var(--ox-accent-rgb),.03) 70%, transparent); box-shadow:inset 0 0 0 1px rgba(var(--ox-accent-rgb),.22)}
+.ap-nav-a.is-on::before{display:block; left:-14px; top:12px; bottom:12px; width:3px; border-radius:0 4px 4px 0; background:linear-gradient(180deg, #3DBCFF, var(--ox-accent), #FF33FF); box-shadow:0 0 12px rgba(var(--ox-accent-rgb),.8)}
+.ap-nav-a.is-on > svg{color:#fff; background:linear-gradient(150deg, rgba(var(--ox-accent-rgb),.55), rgba(var(--ox-accent-rgb),.18)), #1A1520; border-color:rgba(var(--ox-accent-rgb),.55); box-shadow:inset 0 1px 0 rgba(255,255,255,.18), 0 6px 16px -6px rgba(var(--ox-accent-rgb),.7); transform:none}
+.ap-nav-a.is-on > span{transform:none}
+.ap-nav-a em{display:inline-flex; align-items:center; gap:5px; padding:2px 8px 2px 7px; font-family:inherit; font-size:10px; font-weight:700; letter-spacing:.1em; color:#FCA5A5; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.3); border-radius:999px}
+.ap-nav-a em::before{content:""; width:6px; height:6px; border-radius:50%; background:#EF4444; animation:ap-live 1.6s ease-out infinite}
+@keyframes ap-live{0%{box-shadow:0 0 0 0 rgba(239,68,68,.6)} 100%{box-shadow:0 0 0 6px rgba(239,68,68,0)}}
+.ap-nav-toggle{font-size:13.5px; font-weight:500}
+.ap-caret{color:var(--ox-dim)}
+.ap-sub{gap:2px; margin:4px 0 8px 22px; padding-left:14px; border-left:1px solid var(--ox-line-hi)}
+.ap-sub-a{position:relative; min-height:36px; padding:6px 12px; font-size:13px; font-weight:500; color:#8A8A92; border-radius:10px}
+.ap-sub-a::before{content:""; position:absolute; left:-18px; top:50%; width:7px; height:7px; margin-top:-3.5px; border-radius:50%; background:var(--ox-1); border:1px solid var(--ox-line-hi)}
+.ap-sub-a:hover{color:var(--ox-txt); background:rgba(255,255,255,.03)}
+.ap-sub-a.is-on{color:#fff; background:rgba(var(--ox-accent-rgb),.1); box-shadow:inset 0 0 0 1px rgba(var(--ox-accent-rgb),.22)}
+.ap-sub-a.is-on::before{background:var(--ox-accent); border-color:var(--ox-accent); box-shadow:0 0 8px rgba(var(--ox-accent-rgb),.8)}
+.ap-logout{gap:12px; padding:12px 10px 6px 6px; font-size:13.5px; font-weight:500; color:#8A8A92; border-top-color:var(--ox-line)}
+.ap-logout svg{box-sizing:content-box; width:16px; height:16px; padding:8px; border-radius:10px; background:var(--ox-2); border:1px solid var(--ox-line); transition:color .18s, border-color .18s}
+.ap-logout:hover{color:#FCA5A5}
+.ap-logout:hover svg{color:#F87171; border-color:rgba(239,68,68,.35)}
+@media (prefers-reduced-motion: reduce){
+  .ap-nav-a em::before{animation:none}
+  .ap-nav-a > svg,.ap-nav-a > span{transition:none}
+  .ap-nav-a:hover > svg,.ap-nav-a:hover > span{transform:none}
+}
 
 /* ---- top bar ---- */
 .ap-wallets{gap:0; padding:3px; border-radius:999px; background:var(--ox-2); border:1px solid var(--ox-line)}
