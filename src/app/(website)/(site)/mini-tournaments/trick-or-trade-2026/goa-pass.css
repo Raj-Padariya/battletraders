@@ -1,15 +1,15 @@
 /* Goa Live Final event page (gp-*). Sunset gold/orange over the brand violet, on the site's dark theme. */
-.gp-page{--gp-gold:#33CCFF; --gp-sun:#9933FF; --gp-violet:#FF33FF; --gp-card:#121118; --gp-line:rgba(255,255,255,.08); --gp-mute:rgba(255,255,255,.58)}
+.gp-page{--gp-gold:#3DBCFF; --gp-sun:#3DBCFF; --gp-violet:#FF33FF; --gp-card:#121118; --gp-line:rgba(255,255,255,.08); --gp-mute:rgba(255,255,255,.58)}
 
 /* hero */
-.gp-hero{position:relative; overflow:hidden; isolation:isolate; min-height:380px; border-color:rgba(153,51,255,.35) !important}
+.gp-hero{position:relative; overflow:hidden; isolation:isolate; min-height:380px; border-color:rgba(255,190,120,.35) !important}
 .gp-hero-img{position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover}
 .gp-hero::after{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg, rgba(8,6,13,.95) 0%, rgba(8,6,13,.75) 46%, rgba(8,6,13,.15) 100%), linear-gradient(0deg, rgba(8,6,13,.7), transparent 50%)}
-.gp-sun{background:linear-gradient(90deg, #9933FF, #33CCFF 55%, #FF33FF); -webkit-background-clip:text; background-clip:text; color:transparent}
+.gp-sun{background:linear-gradient(90deg, var(--gp-gold), var(--gp-sun) 55%, #FF5FA2); -webkit-background-clip:text; background-clip:text; color:transparent}
 
 /* perks strip under the stats */
 .gp-perks{list-style:none; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:14px 0 0; padding:0}
-.gp-perks li{display:flex; flex-direction:column; gap:4px; padding:16px 18px; border-radius:16px; background:linear-gradient(135deg, rgba(153,51,255,.1), rgba(255,51,255,.06) 70%); border:1px solid rgba(153,51,255,.18)}
+.gp-perks li{display:flex; flex-direction:column; gap:4px; padding:16px 18px; border-radius:16px; background:linear-gradient(135deg, rgba(255,138,76,.1), rgba(180,92,255,.06) 70%); border:1px solid rgba(255,190,120,.18)}
 .gp-perks b{font-size:15px; color:var(--gp-gold)}
 .gp-perks span{font-size:13.5px; line-height:1.5; color:var(--gp-mute)}
 
@@ -27,10 +27,10 @@
 .gp-step b{font-size:clamp(22px,2.6vw,30px); font-weight:800; line-height:1.1; color:#fff; font-variant-numeric:tabular-nums}
 .gp-step em{font-style:normal; font-size:12px; color:var(--gp-mute)}
 .gp-plinth{display:block; align-self:stretch; margin:14px -12px 0; border-top:1px solid var(--gp-line)}
-.gp-step-1 .gp-plinth{height:70px; background:linear-gradient(180deg, rgba(51,204,255,.28), rgba(51,204,255,.05))}
+.gp-step-1 .gp-plinth{height:70px; background:linear-gradient(180deg, rgba(255,210,122,.28), rgba(255,210,122,.05))}
 .gp-step-2 .gp-plinth{height:44px; background:linear-gradient(180deg, rgba(210,214,226,.2), rgba(210,214,226,.03))}
-.gp-step-3 .gp-plinth{height:26px; background:linear-gradient(180deg, rgba(255,51,255,.22), rgba(255,51,255,.03))}
-.gp-step-1{border-color:rgba(51,204,255,.45); background:linear-gradient(180deg, rgba(51,204,255,.14), rgba(51,204,255,.02) 70%); box-shadow:0 -20px 50px -30px rgba(51,204,255,.7)}
+.gp-step-3 .gp-plinth{height:26px; background:linear-gradient(180deg, rgba(255,150,100,.22), rgba(255,150,100,.03))}
+.gp-step-1{border-color:rgba(255,210,122,.45); background:linear-gradient(180deg, rgba(255,210,122,.14), rgba(255,210,122,.02) 70%); box-shadow:0 -20px 50px -30px rgba(255,210,122,.7)}
 .gp-step-1 .gp-medal{width:56px; height:56px; font-size:23px; background:linear-gradient(135deg, #FFE7A8, #F5B544)}
 .gp-step-1 b{color:var(--gp-gold); font-size:clamp(26px,3.2vw,38px)}
 .gp-step-2 .gp-medal{background:linear-gradient(135deg, #F1F3F8, #A9AEBC)}
@@ -47,16 +47,16 @@
 .gp-ladder tbody td:last-child{text-align:right; font-weight:700; color:#fff; font-variant-numeric:tabular-nums}
 .gp-ladder tbody tr:hover{background:rgba(255,255,255,.03)}
 .gp-bar{flex:1; height:6px; border-radius:6px; background:rgba(255,255,255,.06); overflow:hidden}
-.gp-bar i{display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#33CCFF,#FF33FF)}
+.gp-bar i{display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, var(--gp-sun), var(--gp-violet))}
 .gp-pct{width:44px; font-size:12px; text-align:right; color:var(--gp-mute); font-variant-numeric:tabular-nums}
 
 /* pool summary: proportion bar, the two parts, and the total */
 .gp-split{display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"bar bar" "parts total"; align-items:end; gap:16px 24px; margin-top:16px; padding:18px 20px;
-  border-radius:16px; background:linear-gradient(120deg, rgba(51,204,255,.1), rgba(255,51,255,.08) 70%); border:1px solid rgba(51,204,255,.28)}
+  border-radius:16px; background:linear-gradient(120deg, rgba(255,210,122,.1), rgba(180,92,255,.08) 70%); border:1px solid rgba(255,210,122,.28)}
 .gp-split-bar{grid-area:bar; display:flex; gap:3px; height:10px}
 .gp-split-bar i{display:block; height:100%; border-radius:10px}
-.gp-split-bar .is-top,.gp-dot.is-top{background:linear-gradient(90deg,#9933FF,#33CCFF)}
-.gp-split-bar .is-rest,.gp-dot.is-rest{background:linear-gradient(90deg,#33CCFF,#FF33FF)}
+.gp-split-bar .is-top,.gp-dot.is-top{background:linear-gradient(90deg,#FFE7A8,#F5B544)}
+.gp-split-bar .is-rest,.gp-dot.is-rest{background:linear-gradient(90deg,var(--gp-sun),var(--gp-violet))}
 .gp-split-parts{grid-area:parts; display:flex; flex-wrap:wrap; gap:10px 28px; margin:0}
 .gp-split-parts dt{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--gp-mute); white-space:nowrap}
 .gp-split-parts dd{margin:4px 0 0 18px; font-size:17px; font-weight:700; color:#fff; font-variant-numeric:tabular-nums}
@@ -77,21 +77,31 @@
 .gp-how-list b{display:block; padding-top:8px; font-size:16px; color:#fff}
 .gp-how-list p{margin:4px 0 0; font-size:14px; line-height:1.55; color:var(--gp-mute)}
 
+/* FAQ: site-wide details/summary styles, tuned to sit inside a card */
+.gp-faq h2{margin-bottom:14px}
+.gp-faq .faqgroup{margin:0}
+.gp-faq details{margin-bottom:8px; border-radius:12px; background:rgba(255,255,255,.025); border-color:var(--gp-line); transition:border-color .2s}
+.gp-faq details:last-child{margin-bottom:0}
+.gp-faq details[open]{border-color:rgba(51,204,255,.4)}
+.gp-faq summary{padding:14px 16px; font-size:14.5px}
+.gp-faq summary::after{color:var(--gp-gold)}
+.gp-faq details p{padding:0 16px 15px; font-size:13.5px}
+
 /* hotel card */
-.gp-hotel{display:flex; gap:16px; align-items:flex-start; border-color:rgba(153,51,255,.3) !important; background:linear-gradient(135deg, rgba(153,51,255,.12), rgba(153,51,255,.02) 60%) !important}
-.gp-hotel-ico{flex:none; display:grid; place-items:center; width:46px; height:46px; color:var(--gp-gold); border-radius:14px; background:rgba(153,51,255,.14); border:1px solid rgba(153,51,255,.3)}
+.gp-hotel{display:flex; gap:16px; align-items:flex-start; border-color:rgba(255,190,120,.3) !important; background:linear-gradient(135deg, rgba(255,138,76,.12), rgba(255,138,76,.02) 60%) !important}
+.gp-hotel-ico{flex:none; display:grid; place-items:center; width:46px; height:46px; color:var(--gp-gold); border-radius:14px; background:rgba(255,190,120,.14); border:1px solid rgba(255,190,120,.3)}
 .gp-hotel-ico svg{width:22px; height:22px}
 .gp-hotel h2{margin:0 0 6px}
-.gp-hotel p{margin:0; line-height:1.55; color:#CDEFFF}
+.gp-hotel p{margin:0; line-height:1.55; color:#FFE2A0}
 
 /* side card */
 .gp-card{position:sticky; top:96px; align-self:start; display:flex; flex-direction:column; gap:16px; padding:22px; border-radius:22px;
-  background:radial-gradient(120% 60% at 100% 0%, rgba(153,51,255,.1), transparent 55%), linear-gradient(180deg, #17121F, #0F0C15);
-  border:1px solid rgba(255,51,255,.3); box-shadow:0 30px 60px -34px rgba(255,51,255,.6)}
+  background:radial-gradient(120% 60% at 100% 0%, rgba(255,138,76,.1), transparent 55%), linear-gradient(180deg, #17121F, #0F0C15);
+  border:1px solid rgba(180,92,255,.3); box-shadow:0 30px 60px -34px rgba(180,92,255,.6)}
 .gp-card h2{margin:0; font-size:18px}
 .gp-card-head{display:flex; justify-content:space-between; align-items:center; gap:10px}
 .gp-label{font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--gp-mute, rgba(255,255,255,.58))}
-.gp-badge{padding:4px 10px; font-size:11px; font-weight:700; letter-spacing:.04em; color:#CDEFFF; border-radius:999px; background:rgba(153,51,255,.14); border:1px solid rgba(153,51,255,.35)}
+.gp-badge{padding:4px 10px; font-size:11px; font-weight:700; letter-spacing:.04em; color:#FFE2A0; border-radius:999px; background:rgba(255,138,76,.14); border:1px solid rgba(255,190,120,.35)}
 .gp-badge-test{color:#9CD9FF; background:rgba(61,188,255,.1); border-color:rgba(61,188,255,.3)}
 .gp-badge-ok{color:#BBF7D0; background:rgba(74,222,128,.12); border-color:rgba(74,222,128,.35)}
 .gp-price{margin:0; font-size:46px; font-weight:800; line-height:1; color:#fff; font-variant-numeric:tabular-nums}
@@ -99,9 +109,9 @@
 .gp-seats{display:flex; flex-direction:column; gap:7px}
 .gp-seats > div{display:flex; justify-content:space-between; font-size:13px; color:rgba(255,255,255,.6)}
 .gp-seats b{color:#fff; font-variant-numeric:tabular-nums}
-.gp-seats small{font-size:12px; color:#FF33FF}
+.gp-seats small{font-size:12px; color:#FFB98A}
 .gp-fill{display:block; height:7px; border-radius:7px; overflow:hidden; background:rgba(255,255,255,.08)}
-.gp-fill i{display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, #9933FF, #33CCFF 55%, #FF33FF)}
+.gp-fill i{display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, #FFD27A, #FF8A4C 50%, #B45CFF)}
 .gp-incl{list-style:none; display:grid; gap:9px; margin:0; padding:16px 0 0; border-top:1px solid rgba(255,255,255,.08)}
 .gp-incl li{position:relative; padding-left:24px; font-size:14px; color:rgba(255,255,255,.88)}
 .gp-incl li::before{content:""; position:absolute; left:2px; top:5px; width:11px; height:6px; border-left:2px solid #4ADE80; border-bottom:2px solid #4ADE80; transform:rotate(-45deg)}
@@ -112,8 +122,8 @@
 .gp-muted a{color:#D9B3FF}
 .gp-muted b{color:#fff}
 .gp-center{text-align:center}
-.gp-btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; width:100%; min-height:52px; font:inherit; font-size:15px; font-weight:700; color:#fff; text-decoration:none; border:0; border-radius:999px; cursor:pointer;
-  background:linear-gradient(90deg, #9933FF, #33CCFF 55%, #FF33FF); box-shadow:0 14px 30px -14px rgba(153,51,255,.8); transition:transform .18s, filter .18s}
+.gp-btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; width:100%; min-height:52px; font:inherit; font-size:15px; font-weight:700; color:#0B0B0C; text-decoration:none; border:0; border-radius:999px; cursor:pointer;
+  background:linear-gradient(90deg, #FFD27A, #FF8A4C 45%, #B45CFF); box-shadow:0 14px 30px -14px rgba(255,138,76,.8); transition:transform .18s, filter .18s}
 .gp-btn:hover:not(:disabled){transform:translateY(-1px); filter:brightness(1.06)}
 .gp-btn:disabled{cursor:not-allowed; opacity:.55}
 .gp-link{align-self:center; font:inherit; font-size:13px; color:rgba(255,255,255,.55); background:none; border:0; cursor:pointer}
@@ -124,15 +134,15 @@
 .gp-fs legend{margin-bottom:10px; padding:0; font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.5)}
 .gp-checkout label{display:flex; flex-direction:column; gap:6px; font-size:13px; font-weight:500; color:rgba(255,255,255,.62)}
 .gp-checkout input:not([type="checkbox"]):not([type="radio"]){min-height:46px; padding:0 14px; font:inherit; font-size:15px; color:#fff; border-radius:12px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.14); min-width:0}
-.gp-checkout input:focus{outline:2px solid rgba(255,51,255,.6); outline-offset:1px}
+.gp-checkout input:focus{outline:2px solid rgba(180,92,255,.6); outline-offset:1px}
 .gp-methods{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px}
 .gp-checkout .gp-method{position:relative; flex-direction:column; align-items:flex-start; gap:3px; padding:12px; color:rgba(255,255,255,.7); border-radius:14px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1); cursor:pointer; transition:border-color .15s, background .15s}
 .gp-method input{position:absolute; opacity:0; pointer-events:none}
 .gp-method svg{width:20px; height:20px; margin-bottom:4px}
 .gp-method b{font-size:14px; color:#fff}
 .gp-method small{font-size:11px; line-height:1.35; color:rgba(255,255,255,.45)}
-.gp-checkout .gp-method.is-on{color:#fff; border-color:rgba(153,51,255,.6); background:linear-gradient(135deg, rgba(153,51,255,.14), rgba(255,51,255,.08)); box-shadow:0 0 0 1px rgba(153,51,255,.25) inset}
-.gp-method:has(input:focus-visible){outline:2px solid rgba(255,51,255,.7); outline-offset:2px}
+.gp-checkout .gp-method.is-on{color:#fff; border-color:rgba(255,190,120,.6); background:linear-gradient(135deg, rgba(255,138,76,.14), rgba(180,92,255,.08)); box-shadow:0 0 0 1px rgba(255,190,120,.25) inset}
+.gp-method:has(input:focus-visible){outline:2px solid rgba(180,92,255,.7); outline-offset:2px}
 .gp-method-body{display:flex; flex-direction:column; gap:12px; padding:14px; border-radius:14px; background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.07)}
 .gp-two{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px}
 .gp-summary{display:flex; flex-direction:column; gap:8px; padding:14px; border-radius:14px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08)}
@@ -142,9 +152,9 @@
 .gp-summary-total span{color:#fff; font-weight:600}
 .gp-summary-total b{font-size:22px; color:#fff; font-variant-numeric:tabular-nums}
 .gp-checkout .gp-agree{flex-direction:row; align-items:flex-start; gap:10px; line-height:1.45}
-.gp-agree input{margin-top:3px; accent-color:#FF33FF}
+.gp-agree input{margin-top:3px; accent-color:#B45CFF}
 .gp-error{margin:0; padding:10px 12px; font-size:13px; color:#FCA5A5; border-radius:10px; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.3)}
-.gp-spin{width:16px; height:16px; border-radius:50%; border:2px solid rgba(255,255,255,.35); border-top-color:#fff; animation:gp-spin .8s linear infinite}
+.gp-spin{width:16px; height:16px; border-radius:50%; border:2px solid rgba(11,11,12,.25); border-top-color:#0B0B0C; animation:gp-spin .8s linear infinite}
 @keyframes gp-spin{to{transform:rotate(360deg)}}
 
 /* checkout progress: Details -> Payment -> Confirmed */

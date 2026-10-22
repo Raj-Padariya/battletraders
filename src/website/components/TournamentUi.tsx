@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { upcomingMini } from "@site/components/HomeTournamentSections";
+import { GOA_ENTRY_FEE, GOA_PRIZE_POOL, GOA_SEATS, GOA_WINNERS, usd } from "@panel/lib/data/goa";
 
 export function Icon({ d }: { d: string }) {
   return (
@@ -29,24 +29,24 @@ export const ICON = {
   crown: "m3 8 4.5 4L12 5l4.5 7L21 8l-2 11H5L3 8Z",
 };
 
-export function UpcomingMiniCard() {
+export function GoaEventCard() {
   return (
     <article className="mt-event">
       <div className="mt-event-tags">
-        <span className="mt-tag">Mini</span>
+        <span className="mt-tag">Live event</span>
         <span className="mt-tag is-open"><Icon d={ICON.clock} />Registration open</span>
       </div>
-      <h3>{upcomingMini.name}</h3>
+      <h3>Goa Live Final 2026</h3>
       <ul>
-        <li><Icon d={ICON.calendar} />{upcomingMini.date}</li>
-        <li><Icon d={ICON.globe} />Online</li>
-        <li><Icon d={ICON.users} />{upcomingMini.entrants} entrants</li>
+        <li><Icon d={ICON.calendar} />23 Nov 2026 &middot; 10:00 IST &middot; 24 hours</li>
+        <li><Icon d={ICON.pin} />Goa, India &middot; hotel included</li>
+        <li><Icon d={ICON.users} />{GOA_SEATS} seats &middot; top {GOA_WINNERS} paid</li>
       </ul>
       <div className="mt-event-money">
-        <div><small>Prize pool</small><b className="is-prize">{upcomingMini.prize}</b></div>
-        <div><small>Entry fee</small><b>$10</b></div>
+        <div><small>Prize pool</small><b className="is-prize">{usd(GOA_PRIZE_POOL)}</b></div>
+        <div><small>Entry fee</small><b>{usd(GOA_ENTRY_FEE)}</b></div>
       </div>
-      <Link className="mt-event-cta" href={`/mini-tournaments/${upcomingMini.slug}/`}>View details<Icon d={ICON.arrow} /></Link>
+      <Link className="mt-event-cta" href="/mini-tournaments/trick-or-trade-2026/">View details<Icon d={ICON.arrow} /></Link>
     </article>
   );
 }

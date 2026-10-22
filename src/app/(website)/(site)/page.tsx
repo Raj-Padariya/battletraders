@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import HomeTournamentSections from "@site/components/HomeTournamentSections";
-import { GOA_ENTRY_FEE, GOA_PRIZE_POOL, GOA_PRIZES, GOA_WINNERS, ordinal, usd } from "@panel/lib/data/goa";
+import { GOA_ENTRY_FEE, GOA_PRIZE_POOL, GOA_PRIZES, GOA_SEATS, GOA_WINNERS, usd } from "@panel/lib/data/goa";
 
 import JoinForm from "./_home/JoinForm";
 import GoaLive from "./_home/GoaLive";
@@ -74,23 +73,18 @@ export default function HomePage() {
               <p className="goa-stub-kick">BattleTrader &middot; Live Final 2026</p>
               <p className="goa-pool"><b>{usd(GOA_PRIZE_POOL)}</b><span>prize pool &middot; top {GOA_WINNERS} paid</span></p>
 
-              <ol className="goa-top3" aria-label="Top three prizes">
-                {GOA_PRIZES.slice(0, 3).map((amount, i) => (
-                  <li key={amount} className={"is-" + (i + 1)}>
-                    <span>{ordinal(i + 1)}</span>
-                    <i aria-hidden="true" style={{ width: (amount / GOA_PRIZES[0]) * 100 + "%" }} />
-                    <b>{usd(amount)}</b>
-                  </li>
-                ))}
-              </ol>
+              <div className="goa-entry">
+                <div>
+                  <small>Entry fee</small>
+                  <b>{usd(GOA_ENTRY_FEE)}</b>
+                </div>
+                <ul aria-label="Included">
+                  <li className="is-ok">Hotel included</li>
+                  <li>24 hours live</li>
+                </ul>
+              </div>
 
               <GoaLive />
-
-              <dl className="goa-stub-facts">
-                <div><dt>Entry</dt><dd>{usd(GOA_ENTRY_FEE)}</dd></div>
-                <div><dt>Duration</dt><dd>24 hours</dd></div>
-                <div><dt>Hotel</dt><dd className="goa-ok">Included</dd></div>
-              </dl>
 
               <Link className="goa-cta" href="/mini-tournaments/trick-or-trade-2026/">
                 Register now
@@ -101,37 +95,60 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="formats">
-        <div className="col pad arena">
-          <div className="arena-copy">
-            <div className="head">
+      <section id="formats" className="tf-sec">
+        <div className="col pad">
+          <div className="tf-head">
+            <div>
               <p className="kick">The tournament</p>
               <h2>
                 Trade the field. <span className="gt">Fight to the final.</span>
               </h2>
-              <p>
-                Every tournament runs on the same engine and the same rules. Trade a funded balance against the field, climb the live
-                leaderboard and finish in the money. Points from every event feed one season ranking.
-              </p>
             </div>
-            <dl className="arena-facts">
-              <div><dt>Entry</dt><dd>From $10</dd></div>
-              <div><dt>Prize pool</dt><dd>Up to $15,000</dd></div>
-              <div><dt>Duration</dt><dd>1&ndash;5 trading days</dd></div>
-              <div><dt>Field</dt><dd>Up to 512 traders</dd></div>
-            </dl>
-            <div className="arena-cta">
-              <a className="btn b-ember" href="#join">Join the next tournament</a>
-            </div>
+            <p>
+              One room in Goa, one clock, one leaderboard. Everyone starts with the same $10,000 balance &mdash; the highest balance after
+              24 hours takes {usd(GOA_PRIZES[0])}.
+            </p>
           </div>
-          <figure className="arena-art">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/img/td-hero.svg" alt="" width={1600} height={700} loading="lazy" />
-          </figure>
+
+          <dl className="tf-numbers">
+            <div className="is-hero"><dt>Prize pool</dt><dd>{usd(GOA_PRIZE_POOL)}</dd><small>Top {GOA_WINNERS} paid</small></div>
+            <div><dt>Entry</dt><dd>{usd(GOA_ENTRY_FEE)}</dd><small>Hotel included</small></div>
+            <div><dt>Seats</dt><dd>{GOA_SEATS}</dd><small>One per email</small></div>
+            <div><dt>Session</dt><dd>24h</dd><small>Non-stop, live</small></div>
+          </dl>
+
+          <div className="tf-body">
+            <ol className="tf-day" aria-label="Event day">
+              {[
+                ["22 Nov · 18:00", "Registration closes", "Last chance to lock a seat."],
+                ["23 Nov · 10:00", "Opening bell", "Every trader starts on $10,000 at 1:100."],
+                ["24 Nov · 10:00", "Final bell", "The board locks. No more trades."],
+                ["24 Nov · on the floor", "Winners crowned", `${usd(GOA_PRIZE_POOL)} paid to the top ${GOA_WINNERS}.`],
+              ].map(([when, title, text]) => (
+                <li key={title}>
+                  <time>{when}</time>
+                  <b>{title}</b>
+                  <span>{text}</span>
+                </li>
+              ))}
+            </ol>
+            <figure className="tf-art">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/img/td-hero.svg" alt="" width={1600} height={700} loading="lazy" />
+              <figcaption>
+                <span className="tf-live"><i aria-hidden="true" />Live leaderboard</span>
+                <span>Every trade, ranked in real time</span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div className="tf-cta">
+            <Link className="btn b-ember" href="/mini-tournaments/trick-or-trade-2026/">Register for Goa</Link>
+            <span>{usd(GOA_ENTRY_FEE)} entry &middot; {GOA_SEATS} seats &middot; 23 Nov 2026</span>
+          </div>
         </div>
       </section>
 
-      <HomeTournamentSections />
 
       <section className="alt" id="how">
         <div className="col pad">

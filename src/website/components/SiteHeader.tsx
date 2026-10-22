@@ -8,24 +8,20 @@ type NavLink = { href: string; label: string };
 type NavGroup = { label: string; items: NavLink[] };
 type NavEntry = NavLink | NavGroup;
 
+const GOA_EVENT_PATH = "/mini-tournaments/trick-or-trade-2026/";
+
+// For now Tournaments is a single link to the Goa Live Final; the All/Mini/Circuit/Results dropdown is hidden until
+// more events exist (put a NavGroup back here to restore it).
 const NAV: NavEntry[] = [
   { href: "/", label: "Home" },
-  {
-    label: "Tournaments",
-    items: [
-      { href: "/tournaments/", label: "All Tournaments" },
-      { href: "/mini-tournaments/", label: "Mini Tournaments" },
-      { href: "/circuit-tournaments/", label: "Circuit Tournaments" },
-      { href: "/results/", label: "Results" },
-    ],
-  },
+  { href: GOA_EVENT_PATH, label: "Tournaments" },
   { href: "/schedule/", label: "Schedule" },
   { href: "/rankings/", label: "Rankings" },
   { href: "/contact/", label: "Contact" },
 ];
 
 // Pages that light up a top-level item without being in it (trader profile sits under Rankings).
-const ALSO_ACTIVE: Record<string, string> = { "/profile/": "/rankings/" };
+const ALSO_ACTIVE: Record<string, string> = { "/profile/": "/rankings/", "/tournaments/": GOA_EVENT_PATH };
 
 const isGroup = (entry: NavEntry): entry is NavGroup => "items" in entry;
 const normalise = (path: string) => (path.endsWith("/") ? path : path + "/");
@@ -152,8 +148,7 @@ export default function SiteHeader() {
           </nav>
           <div className="bar-end">
             <Link className="login" href="/login/">Login</Link>
-            {/* Admin has its own root layout: plain <a> so it does a full page load. */}
-            <a className="login" href="/admin/login/">Admin</a>
+            <Link className="login is-fill" href="/signup/">Sign up</Link>
           </div>
           <button
             ref={burgerRef}

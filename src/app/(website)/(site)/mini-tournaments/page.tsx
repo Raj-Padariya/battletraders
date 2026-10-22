@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ICON, Icon, UpcomingMiniCard } from "@site/components/TournamentUi";
+import { GoaEventCard, ICON, Icon } from "@site/components/TournamentUi";
 
 export const metadata: Metadata = {
   title: "Mini Tournaments — BattleTrader",
@@ -144,7 +144,7 @@ export default function MiniTournamentsPage() {
 
           <h2 className="mt-h2">Upcoming Mini Tournaments</h2>
           <div className="mt-upcoming">
-            <UpcomingMiniCard />
+            <GoaEventCard />
           </div>
 
           <h2 className="mt-h2">What tends to win</h2>

@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "@site/styles/style.css";
-import "@site/styles/home-tournaments.css";
 
 
 export const metadata: Metadata = {

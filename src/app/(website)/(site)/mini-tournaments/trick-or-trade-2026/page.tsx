@@ -41,7 +41,18 @@ const steps = [
   { title: `Top ${GOA_WINNERS} get paid`, text: `The board locks at 10:00 IST on 24 Nov. The highest balances share the ${usd(GOA_PRIZE_POOL)} prize pool.` },
 ];
 
-
+// Goa-specific questions. Refund and payout policy text must be confirmed by the team before launch.
+const faqs: [string, string][] = [
+  ["What is included in the entry fee?", `Your ${usd(GOA_ENTRY_FEE)} entry gets you a seat at the 24-hour live final and a hotel room in Goa for the event, booked and paid by BattleTrader. Travel to and from Goa is not included.`],
+  ["Is my own money at risk while trading?", "No. Everyone trades a simulated account that starts at $10,000 with 1:100 leverage, priced off the live market. The entry fee is the only money you pay."],
+  ["How many people can register?", `${GOA_SEATS} seats in total, first come first served. Registration closes when all seats are taken or on 22 Nov 2026 at 18:00 IST, whichever comes first.`],
+  ["Can I register more than once?", "No. Each email can register once, and each registration is one seat for one named trader. The pass is personal and cannot be transferred."],
+  ["How are the prizes paid?", `${usd(GOA_PRIZE_POOL)} is split across the top ${GOA_WINNERS} by final balance when the board locks at 10:00 IST on 24 Nov. 1st takes ${usd(rows[0].amount)}. Prizes are paid after the trade logs of the winners are checked and their identity is verified.`],
+  ["What markets can I trade?", "Forex majors and minors, US and EU stocks, crypto, indices (US30, NAS100, GER40), gold and silver, and WTI and Brent."],
+  ["Can I use an Expert Advisor or copy trading?", "No. Automated trading, copy trading and signal services are not allowed and void your result."],
+  ["What do I need to bring?", "Your pass (sent to your email before the event), a photo ID with the same name, and your own laptop. Power and internet are provided on the floor."],
+  ["Can I get a refund?", "Contact us before registration closes on 22 Nov 2026. Once the live final has started the entry fee is not refundable."],
+];
 
 const perks = [
   { title: "Hotel on us", text: "Room in Goa booked and paid by BattleTrader for every pass holder." },
@@ -175,6 +186,15 @@ export default function GoaEventPage() {
                   </li>
                 ))}
               </ol>
+            </article>
+
+            <article className="td-card gp-faq" id="faq">
+              <h2><Icon d={ICON.shield} />FAQ</h2>
+              <div className="faqgroup">
+                {faqs.map(([question, answer]) => (
+                  <details key={question}><summary>{question}</summary><p>{answer}</p></details>
+                ))}
+              </div>
             </article>
 
           </div>
