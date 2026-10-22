@@ -30,8 +30,8 @@ type StatId = "referrals" | "cash" | "credits" | "tickets";
 const STAT_INFO: Record<StatId, { title: string; sub: string; hint: string }> = {
   referrals: { title: "Referral history", sub: "Traders who joined the arena with your code.", hint: "No referrals yet. Share your link to bring fighters in." },
   cash: { title: "Cash earnings", sub: "Cash rewards and 10% entry-fee commissions.", hint: "No cash earned yet. Commission lands when a referral pays a real-money entry." },
-  credits: { title: "Credits earned", sub: "Battle credits awarded through the affiliate program.", hint: "No credits earned yet." },
-  tickets: { title: "Free tickets", sub: "Free tournament tickets from affiliate campaigns.", hint: "No free tickets earned yet." },
+  credits: { title: "Credits earned", sub: "Battle credits awarded through Refer & Earn.", hint: "No credits earned yet." },
+  tickets: { title: "Free tickets", sub: "Free tournament tickets from referral campaigns.", hint: "No free tickets earned yet." },
 };
 
 interface AffiliateData {
@@ -142,7 +142,7 @@ export default function AffiliateBody() {
       setBusy(false);
       focusTitle.current = true;
       setData(next);
-      toast("Affiliate code ready", "Your code " + next.code + " is live. Share it to start earning.");
+      toast("Referral code ready", "Your code " + next.code + " is live. Share it to start earning.");
     }, 700);
   };
 
@@ -212,7 +212,7 @@ export default function AffiliateBody() {
     leaveRef.current?.close();
     focusGenerate.current = true;
     setData(null);
-    toast("You left the affiliate program", "Generate a new code whenever you want to rejoin.");
+    toast("You left Refer & Earn", "Generate a new code whenever you want to rejoin.");
   };
 
   /* ---------- derived member state ---------- */
@@ -254,8 +254,8 @@ export default function AffiliateBody() {
           <section className="ah aff-hero" aria-labelledby="aff-join-title">
             <div className="ah-txt pb-head">
               <span className="pb-ico" aria-hidden="true"><Svg body={ICONS.users} /></span>
-              <h1 id="aff-join-title">Affiliate program</h1>
-              <p>Become a BattleTrader affiliate, refer friends and earn rewards as you climb the ranks.</p>
+              <h1 id="aff-join-title">Refer &amp; Earn</h1>
+              <p>Refer friends to BattleTrader and earn rewards as you climb the ranks.</p>
             </div>
             <ol className="aff-steps" aria-label="How it works">
               <li><span><Svg body={ICONS.bolt} /></span><b>Get your code</b><small>Generate a unique link</small></li>
@@ -266,17 +266,17 @@ export default function AffiliateBody() {
 
           <section className="ac aff-join" aria-labelledby="aff-join-h">
             <span className="aff-join-ico"><Svg body={ICONS.addUser} /></span>
-            <h2 id="aff-join-h">Join our affiliate program</h2>
-            <p>Generate your unique affiliate code to start earning rewards. Refer friends and climb the ranks!</p>
+            <h2 id="aff-join-h">Start referring and earning</h2>
+            <p>Generate your unique referral code to start earning rewards. Refer friends and climb the ranks!</p>
             <button className="aff-btn" id="aff-generate" type="button" disabled={busy} aria-busy={busy ? true : undefined} onClick={generate} ref={genRef}>
               {busy ? <i className="aff-spin" aria-hidden="true"></i> : <Svg body={ICONS.bolt} />}
-              <span>{busy ? "Generating..." : "Generate affiliate code"}</span>
+              <span>{busy ? "Generating..." : "Generate referral code"}</span>
             </button>
           </section>
 
           <div className="aff-grid">
             <section className="ac aff-span-7" aria-labelledby="aff-ranks-h" style={{ "--glow": "#FFC433" } as CSSProperties}>
-              <div className="ac-h"><h2 id="aff-ranks-h"><Svg body={ICONS.trophy} />Affiliate ranks &amp; rewards</h2></div>
+              <div className="ac-h"><h2 id="aff-ranks-h"><Svg body={ICONS.trophy} />Referral ranks &amp; rewards</h2></div>
               <p className="aff-lead">Every verified referral moves you up the ladder. Higher ranks raise your base reward and multiply the cash you earn.</p>
               <p className="aff-note"><Svg body={ICONS.dollar} /><span>You earn <b>10% commission</b> on your referrals&apos; real-money tournament enrollment fees &mdash; at every rank. Entries paid with credits don&apos;t earn commission.</span></p>
               <ul className="aff-rank-list">
@@ -309,8 +309,8 @@ export default function AffiliateBody() {
           <section className="ah aff-hero aff-hero-in" aria-labelledby="aff-member-title">
             <div className="ah-txt">
               <span className="aff-hero-ico is-bolt"><Svg body={ICONS.bolt} /></span>
-              <p className="ah-tag aff-tag"><Svg body={ICONS.gift} />Affiliate program</p>
-              <h1 id="aff-member-title" tabIndex={-1} ref={titleRef}>Your <span>affiliate code</span></h1>
+              <p className="ah-tag aff-tag"><Svg body={ICONS.gift} />Refer &amp; Earn</p>
+              <h1 id="aff-member-title" tabIndex={-1} ref={titleRef}>Your <span>referral code</span></h1>
               <p className="aff-code-big" id="aff-code-big">{data ? data.code : "--------"}</p>
               <div className="ah-btns">
                 {copyButton("code", "aff-btn", "Copy code", ICONS.copy)}
@@ -338,9 +338,9 @@ export default function AffiliateBody() {
 
           <div className="aff-grid">
             <section className="ac aff-span-7" aria-labelledby="aff-link-h" style={{ "--glow": "#33CCFF" } as CSSProperties}>
-              <div className="ac-h"><h2 id="aff-link-h"><Svg body={ICONS.share} />Your affiliate link</h2></div>
+              <div className="ac-h"><h2 id="aff-link-h"><Svg body={ICONS.share} />Your referral link</h2></div>
               <p className="aff-lead">Share this link. Anyone who signs up through it joins the arena as your referral.</p>
-              <label className="aff-sr" htmlFor="aff-link">Your affiliate link</label>
+              <label className="aff-sr" htmlFor="aff-link">Your referral link</label>
               <input className="aff-link" id="aff-link" type="text" readOnly value={data ? linkFor(data.code) : ""} ref={linkRef} />
               <div className="aff-btn-row">
                 {copyButton("link", "aff-btn", "Copy link", ICONS.copy)}
@@ -349,7 +349,7 @@ export default function AffiliateBody() {
             </section>
 
             <section className="ac aff-span-5" aria-labelledby="aff-myrank-h" style={{ "--glow": "#FFC433" } as CSSProperties}>
-              <div className="ac-h"><h2 id="aff-myrank-h"><Svg body={ICONS.star} />Your affiliate rank</h2></div>
+              <div className="ac-h"><h2 id="aff-myrank-h"><Svg body={ICONS.star} />Your referral rank</h2></div>
               <div className="aff-me-rank">
                 <span className="aff-rank-ico is-big" id="aff-my-ico" style={{ "--rk": rank.color } as CSSProperties}><Svg body={ICONS.star} /></span>
                 <span className="aff-me-txt"><b id="aff-my-rank">{rank.label}</b><small id="aff-my-verified">{refs + " verified referral" + (refs === 1 ? "" : "s")}</small></span>
@@ -363,7 +363,7 @@ export default function AffiliateBody() {
                 <div className="aff-bar" id="aff-bar" role="progressbar" aria-labelledby="aff-prog-lbl" aria-valuemin={0} aria-valuemax={next ? next.at : 1} aria-valuenow={next ? refs : 1}>
                   <i id="aff-bar-fill" style={{ width: (next ? Math.min(100, (refs / next.at) * 100) : 100) + "%" }}></i>
                 </div>
-                <p id="aff-prog-next">{next ? <>Next rank unlocks <b>{next.mult.toFixed(2) + "x"}</b> cash multiplier</> : "You hold the highest affiliate rank."}</p>
+                <p id="aff-prog-next">{next ? <>Next rank unlocks <b>{next.mult.toFixed(2) + "x"}</b> cash multiplier</> : "You hold the highest referral rank."}</p>
               </div>
             </section>
 
@@ -414,7 +414,7 @@ export default function AffiliateBody() {
           </div>
 
           <footer className="aff-foot">
-            <p>Referral stats are sample figures until the affiliate backend goes live.</p>
+            <p>Referral stats are sample figures until the referral backend goes live.</p>
             <button
               className="aff-leave"
               id="aff-leave-open"
@@ -445,10 +445,10 @@ export default function AffiliateBody() {
 
       <dialog className="aff-modal" id="aff-leave" aria-labelledby="aff-leave-h" aria-describedby="aff-leave-txt" ref={leaveRef} onClick={onDialogClick} onClose={onDialogClose}>
         <div className="aff-modal-h">
-          <h2 id="aff-leave-h">Leave the affiliate program?</h2>
+          <h2 id="aff-leave-h">Leave Refer &amp; Earn?</h2>
           <button className="aff-x" type="button" data-close="" aria-label="Close"><Svg body={ICONS.close} /></button>
         </div>
-        <p className="aff-modal-sub" id="aff-leave-txt">Your code <b id="aff-leave-code">{data?.code ?? ""}</b> stops working and your affiliate stats are cleared. You can generate a new code any time.</p>
+        <p className="aff-modal-sub" id="aff-leave-txt">Your code <b id="aff-leave-code">{data?.code ?? ""}</b> stops working and your referral stats are cleared. You can generate a new code any time.</p>
         <div className="aff-modal-btns">
           <button className="aff-btn2" type="button" data-close="" id="aff-leave-cancel">Stay in program</button>
           <button className="aff-danger" type="button" id="aff-leave-confirm" onClick={leave}><Svg body={ICONS.leave} /><span>Leave program</span></button>

@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useGoaSchedule } from "@site/components/GoaTime";
 
 type Props = {
-  startsAt: string;
   // Registration-open moment used as the 0% point of the progress bar.
   opensAt: string;
 };
@@ -22,8 +22,8 @@ function split(ms: number): Parts {
 
 const pad = (value: number) => String(value).padStart(2, "0");
 
-export default function Countdown({ startsAt, opensAt }: Props) {
-  const start = new Date(startsAt).getTime();
+export default function Countdown({ opensAt }: Props) {
+  const start = new Date(useGoaSchedule().startsAt).getTime();
   const open = new Date(opensAt).getTime();
   const [now, setNow] = useState<number | null>(null);
 

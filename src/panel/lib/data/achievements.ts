@@ -138,7 +138,6 @@ const ROWS: Record<string, Row[]> = {
     ["Monthly Loyal", "Trade on 18 days within a single month.", "monthDays", 18, "G", 300, 5, 9.8],
   ],
   "social-tournament": [
-    ["Team Player", "Join an alliance.", "alliances", 1, "B", 50, 0, 41.2],
     ["Competitor", "Enter your first tournament.", "tournaments", 1, "B", 50, 0, 58.7],
     ["Serial Competitor", "Enter 5 tournaments.", "tournaments", 5, "S", 150, 0, 27.4],
     ["Tournament Finisher", "Fight a tournament through to the final bell.", "finishes", 1, "B", 60, 0, 49.3],

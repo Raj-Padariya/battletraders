@@ -17,7 +17,6 @@ const TOUR_ICONS = {
 const TOUR_STEPS: { target: string; icon: keyof typeof TOUR_ICONS; title: string; text: string }[] = [
   { target: "tour-welcome", icon: "compass", title: "Welcome to your dashboard", text: "This is your home base. From here you can jump into today's battle, check your account status and open your trader profile." },
   { target: "tour-stats", icon: "chart", title: "Your stats at a glance", text: "These tiles show your key numbers — active battles, total winnings, win rate and season rank. They update as you compete." },
-  { target: "tour-quests", icon: "target", title: "Personal arena quests", text: "Daily, weekly and monthly quests live here. Complete them to earn XP and level up your trader rank." },
   { target: "tour-badges", icon: "shield", title: "Level & badges", text: "Unlock badges as you play. The glowing one is your next target — finish your first battle to earn First Blood." },
   { target: "tour-compete", icon: "trophy", title: "Ready to compete?", text: "Find a battle any time from here. Daily Battles are free, Mini Tournaments are great for getting started, and the Circuit leads to the World Championship." },
 ];

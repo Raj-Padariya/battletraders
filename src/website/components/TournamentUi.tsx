@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { GOA_ENTRY_FEE, GOA_PRIZE_POOL, GOA_SEATS, GOA_WINNERS, usd } from "@panel/lib/data/goa";
+import GoaTime from "./GoaTime";
 
 export function Icon({ d }: { d: string }) {
   return (
@@ -38,7 +39,7 @@ export function GoaEventCard() {
       </div>
       <h3>Goa Live Final 2026</h3>
       <ul>
-        <li><Icon d={ICON.calendar} />23 Nov 2026 &middot; 10:00 IST &middot; 24 hours</li>
+        <li><Icon d={ICON.calendar} /><GoaTime format="startDate" /> &middot; <GoaTime format="startTime" /> IST &middot; 24 hours</li>
         <li><Icon d={ICON.pin} />Goa, India &middot; hotel included</li>
         <li><Icon d={ICON.users} />{GOA_SEATS} seats &middot; top {GOA_WINNERS} paid</li>
       </ul>
